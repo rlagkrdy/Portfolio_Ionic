@@ -2,6 +2,7 @@ $topnav-background-color: #222;
 :host {
     .navbar {
         background-color: $topnav-background-color;
+        min-height: 54px;
         .navbar-brand {
             color: #fff;
         }
@@ -34,5 +35,12 @@ $topnav-background-color: #222;
                 margin: 0;
             }
         }
+    }
+    .dropdown-menu-right {
+        min-width: 1rem;
+    }
+    .dropdown-item {
+        text-align: center;
+        padding: 0px;
     }
 }

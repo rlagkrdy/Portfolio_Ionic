@@ -17,7 +17,9 @@
             "prefix": "app",
             "styles": [
                 "../node_modules/font-awesome/css/font-awesome.css",
-                "styles/app.scss"
+                "styles/app.scss",
+                "../src/styles/ag-grid/ag-grid.css",
+                "../src/styles/ag-grid/theme-material.css"
             ],
             "scripts": ["../node_modules/chart.js/dist/Chart.js"],
             "environmentSource": "environments/environment.ts",

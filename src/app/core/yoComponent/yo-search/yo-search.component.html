@@ -1,0 +1,82 @@
+<form #signupForm="ngForm">
+  <div *ngFor="let item of searchObj;let i = index">
+    <div class="atoz-row" *ngIf="i%2===0">
+      <div class="atoz-col">
+        <div class="atoz-input-wrap">
+          <label class="fl56" [for]="item.id">{{searchObj[i].name}}</label>
+          <!-- INPUT -->
+          <input type="text" class="atoz-control" placeholder="키워드" *ngIf='searchObj[i].type === "input"' [name]='searchObj[i].id'
+            [id]='searchObj[i].id' (keyup)="enterSearch($event, signupForm)" [(ngModel)]="searchObj[i].value">
+          <!-- SELECT -->
+          <select class="atoz-control" *ngIf='searchObj[i].type === "select"' [name]='searchObj[i].id' [id]='searchObj[i].id' [(ngModel)]="searchObj[i].value">
+            <option *ngFor='let code of searchObj[i].data' [value]="code.value">{{code.name}}</option>
+          </select>
+          <!-- RADIO -->
+          <mat-radio-group class="atoz-radio" *ngIf='searchObj[i].type === "radio"' [name]='searchObj[i].id' [id]='searchObj[i].id'
+            [(ngModel)]="searchObj[i].value">
+            <mat-radio-button class="atoz-radio-button" *ngFor='let code of searchObj[i].data' [value]="code.value">{{code.name}}</mat-radio-button>
+          </mat-radio-group>
+          <!-- CHECKBOX -->
+          <div class="atzo-checkbox-wrap" *ngIf='searchObj[i].type === "check"'>
+            <mat-checkbox class="atzo-checkbox" [name]='searchObj[i].id' *ngFor='let code of searchObj[i].data' [value]="code.value"
+              ngModel>{{code.name}}</mat-checkbox>
+          </div>
+          <!-- DATE -->
+          <div class="atoz-date-row" *ngIf='searchObj[i].type === "date"'>
+            <input type="text" class="atoz-control" [matDatepicker]="atozDateSt" placeholder="시작일" (click)="atozDateSt.open()" [name]='searchObj[i].id+"_ST"'
+              [id]='searchObj[i].id+"_ST"' (keyup)="enterSearch($event, signupForm)" ngModel>
+            <mat-datepicker-toggle matSuffix [for]="atozDateSt"></mat-datepicker-toggle>
+            <mat-datepicker #atozDateSt></mat-datepicker>
+            <input type="text" class="atoz-control" [matDatepicker]="atozDateEd" placeholder="종료일" (click)="atozDateEd.open()" [name]='searchObj[i].id+"_ED"'
+              [id]='searchObj[i].id+"_ED"' (keyup)="enterSearch($event, signupForm)" ngModel>
+            <mat-datepicker-toggle matSuffix [for]="atozDateEd"></mat-datepicker-toggle>
+            <mat-datepicker #atozDateEd></mat-datepicker>
+          </div>
+        </div>
+      </div>
+
+      <div class="atoz-col" *ngIf="searchObj[i+1]">
+        <div class="atoz-input-wrap">
+          <label class="fl56" [for]="item.id">{{searchObj[i+1].name}}</label>
+          <!-- INPUT -->
+          <input type="text" class="atoz-control" placeholder="키워드" *ngIf='searchObj[i+1].type === "input"' [name]='searchObj[i+1].id'
+            [id]='searchObj[i+1].id' (keyup)="enterSearch($event, signupForm)" [(ngModel)]="searchObj[i+1].value">
+          <!-- SELECT -->
+          <select class="atoz-control" *ngIf='searchObj[i+1].type === "select"' [name]='searchObj[i+1].id' [id]='searchObj[i+1].id'
+            [(ngModel)]="searchObj[i+1].value">
+            <option *ngFor='let code of searchObj[i+1].data' [value]="code.value">{{code.name}}</option>
+          </select>
+          <!-- RADIO -->
+          <mat-radio-group class="atoz-radio" *ngIf='searchObj[i+1].type === "radio"' [name]='searchObj[i+1].id' [id]='searchObj[i+1].id'
+            [(ngModel)]="searchObj[i+1].value">
+            <mat-radio-button class="atoz-radio-button" *ngFor='let code of searchObj[i].data' [value]="code.value">{{code.name}}</mat-radio-button>
+          </mat-radio-group>
+          <!-- CHECKBOX -->
+          <div class="atzo-checkbox-wrap" *ngIf='searchObj[i+1].type === "check"'>
+            <mat-checkbox class="atzo-checkbox" [name]='searchObj[i+1].id' *ngFor='let code of searchObj[i+1].data' [value]="code.value"
+              ngModel>{{code.name}}</mat-checkbox>
+          </div>
+          <!-- DATE -->
+          <div class="atoz-date-row" *ngIf='searchObj[i+1].type === "date"'>
+            <input type="text" class="atoz-control" [matDatepicker]="atozDateSt" placeholder="시작일" [name]='searchObj[i+1].id+"_ST"' [id]='searchObj[i+1].id+"_ST"'
+              (click)="atozDateSt.open()" (keyup)="enterSearch($event, signupForm)" ngModel>
+            <mat-datepicker-toggle matSuffix [for]="atozDateSt"></mat-datepicker-toggle>
+            <mat-datepicker #atozDateSt></mat-datepicker>
+            <input type="text" class="atoz-control" [matDatepicker]="atozDateEd" placeholder="종료일" [name]='searchObj[i+1].id+"_ED"' [id]='searchObj[i+1].id+"_ED"'
+              (click)="atozDateEd.open()" (keyup)="enterSearch($event, signupForm)" ngModel>
+            <mat-datepicker-toggle matSuffix [for]="atozDateEd"></mat-datepicker-toggle>
+            <mat-datepicker #atozDateEd></mat-datepicker>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="atoz-btn-row">
+  <div class="atoz-btn-left">
+    <button mat-raised-button class="default" (click)="reset(signupForm)">초기화</button>
+  </div>
+  <div class="atoz-btn-right">
+    <button mat-raised-button class="mainCta btn-color" (click)="childSearch(signupForm)">검색</button>
+  </div>
+</div>

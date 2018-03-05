@@ -1,0 +1,36 @@
+<form #detailForm="ngForm">
+  <div class="atoz-row" *ngFor="let item of detailObj">
+    <div class="atoz-col">
+      <div class="atoz-input-wrap">
+        <label class="fl56" [for]="item.id">{{item.name}}
+          <span *ngIf="item.required" class="atoz-required-icon"> ※</span>
+        </label>
+        <!-- INPUT -->
+        <input type="text" class="atoz-control" [placeholder]="item.name" *ngIf='item.type === "input"' [name]='item.id' [id]='item.id'
+          [attr.data-target]="item.name" [disabled]="item.disable" [required]="item.required" [pattern]="item.regex" [(ngModel)]="item.value">
+        <!-- SELECT -->
+        <select class="atoz-control" *ngIf='item.type === "select"' [name]='item.id' [id]='item.id' [attr.data-target]="item.name"
+          [required]="item.required" [disabled]="item.disable" [(ngModel)]="item.value">
+          <option *ngFor='let code of item.data;let i = index' [value]="code.value">{{code.name}}</option>
+        </select>
+        <!-- RADIO -->
+        <mat-radio-group class="atoz-radio" *ngIf='item.type === "radio"' [name]='item.id' [id]='item.id' [attr.data-target]="item.name"
+          [required]="item.required" [disabled]="item.disable" [(ngModel)]="item.value" ngModel>
+          <mat-radio-button class="atoz-radio-button" *ngFor='let code of item.data' [value]="code.value">{{code.name}}</mat-radio-button>
+        </mat-radio-group>
+        <!-- CHECKBOX -->
+        <div class="atzo-checkbox-wrap" *ngIf='item.type === "check"'>
+          <mat-checkbox class="atzo-checkbox" [name]='item.id' [attr.data-target]="item.name" *ngFor='let code of item.data' [value]="code.value"
+            ngModel>{{code.name}}</mat-checkbox>
+        </div>
+        <!-- DATE -->
+        <div class="atoz-date-row" *ngIf='item.type === "date"'>
+          <input type="text" class="atoz-control" [matDatepicker]="atozDateSt" placeholder="시작일" (click)="atozDateSt.open()" [name]='item.id'
+            [id]='item.id' [attr.data-target]="item.name" [required]="item.required" [disabled]="item.disable" [(ngModel)]="item.value">
+          <mat-datepicker-toggle matSuffix [for]="atozDateSt"></mat-datepicker-toggle>
+          <mat-datepicker #atozDateSt></mat-datepicker>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

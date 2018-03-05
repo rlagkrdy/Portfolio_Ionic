@@ -1,0 +1,51 @@
+<ag-grid-angular #atozGrid class="ag-theme-material ag-material yo-grid" [rowData]="rowData" [columnDefs]="columnDefs" [headerHeight]="gridHeader"
+  [rowHeight]="rowheight" (modelUpdated)="setGridParams($event)" (gridSizeChanged)="onGridSizeChange($event)" (cellClicked)="onCellClick($event)"
+  [pagination]="usePage" [paginationPageSize]="pageSize" [suppressPaginationPanel]="true" (paginationChanged)="onPaginationChanged($event)"
+  [suppressMovableColumns]="true" [localeText]="gridText"></ag-grid-angular>
+
+<div class="ag-grid-pagination">
+  <div class="ag-grid-pagination-info">
+    <span class="yo-grid-page-text bold" id="atoz_currentPage">-</span>
+    <span class="yo-grid-page-text">/</span>
+    <span class="yo-grid-page-text" id="atoz_totalPages">-</span>
+    <span class="yo-grid-page-text">페이지</span>
+    <span class="yo-grid-page-text none-in-mob">(게시물수 </span>
+    <span class="yo-grid-page-text none-in-mob" id="atoz_totalItem"></span>
+    <span class="yo-grid-page-text none-in-mob">개)</span>
+  </div>
+
+  <div class="ag-grid-pagination-page-btn">
+    <div class="yo-btn-left">
+      <button class="yo-grid-page-btns icon" (click)="onBtFirst()">
+        <i class="material-icons md-12">first_page</i>
+      </button>
+      <button class="yo-grid-page-btns icon" (click)="onBtPrevious()">
+        <i class="material-icons md-12">navigate_before</i>
+      </button>
+    </div>
+    <div class="yo-btn-center" *ngFor="let item of pages[pagesIndex];">
+      <button #pageNumber class="yo-grid-page-btns page-number" (click)="moveGridPage(item)">{{item}}</button>
+    </div>
+    <div class="yo-btn-right">
+      <button class="yo-grid-page-btns icon" (click)="onBtNext()">
+        <i class="material-icons md-12">navigate_next</i>
+      </button>
+      <button class="yo-grid-page-btns icon" (click)="onBtLast()">
+        <i class="material-icons md-12">last_page</i>
+      </button>
+    </div>
+  </div>
+
+  <div class="ag-grid-pagination-page-size">
+    <div class="yo-col">
+      <div class="yo-input-wrap">
+        <label for="grid_page_size">페이지당 : </label>
+        <select class="yo-control" #changePageSize name="grid_page_size" id="grid_page_size" (change)="gridPageSizeChange(changePageSize.value)"
+          [value]="pageSize">
+          <option [value]="item" *ngFor="let item of pageSizeObj">{{item}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+</div>

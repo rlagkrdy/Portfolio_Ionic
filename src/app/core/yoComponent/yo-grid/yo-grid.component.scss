@@ -1,0 +1,86 @@
+$grid-row-padding: 9px;
+$break-small: 420px;
+
+.ag-material .ag-cell-not-inline-editing {
+    padding-top: $grid-row-padding;
+}
+.ag-grid-pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    @media screen and (max-width: $break-small) {
+        margin-top: 10px;
+    }
+    > .ag-grid-pagination-info {
+        margin-right: 10px;
+        > .none-in-mob {
+            display: inline;
+            @media screen and (max-width: $break-small) {
+                display: none;
+            }
+        }
+    }
+    > .ag-grid-pagination-page-size {
+        margin-left: 10px;
+        display: inline-block;
+        @media screen and (max-width: $break-small) {
+            display: none;
+        }
+    }
+}
+.yo-grid-page-text,
+.yo-input-wrap > label {
+    font-size: 14px;
+    color: #aeaeae;
+    &.bold {
+        font-weight: bold;
+    }
+}
+.ag-grid-pagination-page-btn {
+    display: flex;
+    flex-direction: row;
+}
+.yo-btn-center {
+    display: inline-block;
+    @media screen and (max-width: $break-small) {
+        display: none;
+    }
+}
+.yo-grid-page-btns {
+    color: rgba(0, 0, 0, 0.54);
+    padding: 6px 10px;
+    margin: 0px 5px;
+    border-radius: 7px;
+    font-weight: bold;
+    box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+        0 1px 10px 0 rgba(0, 0, 0, 0.12);
+    @media screen and (max-width: $break-small) {
+        padding: 4px 8px;
+        font-size: 12px;
+        margin: 0px 2.5px;
+    }
+    &.icon {
+        padding: 0px 2px;
+    }
+    &:active {
+        background-color: #868686;
+        color: #fff;
+    }
+    &.active {
+        background-color: #868686;
+        color: #fff;
+    }
+    > .material-icons {
+        top: 3px;
+        position: relative;
+        font-size: 20px;
+        &:active {
+            color: #fff;
+        }
+    }
+}
+.yo-control {
+    box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+        0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}

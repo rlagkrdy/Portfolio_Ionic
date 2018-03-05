@@ -7,14 +7,10 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
+import { YoCompModule } from '../core/yoComponent/yoComp.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        LayoutRoutingModule,
-        TranslateModule,
-        NgbDropdownModule.forRoot()
-    ],
+    imports: [CommonModule, LayoutRoutingModule, TranslateModule, NgbDropdownModule.forRoot()],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent]
 })
 export class LayoutModule {}

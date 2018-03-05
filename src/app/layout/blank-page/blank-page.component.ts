@@ -6,7 +6,14 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./blank-page.component.scss']
 })
 export class BlankPageComponent implements OnInit {
-    constructor() {}
+    private searchObj: Array<object>;
+    constructor() {
+        this.searchObj = [{ id: 'keyword', type: 'input', value: '' }];
+    }
 
     ngOnInit() {}
+
+    aaa(): void {
+        alert('클릭!!!');
+    }
 }
