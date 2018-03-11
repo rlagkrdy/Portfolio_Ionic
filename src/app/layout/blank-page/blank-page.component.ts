@@ -8,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class BlankPageComponent implements OnInit {
     private searchObj: Array<object>;
     constructor() {
-        this.searchObj = [{ id: 'keyword', type: 'input', value: '' }];
+        this.searchObj = [{ id: 'keyword', name: '키워드', type: 'input', value: '' }];
     }
 
     ngOnInit() {}
 
     aaa(): void {
-        alert('클릭!!!');
+        //alert('클릭!!!');
     }
 }

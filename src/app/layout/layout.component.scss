@@ -1,6 +1,16 @@
+$break-small: 420px;
+
+$color-mainCta: #0099fa;
+$color-positive: #56bd5b;
+$color-alert: #f7b422;
+$color-negative: #e1464e;
+$color-additional1: #8d6cd1;
+$color-additional2: #eb61a5;
+$color-default: #f4f7fa;
+
 .main-container {
     margin-top: 56px;
-    margin-left: 235px;
+    margin-left: 160px;
     padding: 15px;
     -ms-overflow-x: hidden;
     overflow-x: hidden;
@@ -11,5 +21,156 @@
 @media screen and (max-width: 992px) {
     .main-container {
         margin-left: 0px !important;
+    }
+}
+:host /deep/ {
+    .yo-search-header {
+        font-size: 16px !important;
+        margin-top: 0px;
+        margin-bottom: 10px;
+        @media screen and (max-width: $break-small) {
+            font-size: 14px !important;
+        }
+    }
+    .yo-search-require {
+        background-color: #fff;
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+            0 1px 10px 0 rgba(0, 0, 0, 0.12);
+        padding: 20px;
+        @media screen and (max-width: $break-small) {
+            padding: 16px;
+        }
+    }
+    .yo-search-grid {
+        background-color: #fff;
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+            0 1px 10px 0 rgba(0, 0, 0, 0.12);
+        margin-top: 30px;
+        padding: 20px;
+    }
+
+    .yo-row {
+        display: flex;
+        flex-direction: row;
+        flex-flow: row wrap;
+        margin-bottom: 10px;
+    }
+    .yo-col {
+        flex: 1;
+        align-items: center;
+        display: flex;
+        flex-flow: row wrap;
+        margin: 0px 10px;
+        @media screen and (max-width: $break-small) {
+            flex: auto;
+            margin: 0px;
+        }
+    }
+    .yo-input-wrap {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        align-items: center;
+        @media screen and (max-width: $break-small) {
+            display: block;
+        }
+
+        > input {
+            flex: 1;
+        }
+        > label {
+            max-width: 110px;
+            min-width: 110px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 0px;
+            @media screen and (max-width: $break-small) {
+                //display: none;
+                width: 100%;
+                display: block;
+                font-size: 12px;
+            }
+        }
+        .yo-date-row {
+            display: flex;
+            flex: auto;
+            width: 100%;
+        }
+    }
+    .mat-calendar-table-header th:first {
+        color: red;
+    }
+    .yo-control {
+        width: 100%;
+        padding: 0px 10px !important;
+        border: 1px #e0e0e0 solid !important;
+        border-radius: 3px !important;
+        height: 35px;
+        @media screen and (max-width: $break-small) {
+            height: 30px;
+            font-size: 12px;
+        }
+    }
+    .yo-radio {
+        margin-bottom: 5px;
+    }
+    .yo-radio-button {
+        margin-left: 6px;
+    }
+    .atzo-checkbox {
+        margin-left: 6px;
+    }
+    .yo-btn-row {
+        display: flex;
+        flex-direction: row;
+        margin: 0 10px;
+        @media screen and (max-width: $break-small) {
+            margin: 0px;
+        }
+        > .yo-btn-left,
+        .yo-btn-right {
+            flex: auto;
+        }
+        > .yo-btn-right {
+            justify-content: flex-end;
+            display: flex;
+        }
+
+        button {
+            width: 120px;
+            outline: none;
+            @media screen and (max-width: $break-small) {
+                font-size: 12px;
+                width: 40px;
+                padding: 0px;
+            }
+        }
+        button:nth-child(2n + 0) {
+            margin-left: 10px;
+        }
+        button.btn-color {
+            color: white;
+        }
+        button.mainCta {
+            background-color: $color-mainCta;
+        }
+        button.positive {
+            background-color: $color-positive;
+        }
+        button.alert {
+            background-color: $color-alert;
+        }
+        button.negative {
+            background-color: $color-negative;
+        }
+        button.additional1 {
+            background-color: $color-additional1;
+        }
+        button.additional2 {
+            background-color: $color-additional1;
+        }
+        button.default {
+            background-color: $color-default;
+        }
     }
 }
