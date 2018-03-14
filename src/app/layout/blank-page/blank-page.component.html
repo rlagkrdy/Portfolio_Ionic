@@ -6,6 +6,6 @@
     </div>
 
     <div class="yo-search-grid">
-
+        <yo-grid [columnDefs]="columnDefs" [rowData]="rowData" (cellClick)="cellClick($event)"></yo-grid>
     </div>
 </div>

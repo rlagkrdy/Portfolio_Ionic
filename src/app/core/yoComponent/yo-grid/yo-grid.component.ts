@@ -14,6 +14,7 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { AgEvent } from 'ag-grid/dist/lib/events';
 import { Router } from '@angular/router';
 import { ParamsUtils } from '../../yoUtils/paramUtils';
+import { ColDef, ColGroupDef } from 'ag-grid/dist/lib/entities/colDef';
 
 @Component({
     selector: 'yo-grid',
@@ -25,11 +26,11 @@ export class YoGridComponent implements OnInit {
     @Input() private rowData: object;
     @Input() private usePage: boolean = true;
     @Input() private pageSize: number = 10;
-    @Input() private headerHeight: number = 36;
-    @Input() private rowheight: number = 50;
+    @Input() private rowheight: number = 40;
+    @Input() private gridHeader: number = 40;
     @Output() private cellClick: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild('atozGrid') atozGrid;
+    @ViewChild('yoGrid') yoGrid;
     @ViewChildren('pageNumber') pageNumber;
 
     private defaultWidth: number = 0;
@@ -55,6 +56,8 @@ export class YoGridComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('111111111111', this.columnDefs);
+        console.log('2222222222222', this.rowData);
         if (!this.columnDefs) {
             alert('columnDefs를 넘겨주세요!!!');
             this.columnDefs = [];
@@ -116,7 +119,7 @@ export class YoGridComponent implements OnInit {
     gridPageSizeChange(pageSize: number): void {
         this.pageSize = pageSize;
         this.gridApi.paginationSetPageSize(this.pageSize);
-        let bodyWidth = this.atozGrid.api.alignedGridsService.columnController.bodyWidth;
+        let bodyWidth = this.yoGrid.api.alignedGridsService.columnController.bodyWidth;
         this.gridWidthFit(0, bodyWidth);
         this.setGridPageHis('pageSize', this.pageSize);
         this.setGridPagination();
@@ -154,9 +157,27 @@ export class YoGridComponent implements OnInit {
             this.setPagingArray(currentNum);
             this.setPageActive(currentNum);
 
-            this.setText('#atoz_currentPage', currentNum);
-            this.setText('#atoz_totalPages', this.gridApi.paginationGetTotalPages());
-            this.setText('#atoz_totalItem', this.gridApi.getDisplayedRowCount());
+            this.setText('#yo_currentPage', currentNum);
+            this.setText('#yo_totalPages', this.gridApi.paginationGetTotalPages());
+            this.setText('#yo_totalItem', this.gridApi.getDisplayedRowCount());
+        }
+    }
+    //선택된 페이지 active class추가
+    setPageActive(currentNum: number) {
+        //타이밍 이슈 방어 코드
+        setTimeout(() => {
+            this.pageNumber.map(item => {
+                let demiNum =
+                    typeof item.nativeElement.innerHTML === 'string'
+            let currentNum = this.gridApi.paginationGetCurrentPage() + 1;
+
+            this.setGridPageHis('pages', currentNum);
+            this.setPagingArray(currentNum);
+            this.setPageActive(currentNum);
+
+            this.setText('#yo_currentPage', currentNum);
+            this.setText('#yo_totalPages', this.gridApi.paginationGetTotalPages());
+            this.setText('#yo_totalItem', this.gridApi.getDisplayedRowCount());
         }
     }
     //선택된 페이지 active class추가

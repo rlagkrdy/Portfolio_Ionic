@@ -1,12 +1,10 @@
-$break-small: 420px;
+$mobile-max: 420px;
 
-$color-mainCta: #0099fa;
-$color-positive: #56bd5b;
-$color-alert: #f7b422;
-$color-negative: #e1464e;
-$color-additional1: #8d6cd1;
-$color-additional2: #eb61a5;
-$color-default: #f4f7fa;
+$btn-primary: #3f51b5;
+$btn-accent: #ff4081;
+$btn-alert: #f7b422;
+$btn-warm: #f44336;
+$btn-basic: #fff;
 
 .main-container {
     margin-top: 56px;
@@ -28,7 +26,7 @@ $color-default: #f4f7fa;
         font-size: 16px !important;
         margin-top: 0px;
         margin-bottom: 10px;
-        @media screen and (max-width: $break-small) {
+        @media screen and (max-width: $mobile-max) {
             font-size: 14px !important;
         }
     }
@@ -37,7 +35,7 @@ $color-default: #f4f7fa;
         box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
             0 1px 10px 0 rgba(0, 0, 0, 0.12);
         padding: 20px;
-        @media screen and (max-width: $break-small) {
+        @media screen and (max-width: $mobile-max) {
             padding: 16px;
         }
     }
@@ -61,7 +59,7 @@ $color-default: #f4f7fa;
         display: flex;
         flex-flow: row wrap;
         margin: 0px 10px;
-        @media screen and (max-width: $break-small) {
+        @media screen and (max-width: $mobile-max) {
             flex: auto;
             margin: 0px;
         }
@@ -71,7 +69,7 @@ $color-default: #f4f7fa;
         flex-direction: row;
         flex: 1;
         align-items: center;
-        @media screen and (max-width: $break-small) {
+        @media screen and (max-width: $mobile-max) {
             display: block;
         }
 
@@ -84,7 +82,7 @@ $color-default: #f4f7fa;
             font-weight: bold;
             font-size: 14px;
             margin-bottom: 0px;
-            @media screen and (max-width: $break-small) {
+            @media screen and (max-width: $mobile-max) {
                 //display: none;
                 width: 100%;
                 display: block;
@@ -106,7 +104,7 @@ $color-default: #f4f7fa;
         border: 1px #e0e0e0 solid !important;
         border-radius: 3px !important;
         height: 35px;
-        @media screen and (max-width: $break-small) {
+        @media screen and (max-width: $mobile-max) {
             height: 30px;
             font-size: 12px;
         }
@@ -124,7 +122,7 @@ $color-default: #f4f7fa;
         display: flex;
         flex-direction: row;
         margin: 0 10px;
-        @media screen and (max-width: $break-small) {
+        @media screen and (max-width: $mobile-max) {
             margin: 0px;
         }
         > .yo-btn-left,
@@ -137,9 +135,9 @@ $color-default: #f4f7fa;
         }
 
         button {
-            width: 120px;
+            min-width: 100px;
             outline: none;
-            @media screen and (max-width: $break-small) {
+            @media screen and (max-width: $mobile-max) {
                 font-size: 12px;
                 width: 40px;
                 padding: 0px;
@@ -152,25 +150,20 @@ $color-default: #f4f7fa;
             color: white;
         }
         button.mainCta {
-            background-color: $color-mainCta;
+            background-color: $btn-primary;
         }
         button.positive {
-            background-color: $color-positive;
+            background-color: $btn-accent;
         }
         button.alert {
-            background-color: $color-alert;
+            background-color: $btn-alert;
         }
         button.negative {
-            background-color: $color-negative;
-        }
-        button.additional1 {
-            background-color: $color-additional1;
-        }
-        button.additional2 {
-            background-color: $color-additional1;
+            background-color: $btn-warm;
         }
         button.default {
-            background-color: $color-default;
+            background-color: $btn-basic;
+            color: black;
         }
     }
 }

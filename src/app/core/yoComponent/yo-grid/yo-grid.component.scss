@@ -1,22 +1,33 @@
 $grid-row-padding: 9px;
-$break-small: 420px;
+$mobile-max: 420px;
 
-.ag-material .ag-cell-not-inline-editing {
-    padding-top: $grid-row-padding;
+.ag-material {
+    height: 460px;
+}
+:host /deep/ {
+    .ag-material .ag-cell-not-inline-editing {
+        display: flex;
+        align-items: center;
+        padding: 0px;
+    }
+    .ag-body-viewport {
+        overflow-x: hidden !important;
+        overflow-y: hidden !important;
+    }
 }
 .ag-grid-pagination {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    @media screen and (max-width: $break-small) {
+    @media screen and (max-width: $mobile-max) {
         margin-top: 10px;
     }
     > .ag-grid-pagination-info {
         margin-right: 10px;
         > .none-in-mob {
             display: inline;
-            @media screen and (max-width: $break-small) {
+            @media screen and (max-width: $mobile-max) {
                 display: none;
             }
         }
@@ -24,7 +35,7 @@ $break-small: 420px;
     > .ag-grid-pagination-page-size {
         margin-left: 10px;
         display: inline-block;
-        @media screen and (max-width: $break-small) {
+        @media screen and (max-width: $mobile-max) {
             display: none;
         }
     }
@@ -43,7 +54,7 @@ $break-small: 420px;
 }
 .yo-btn-center {
     display: inline-block;
-    @media screen and (max-width: $break-small) {
+    @media screen and (max-width: $mobile-max) {
         display: none;
     }
 }
@@ -55,7 +66,7 @@ $break-small: 420px;
     font-weight: bold;
     box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14),
         0 1px 10px 0 rgba(0, 0, 0, 0.12);
-    @media screen and (max-width: $break-small) {
+    @media screen and (max-width: $mobile-max) {
         padding: 4px 8px;
         font-size: 12px;
         margin: 0px 2.5px;
