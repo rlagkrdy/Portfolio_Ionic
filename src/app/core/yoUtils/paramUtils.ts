@@ -3,18 +3,19 @@ import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { RegexUtils } from './regexUtils';
 
 export class ParamsUtils {
-    //url파라미터를 javascript Object로 변환
+    // url파라미터를 javascript Object로 변환
     public static urlStrParseToObj(queryString: string) {
         if (!queryString) {
             return;
         }
-        var query = {};
-        var pairs = (queryString[0] === '?'
-            ? queryString.substr(1)
-            : queryString
-        ).split('&');
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i].split('=');
+        const query = {},
+            pairs = (queryString[0] === '?'
+                ? queryString.substr(1)
+                : queryString
+            ).split('&');
+
+        for (let i = 0; i < pairs.length; i++) {
+            const pair = pairs[i].split('=');
             query[decodeURIComponent(pair[0])] = decodeURIComponent(
                 pair[1] || ''
             );
@@ -22,9 +23,9 @@ export class ParamsUtils {
         return query;
     }
 
-    //javascript Object를 Url Parameter로 변환
+    // javascript Object를 Url Parameter로 변환
     public static objConvertToUrlStr(queryObj: object) {
-        var str =
+        const str =
             '?' +
             Object.keys(queryObj)
                 .map(prop => {
@@ -36,10 +37,10 @@ export class ParamsUtils {
         return str;
     }
 
-    //javascript Object를 location Search로 변환
+    // javascript Object를 location Search로 변환
     public static objConvertToSearch(queryObj: object) {
         console.log(queryObj);
-        var str = Object.keys(queryObj)
+        const str = Object.keys(queryObj)
             .map(prop => {
                 return [prop, queryObj[prop]].join('=');
             })
@@ -47,20 +48,20 @@ export class ParamsUtils {
         return str;
     }
 
-    //form 유효성 검사
+    // form 유효성 검사
     public static formValid(formArr: Array<any>): boolean {
         let isVaild: boolean = true;
         formArr.forEach((item, index, arr) => {
-            let errorObj = item.errors,
+            const errorObj = item.errors,
                 targetEle: any = document.querySelector('#' + item.name);
             if (!targetEle) {
                 alert(`${item.name}의 id와 name은 같아야 합니다.`);
                 return;
             }
 
-            let isRequired: any = targetEle.getAttribute('required'),
-                targetName: string = targetEle.getAttribute('data-target'),
-                patternName: string = targetEle.getAttribute('data-patterns'),
+            const isRequired: any = targetEle.getAttribute('required'),
+                patternName: string = targetEle.getAttribute('data-patterns');
+            let targetName: string = targetEle.getAttribute('data-target'),
                 actionName: string = '입력';
 
             if (isRequired === null) {
@@ -82,7 +83,7 @@ export class ParamsUtils {
                 actionName = '선택';
             }
 
-            for (let key in errorObj) {
+            for (const key of Object.keys(errorObj)) {
                 let msg: string;
                 if (key === 'required') {
                     msg = `${targetName} ${actionName}해주시기 바랍니다`;
@@ -108,21 +109,21 @@ export class ParamsUtils {
     }
 
     public static koreanWordLastValid(_word: string): string {
-        let word = _word,
-            lastChar = word.charCodeAt(word.length - 1),
+        let word = _word;
+        const lastChar = word.charCodeAt(word.length - 1),
             seletedValue = (lastChar - 0xac00) % 28 > 0 ? '을' : '를';
         word += seletedValue;
         return word;
     }
 
-    //url Parameter Setting 및 location reloadState 처리
+    // url Parameter Setting 및 location reloadState 처리
     public static setUrlHis(paramObj: any): void {
         let changeUrl: string = window.location.pathname,
             currentParam: any = ParamsUtils.urlStrParseToObj(
                 window.location.search
             );
 
-        for (let key in paramObj) {
+        for (const key of Object.keys(paramObj)) {
             if (!currentParam) {
                 currentParam = {};
             }
@@ -132,24 +133,24 @@ export class ParamsUtils {
             currentParam[key] = paramObj[key];
         }
 
-        let urlParams = ParamsUtils.objConvertToUrlStr(currentParam);
+        const urlParams = ParamsUtils.objConvertToUrlStr(currentParam);
 
         changeUrl += urlParams;
 
-        var obj = { Title: '', ChangeUrl: changeUrl };
-        let parseQuery = ParamsUtils.urlStrParseToObj(window.location.search);
+        const obj = { Title: '', ChangeUrl: changeUrl };
+        const parseQuery = ParamsUtils.urlStrParseToObj(window.location.search);
         window.history.replaceState(null, obj.Title.toString(), obj.ChangeUrl);
     }
 
-    //url Parameter 초기화
+    // url Parameter 초기화
     public static resetUrlHis(): void {
-        let changeUrl: string = window.location.pathname;
+        const changeUrl: string = window.location.pathname;
         window.history.replaceState(null, '', changeUrl);
     }
 
-    public static formFilter(forms: NgForm, filter: string): boolean {
-        let idObj: any = forms['_directives'].filter(obj => {
-                if ('name' in obj && obj['name'] === filter) {
+    public static formFilter(_forms: NgForm, _filter: string): boolean {
+        const idObj: any = _forms['_directives'].filter(obj => {
+                if ('name' in obj && obj['name'] === _filter) {
                     return true;
                 } else {
                     return false;
@@ -159,26 +160,18 @@ export class ParamsUtils {
         return isValid;
     }
 
-    public static ifNull(str: string, text?: string): string {
-        let ct = text ? text : '';
-        return str ? str : ' ' + ct + ' ';
+    public static ifNull(_str: string, _text?: string): string {
+        const ct: string = _text ? _text : '';
+        return _str ? _str : '' + ct + '';
     }
 
-    public static moneyFommat(x: string): string {
-        if (x != null) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' 원';
+    public static moneyFommat(_money: string): string {
+        if (_money !== null || _money !== '') {
+            return (
+                _money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' 원'
+            );
         } else {
             return '0원';
         }
-    }
-
-    public static imgIsWidth(item: any): boolean {
-        let isWidth: boolean = true;
-        if (!item.ME_CSS_TYPE) {
-            isWidth = item.ME_ROW_SIZE > item.ME_COL_SIZE ? true : false;
-        } else {
-            isWidth = item.ME_CSS_TYPE === 'WIDTH' ? true : false;
-        }
-        return isWidth;
     }
 }

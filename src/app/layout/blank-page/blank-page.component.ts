@@ -39,13 +39,25 @@ export class BlankPageComponent implements OnInit {
         { make: 'Porsche', model: 'Boxter', price: 72000 }
     ];
     constructor() {
-        this.searchObj = [{ id: 'keyword', name: '키워드', type: 'input', value: '' }];
+        this.searchObj = [
+            { id: 'keyword', name: '키워드', type: 'input', value: '' },
+            { id: 'keyword', name: '키워드', type: 'input', value: '' },
+            { id: 'keyword', name: '키워드', type: 'input', value: '' },
+            { id: 'keyword', name: '키워드', type: 'input', value: '' },
+            { id: 'keyword', name: '키워드', type: 'input', value: '' },
+            { id: 'keyword', name: '키워드', type: 'input', value: '' },
+            { id: 'keyword', name: '키워드', type: 'input', value: '' },
+            { id: 'keyword', name: '키워드', type: 'input', value: '' },
+            { id: 'keyword', name: '키워드', type: 'input', value: '' },
+            { id: 'keyword', name: '키워드', type: 'input', value: '' },
+            { id: 'keyword', name: '키워드', type: 'input', value: '' }
+        ];
     }
 
     ngOnInit() {}
 
     aaa(): void {
-        //alert('클릭!!!');
+        // alert('클릭!!!');
     }
 
     cellClick(params: any) {

@@ -1,18 +1,13 @@
-$grid-row-padding: 9px;
 $mobile-max: 420px;
 
 .ag-material {
-    height: 460px;
+    height: 463px;
 }
 :host /deep/ {
     .ag-material .ag-cell-not-inline-editing {
         display: flex;
         align-items: center;
         padding: 0px;
-    }
-    .ag-body-viewport {
-        overflow-x: hidden !important;
-        overflow-y: hidden !important;
     }
 }
 .ag-grid-pagination {
@@ -48,50 +43,38 @@ $mobile-max: 420px;
         font-weight: bold;
     }
 }
-.ag-grid-pagination-page-btn {
+.ag-grid-pagination-wrap {
     display: flex;
     flex-direction: row;
 }
-.yo-btn-center {
+.ag-grid-pagination-center {
     display: inline-block;
     @media screen and (max-width: $mobile-max) {
         display: none;
     }
 }
-.yo-grid-page-btns {
-    color: rgba(0, 0, 0, 0.54);
-    padding: 6px 10px;
-    margin: 0px 5px;
-    border-radius: 7px;
-    font-weight: bold;
-    box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14),
-        0 1px 10px 0 rgba(0, 0, 0, 0.12);
-    @media screen and (max-width: $mobile-max) {
-        padding: 4px 8px;
-        font-size: 12px;
-        margin: 0px 2.5px;
-    }
-    &.icon {
-        padding: 0px 2px;
-    }
-    &:active {
-        background-color: #868686;
-        color: #fff;
-    }
+.ag-grid-pagination-btn {
+    color: black;
+    float: left;
+    padding: 6px 12px;
+    transition: background-color 0.3s;
+    background-color: #fff;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.2);
+
+    &:active,
     &.active {
-        background-color: #868686;
-        color: #fff;
+        background-color: #4caf50;
+        color: white;
+        border: 1px solid #4caf50;
     }
-    > .material-icons {
-        top: 3px;
-        position: relative;
-        font-size: 20px;
-        &:active {
-            color: #fff;
-        }
+    &:hover:not(.active) {
+        background-color: #ddd;
     }
 }
 .yo-control {
-    box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14),
-        0 1px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.2),
+        0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 }

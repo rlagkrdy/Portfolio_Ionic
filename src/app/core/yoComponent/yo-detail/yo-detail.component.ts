@@ -8,7 +8,7 @@ import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
     templateUrl: './yo-detail.component.html',
     styleUrls: ['./yo-detail.component.scss']
 })
-export class YoDetailComponent implements OnInit {
+export class YoDetailComponent implements OnInit, OnChanges {
     @Input() private detailObj: Array<object>;
     @Input() private detailObjData: object;
     @ViewChild('detailForm') detailForm: NgForm;
@@ -16,14 +16,14 @@ export class YoDetailComponent implements OnInit {
 
     ngOnInit() {}
 
-    //부모로 부터 데이터 받으면 호출
+    // 부모로 부터 데이터 받으면 호출
     ngOnChanges(changes: SimpleChanges) {
         if (changes.detailObjData && changes.detailObjData.currentValue) {
             this.setObjValue();
         }
     }
 
-    //부모로 부터 데이터 세팅
+    // 부모로 부터 데이터 세팅
     setObjValue() {
         this.detailObj.forEach((item, index, array) => {
             if (item['id'] in this.detailObjData) {

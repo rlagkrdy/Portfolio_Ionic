@@ -1,50 +1,41 @@
-<ag-grid-angular #yoGrid class="ag-theme-material ag-material yo-grid" [rowData]="rowData" [columnDefs]="columnDefs" [headerHeight]="gridHeader"
-  [rowHeight]="rowheight" (modelUpdated)="setGridParams($event)" (gridSizeChanged)="onGridSizeChange($event)" (cellClicked)="onCellClick($event)"
+<ag-grid-angular #yoGrid class="ag-theme-material ag-material yo-grid" [rowData]="rowData" [columnDefs]="columnDefs" [headerHeight]="headerHeight"
+  [rowHeight]="rowheight" (modelUpdated)="onModelUpdated($event)" (gridSizeChanged)="onGridSizeChanged($event)" (cellClicked)="onCellClick($event)"
   [pagination]="usePage" [paginationPageSize]="pageSize" [suppressPaginationPanel]="true" (paginationChanged)="onPaginationChanged($event)"
-  [suppressMovableColumns]="true" [localeText]="gridText"></ag-grid-angular>
+  [suppressMovableColumns]="true" [localeText]="localeText"></ag-grid-angular>
 
 <div class="ag-grid-pagination">
-  <div class="ag-grid-pagination-info">
-    <span class="yo-grid-page-text bold" id="yo_currentPage">-</span>
-    <span class="yo-grid-page-text">/</span>
-    <span class="yo-grid-page-text" id="yo_totalPages">-</span>
-    <span class="yo-grid-page-text">페이지</span>
-    <span class="yo-grid-page-text none-in-mob">(게시물수 </span>
-    <span class="yo-grid-page-text none-in-mob" id="yo_totalItem"></span>
-    <span class="yo-grid-page-text none-in-mob">개)</span>
-  </div>
 
-  <div class="ag-grid-pagination-page-btn">
-    <div class="yo-btn-left">
-      <button class="yo-grid-page-btns icon" (click)="onBtFirst()">
+  <div class="ag-grid-pagination-wrap">
+    <div class="ag-grid-pagination-left">
+      <button class="ag-grid-pagination-btn" (click)="onBtnPagination('First')">
         <i class="fa fa-angle-double-left"></i>
       </button>
-      <button class="yo-grid-page-btns icon" (click)="onBtPrevious()">
+      <button class="ag-grid-pagination-btn" (click)="onBtnPagination('Previous')">
         <i class="fa fa-angle-left"></i>
       </button>
     </div>
-    <div class="yo-btn-center" *ngFor="let item of pages[pagesIndex];">
-      <button #pageNumber class="yo-grid-page-btns page-number" (click)="moveGridPage(item)">{{item}}</button>
+
+    <div class="ag-grid-pagination-center" *ngFor="let item of pages[pagesIndex];">
+      <button #pageNumber class="ag-grid-pagination-btn" (click)="moveGridPaging(item)">{{item}}</button>
     </div>
-    <div class="yo-btn-right">
-      <button class="yo-grid-page-btns icon" (click)="onBtNext()">
+
+    <div class="ag-grid-pagination-right">
+      <button class="ag-grid-pagination-btn" (click)="onBtnPagination('Next')">
         <i class="fa fa-angle-right"></i>
       </button>
-      <button class="yo-grid-page-btns icon" (click)="onBtLast()">
+      <button class="ag-grid-pagination-btn" (click)="onBtnPagination('Last')">
         <i class="fa fa-angle-double-right"></i>
       </button>
     </div>
   </div>
 
   <div class="ag-grid-pagination-page-size">
-    <div class="yo-col">
-      <div class="yo-input-wrap">
-        <label for="grid_page_size">페이지당 : </label>
-        <select class="yo-control" #changePageSize name="grid_page_size" id="grid_page_size" (change)="gridPageSizeChange(changePageSize.value)"
-          [value]="pageSize">
-          <option [value]="item" *ngFor="let item of pageSizeObj">{{item}}</option>
-        </select>
-      </div>
+    <div class="yo-input-wrap">
+      <label for="grid_page_size">페이지당 : </label>
+      <select class="yo-control" #changePageSize name="grid_page_size" id="grid_page_size" (change)="pageSizeChange(changePageSize.value)"
+        [value]="pageSize">
+        <option [value]="item" *ngFor="let item of pageSizeArr">{{item}}</option>
+      </select>
     </div>
   </div>
 

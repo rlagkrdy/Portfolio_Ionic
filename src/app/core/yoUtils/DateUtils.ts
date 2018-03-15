@@ -1,6 +1,6 @@
 export class DateUtils {
     public static getYear(): Array<number> {
-        let yearArr: Array<number> = [],
+        const yearArr: Array<number> = [],
             nowYear = new Date().getFullYear(),
             yearST: number = 1960;
         for (let i = nowYear; i >= yearST; i -= 1) {
@@ -9,7 +9,7 @@ export class DateUtils {
         return yearArr;
     }
     public static getMonth(): Array<number> {
-        let monthArr: Array<number> = [];
+        const monthArr: Array<number> = [];
         for (let i = 1; i <= 12; i += 1) {
             monthArr.push(i);
         }
@@ -17,9 +17,22 @@ export class DateUtils {
     }
 
     public static getDay(_year?: number, _month?: number): Array<number> {
-        let dayArr: Array<number> = [],
-            monthDayArray: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-            monthIndex: number = 0;
+        const dayArr: Array<number> = [],
+            monthDayArray: Array<number> = [
+                31,
+                28,
+                31,
+                30,
+                31,
+                30,
+                31,
+                31,
+                30,
+                31,
+                30,
+                31
+            ];
+        let monthIndex: number = 0;
 
         if (_month) {
             monthIndex = _month;
@@ -37,7 +50,10 @@ export class DateUtils {
         return dayArr;
     }
 
-    public static dateStrToArray(_date: string, _demiStr: string): Array<string> {
+    public static dateStrToArray(
+        _date: string,
+        _demiStr: string
+    ): Array<string> {
         if (!_date || !_demiStr) {
             alert('날짜 문자열 및 구분자를 넘겨주여야 합니다.');
             return;
@@ -47,7 +63,7 @@ export class DateUtils {
             return;
         }
 
-        let dateArr: Array<string> = _date.split(_demiStr),
+        const dateArr: Array<string> = _date.split(_demiStr),
             monthArr: Array<string> = dateArr[1].split('');
 
         if (monthArr[0] === '0') {
@@ -58,10 +74,10 @@ export class DateUtils {
     }
 
     public static getTodayText(): string {
-        let today: Date = new Date(),
+        const today: Date = new Date(),
             mm: number = today.getMonth() + 1,
-            dd: number = today.getDate(),
-            dayOfWeek: string = null,
+            dd: number = today.getDate();
+        let dayOfWeek: string = null,
             dateText: string;
         switch (today.getDay()) {
             case 0:

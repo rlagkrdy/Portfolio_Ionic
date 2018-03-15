@@ -12,7 +12,7 @@ export class SrcFlickerDirective {
 
     @HostListener('click')
     flicker(_eventTarget: EventTarget) {
-        let targetEl = this._el.nativeElement,
+        const targetEl = this._el.nativeElement,
             srcED = targetEl
                 .getAttribute('src')
                 .replace(this.separatorED, this.separatorST),

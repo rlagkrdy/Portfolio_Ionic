@@ -1,0 +1,26 @@
+$mobile-max: 420px;
+$btn-primary: #3f51b5;
+$btn-accent: #ff4081;
+$btn-alert: #f7b422;
+$btn-warm: #f44336;
+$btn-basic: #fff;
+
+yo-search:host /deep/ {
+    .yo-search-wrap {
+        display: flex;
+        flex-flow: row wrap;
+    }
+    .yo-input-wrap {
+        flex: none;
+        width: 48%;
+        padding: 0% 1%;
+        margin-bottom: 5px;
+        @media screen and (max-width: $mobile-max) {
+            width: 100%;
+            padding: 0%;
+        }
+    }
+    .yo-btn-row {
+        margin-top: 15px;
+    }
+}
