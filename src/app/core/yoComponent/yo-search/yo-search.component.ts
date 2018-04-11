@@ -18,11 +18,12 @@ import { ParamsUtils } from '../../yoUtils/paramUtils';
     styleUrls: ['./yo-search.component.scss']
 })
 export class YoSearchComponent implements OnInit {
-    @Input() private searchObj: Array<object>;
-    @Output()
-    private searchClick: EventEmitter<object> = new EventEmitter<object>();
+    @Input() private searchObj: Array<SearchObj>;
+    @Output() private searchClick: EventEmitter<object> = new EventEmitter<object>();
 
     @ViewChild('searchForm') searchForm: NgForm;
+
+    private formIsShow: boolean = true;
 
     // 라우터로 부터 url 파람 가지고옴
     constructor(private _router: Router, private element: ElementRef) {
@@ -36,7 +37,11 @@ export class YoSearchComponent implements OnInit {
             }
         }, 0);
     }
-    ngOnInit() {}
+    ngOnInit(): void {
+        if (!this.searchObj || this.searchObj.length === 0) {
+            this.formIsShow = false;
+        }
+    }
 
     private enterSearch(event: Event, form: NgForm) {
         if (event['which'] === 13) {
@@ -64,4 +69,11 @@ export class YoSearchComponent implements OnInit {
         ParamsUtils.setUrlHis(form.value);
         this.searchClick.emit(param);
     }
+}
+
+export interface SearchObj {
+    id: string;
+    name: string;
+    type: string;
+    value: string;
 }
