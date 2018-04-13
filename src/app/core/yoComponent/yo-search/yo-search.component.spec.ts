@@ -25,8 +25,14 @@ describe('SearchComponent', () => {
             {
                 id: 'aa',
                 name: 'aa',
-                type: 'aa',
+                type: 'input',
                 value: 'aa'
+            },
+            {
+                id: 'bb',
+                name: 'bb',
+                type: 'date',
+                value: 'bb'
             }
         ];
 
@@ -54,13 +60,14 @@ describe('SearchComponent', () => {
         }
     });
 
-    it('searchObj의 length가 0보다 클때 id는 존재해야 한다.', () => {
-        console.log(searchObj);
-    });
-    it('searchObj의 length가 0보다 클때 name은 존재해야 한다.', () => {
-        console.log(searchObj);
-    });
-    it('searchObj의 length가 0보다 클때 type은 "input, select, radio, check, date"중 하나여야 한다.', () => {
-        console.log(searchObj);
+    it('searchObj의 length가 0보다 클때 id,name는 존재해야하며, type은 "input, select, radio, check, date"중 하나여야 한다.', () => {
+        searchObj = component['searchObj'];
+        for (const keys in searchObj) {
+            if (searchObj[keys]) {
+                expect(searchObj[keys].id).toBeTruthy();
+                expect(searchObj[keys].name).toBeTruthy();
+                expect(searchObj[keys].type).toMatch(/input|select|radio|check|date/g);
+            }
+        }
     });
 });
