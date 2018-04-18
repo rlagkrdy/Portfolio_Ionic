@@ -3,11 +3,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { YoSearchComponent, SearchObj } from './yo-search.component';
 import { YoCompModule } from '../yoComp.module';
 import { By } from '@angular/platform-browser';
+import { NgForm } from '@angular/forms/src/directives/ng_form';
 
 describe('SearchComponent', () => {
     let component: YoSearchComponent;
     let fixture: ComponentFixture<YoSearchComponent>;
     let searchObj: Array<SearchObj>;
+    let formObj: NgForm;
 
     beforeEach(
         async(() => {
@@ -32,7 +34,7 @@ describe('SearchComponent', () => {
                 id: 'bb',
                 name: 'bb',
                 type: 'date',
-                value: 'bb'
+                value: ''
             }
         ];
 
@@ -69,5 +71,26 @@ describe('SearchComponent', () => {
                 expect(searchObj[keys].type).toMatch(/input|select|radio|check|date/g);
             }
         }
+    });
+
+    beforeEach(() => {
+        setTimeout(() => {
+            component['reset'](component.searchForm);
+            formObj = component.searchForm;
+        }, 0);
+    });
+
+    it('초기화 버튼 클릭시 모든 입력 값이 초기화 되어야 함.', () => {
+        console.log(component.searchForm);
+        setTimeout(() => {
+            let valueObj = component.searchForm['_directives'];
+            for (let key in valueObj) {
+                console.log(valueObj[key]);
+                console.log('value', valueObj[key].value);
+                //expect(valueObj[key].value).toBeTruthy();
+            }
+        }, 0);
+
+        //expect('aa').toBe('bb');
     });
 });

@@ -54,6 +54,7 @@ export class YoSearchComponent implements OnInit {
         this.searchObj.forEach((item, index, array) => {
             obj[item['id']] = '';
         });
+
         form.reset(obj);
         ParamsUtils.resetUrlHis();
         this.searchClick.emit(form);
