@@ -38,9 +38,45 @@ export class YoSearchComponent implements OnInit {
         }, 0);
     }
     ngOnInit(): void {
-        if (!this.searchObj || this.searchObj.length === 0) {
+        if (
+            !this.searchObj ||
+            this.searchObj.length === 0 ||
+            this.searchObjDuplicate() === false ||
+            this.searchObjValid() === false
+        ) {
             this.formIsShow = false;
         }
+    }
+
+    private searchObjDuplicate(): boolean {
+        for (let i = 0; i < this.searchObj.length; i += 1) {
+            const multiObj = this.searchObj.filter((item: SearchObj) => {
+                return this.searchObj[i].id === item.id;
+            });
+
+            if (multiObj.length > 1) {
+                console.error('searchObj에 중복되는 id값이 있습니다.');
+                return false;
+            }
+        }
+        return true;
+    }
+    private searchObjValid(): boolean {
+        let validObj = this.searchObj.filter((item: SearchObj, idx: number, arr: SearchObj[]) => {
+            if (
+                (item.type === 'select' || item.type === 'radio' || item.type === 'check') &&
+                !item.data
+            ) {
+                return item;
+            }
+        });
+
+        if (validObj.length > 0) {
+            console.error('select, radio,check타입은 data객체도 같이 넘겨줘야 합니다.');
+            return false;
+        }
+
+        return true;
     }
 
     private enterSearch(event: Event, form: NgForm) {
@@ -62,6 +98,7 @@ export class YoSearchComponent implements OnInit {
 
     private search(form: NgForm): void {
         const param = form.value;
+        console.log(param);
         for (const key in param) {
             if (param[key] && typeof param[key] === 'object') {
                 param[key] = param[key].format('YYYY-MM-DD');
@@ -77,4 +114,5 @@ export interface SearchObj {
     name: string;
     type: string;
     value: string;
+    data?: Array<any>;
 }
