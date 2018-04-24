@@ -60,7 +60,7 @@ describe('SearchComponent', () => {
                 id: 'ff',
                 name: 'ff',
                 type: 'check',
-                value: 'fff',
+                value: 'ccc',
                 data: [
                     { name: 'aaa', value: 'aaa' },
                     { name: 'bbb', value: 'bbb' },
@@ -111,26 +111,57 @@ describe('SearchComponent', () => {
     //     }
     // });
 
-    it('searchObj중에 type이 select, radio, check일때 data가 없으면 false를 return해야한다', () => {
+    // it('searchObj중에 type이 select, radio, check일때 data가 없으면 false를 return해야한다', () => {
+    //     searchObj = component['searchObj'];
+    //     if (!component['searchObjValid']()) {
+    //         expect(component['formIsShow']).toBeFalsy();
+    //     }
+    // });
+
+    it('searchObj중에 type이 select, radio, check일때 value값이 data 배열중에 없으면 첫번째 값을 가져야 한다.', () => {
         searchObj = component['searchObj'];
-        if (!component['searchObjValid']()) {
-            expect(component['formIsShow']).toBeFalsy();
+        searchObj = component.checkDefaultValue(searchObj);
+        console.log(searchObj);
+
+        const isTypes: RegExp = new RegExp(/select|radio|check/);
+        for (let keys in searchObj) {
+            if (isTypes.test(searchObj[keys]['type'])) {
+                let value = searchObj[keys]['value'];
+                let datas = searchObj[keys]['data'];
+                console.log('value : ', value);
+                console.log('datas : ', datas);
+                if (value === '' || value === null) {
+                    expect(value).toBe(datas[0].value);
+                } else {
+                    let valueAr = datas.filter((item: any, idx: number, arr: any[]) => {
+                        return item.value === value;
+                    });
+                    if (valueAr.length > 0) {
+                        expect(value).toBe(valueAr[0].value);
+                    } else {
+                        expect(value).toBe(datas[0].value);
+                    }
+                }
+            }
         }
     });
 
-    // beforeEach(function(done) {
-    //     setTimeout(() => {
-    //         component['reset'](component.searchForm);
-    //         done();
-    //     }, 0);
-    // });
+    beforeEach(function(done) {
+        setTimeout(() => {
+            component['reset'](component.searchForm);
+            done();
+        }, 0);
+    });
 
-    // it('초기화 버튼 클릭시 모든 입력 값이 초기화 되어야 함.', () => {
-    //     let valueObj = component.searchForm['_directives'];
-    //     for (let key in valueObj) {
-    //         expect(valueObj[key].value).toBeFalsy();
-    //     }
-    // });
+    it('초기화 버튼 클릭시 모든 입력 값이 초기화 되어야 함.', () => {
+        let valueObj = component.searchForm['_directives'];
+        //console.log(component.searchForm);
+        for (let key in valueObj) {
+            expect(valueObj[key].value).toBeFalsy();
+        }
+
+        // view에서 select, radio, checkbox 확인 해야함;
+    });
 
     // it('검색버튼 클릭시 ???', () => {
     //     const searchEl = fixture.debugElement.query(By.css('#search-btn'));
