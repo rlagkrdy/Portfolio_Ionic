@@ -40,17 +40,51 @@ export class BlankPageComponent implements OnInit {
     ];
     constructor() {
         this.searchObj = [
-            { id: 'keyword', name: '키워드', type: 'input', value: '' },
-            { id: 'keyword', name: '키워드', type: 'input', value: '' },
-            { id: 'keyword', name: '키워드', type: 'input', value: '' },
-            { id: 'keyword', name: '키워드', type: 'input', value: '' },
-            { id: 'keyword', name: '키워드', type: 'input', value: '' },
-            { id: 'keyword', name: '키워드', type: 'input', value: '' },
-            { id: 'keyword', name: '키워드', type: 'input', value: '' },
-            { id: 'keyword', name: '키워드', type: 'input', value: '' },
-            { id: 'keyword', name: '키워드', type: 'input', value: '' },
-            { id: 'keyword', name: '키워드', type: 'input', value: '' },
-            { id: 'keyword', name: '키워드', type: 'input', value: '' }
+            {
+                id: 'aa',
+                name: 'aa',
+                type: 'input',
+                value: 'aa'
+            },
+            {
+                id: 'bb',
+                name: 'bb',
+                type: 'date',
+                value: '2018-04-20'
+            },
+            {
+                id: 'dd',
+                name: 'dd',
+                type: 'select',
+                value: 'ddd',
+                data: [
+                    { name: 'aaa', value: 'aaa' },
+                    { name: 'bbb', value: 'bbb' },
+                    { name: 'ccc', value: 'ccc' }
+                ]
+            },
+            {
+                id: 'ee',
+                name: 'ee',
+                type: 'radio',
+                value: 'eee',
+                data: [
+                    { name: 'aaa', value: 'aaa' },
+                    { name: 'bbb', value: 'bbb' },
+                    { name: 'ccc', value: 'ccc' }
+                ]
+            },
+            {
+                id: 'ff',
+                name: 'ff',
+                type: 'check',
+                value: 'ccc',
+                data: [
+                    { name: 'aaa', value: 'aaa' },
+                    { name: 'bbb', value: 'bbb' },
+                    { name: 'ccc', value: 'ccc' }
+                ]
+            }
         ];
     }
 

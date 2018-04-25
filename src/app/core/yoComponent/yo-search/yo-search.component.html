@@ -16,7 +16,8 @@
         </mat-radio-group>
         <!-- CHECKBOX -->
         <div class="atzo-checkbox-wrap" *ngIf='item.type === "check"'>
-          <mat-checkbox class="atzo-checkbox" [name]='item.id' *ngFor='let code of item.data' [value]="code.value" ngModel>{{code.name}}</mat-checkbox>
+          <mat-checkbox class="atzo-checkbox" [name]='item.id' *ngFor='let code of item.data' [value]="code.value" (change)="inputChange($event)"
+            ngModel>{{code.name}}</mat-checkbox>
         </div>
         <!-- DATE -->
         <div class="yo-date-row" *ngIf='item.type === "date"'>

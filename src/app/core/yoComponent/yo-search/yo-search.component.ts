@@ -11,6 +11,7 @@ import { NgForm } from '@angular/forms';
 import { Event } from '@angular/router/src/events';
 import { Router } from '@angular/router';
 import { ParamsUtils } from '../../yoUtils/paramUtils';
+import { MatCheckboxChange } from '@angular/material';
 
 @Component({
     selector: 'yo-search',
@@ -50,25 +51,29 @@ export class YoSearchComponent implements OnInit {
         }
     }
 
-    checkDefaultValue(_searchObj: Array<SearchObj>): Array<SearchObj> {
+    private checkDefaultValue(_searchObj: Array<SearchObj>): Array<SearchObj> {
         const isTypes: RegExp = new RegExp(/select|radio|check/);
-        for (let keys in _searchObj) {
+        for (const keys in _searchObj) {
             if (isTypes.test(_searchObj[keys]['type'])) {
-                let value = _searchObj[keys]['value'];
-                let datas = _searchObj[keys]['data'];
+                const value = _searchObj[keys]['value'];
+                const data = _searchObj[keys]['data'];
                 if (value === '' || value === null) {
-                    _searchObj[keys]['value'] = datas[0].value;
+                    _searchObj[keys]['value'] = data[0].value;
                 } else {
-                    let valueAr = datas.filter((item: any, idx: number, arr: any[]) => {
+                    const valueAr = data.filter((item: any, idx: number, arr: any[]) => {
                         return item.value === value;
                     });
                     if (valueAr.length === 0) {
-                        _searchObj[keys]['value'] = datas[0].value;
+                        _searchObj[keys]['value'] = data[0].value;
                     }
                 }
             }
         }
         return _searchObj;
+    }
+
+    private inputChange(aaa: MatCheckboxChange) {
+        console.log(aaa);
     }
 
     private searchObjDuplicate(): boolean {
@@ -86,7 +91,7 @@ export class YoSearchComponent implements OnInit {
     }
 
     private searchObjValid(): boolean {
-        let validObj = this.searchObj.filter((item: SearchObj, idx: number, arr: SearchObj[]) => {
+        const validObj = this.searchObj.filter((item: SearchObj, idx: number, arr: SearchObj[]) => {
             if (
                 (item.type === 'select' || item.type === 'radio' || item.type === 'check') &&
                 !item.data

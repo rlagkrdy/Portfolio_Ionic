@@ -5,12 +5,11 @@ import { YoCompModule } from '../yoComp.module';
 import { By } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 
-describe('SearchComponent', () => {
-    let component: YoSearchComponent;
-    let fixture: ComponentFixture<YoSearchComponent>;
-    let searchObj: Array<SearchObj>;
-    let formObj: NgForm;
+let component: YoSearchComponent;
+let fixture: ComponentFixture<YoSearchComponent>;
+let searchObj: Array<SearchObj>;
 
+describe('SearchComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [YoCompModule, RouterTestingModule]
@@ -120,20 +119,16 @@ describe('SearchComponent', () => {
 
     it('searchObj중에 type이 select, radio, check일때 value값이 data 배열중에 없으면 첫번째 값을 가져야 한다.', () => {
         searchObj = component['searchObj'];
-        searchObj = component.checkDefaultValue(searchObj);
-        console.log(searchObj);
 
         const isTypes: RegExp = new RegExp(/select|radio|check/);
-        for (let keys in searchObj) {
+        for (const keys in searchObj) {
             if (isTypes.test(searchObj[keys]['type'])) {
-                let value = searchObj[keys]['value'];
-                let datas = searchObj[keys]['data'];
-                console.log('value : ', value);
-                console.log('datas : ', datas);
+                const value = searchObj[keys]['value'];
+                const datas = searchObj[keys]['data'];
                 if (value === '' || value === null) {
                     expect(value).toBe(datas[0].value);
                 } else {
-                    let valueAr = datas.filter((item: any, idx: number, arr: any[]) => {
+                    const valueAr = datas.filter((item: any, idx: number, arr: any[]) => {
                         return item.value === value;
                     });
                     if (valueAr.length > 0) {
@@ -145,28 +140,28 @@ describe('SearchComponent', () => {
             }
         }
     });
-
-    beforeEach(function(done) {
-        setTimeout(() => {
-            component['reset'](component.searchForm);
-            done();
-        }, 0);
-    });
-
-    it('초기화 버튼 클릭시 모든 입력 값이 초기화 되어야 함.', () => {
-        let valueObj = component.searchForm['_directives'];
-        //console.log(component.searchForm);
-        for (let key in valueObj) {
-            expect(valueObj[key].value).toBeFalsy();
-        }
-
-        // view에서 select, radio, checkbox 확인 해야함;
-    });
-
-    // it('검색버튼 클릭시 ???', () => {
-    //     const searchEl = fixture.debugElement.query(By.css('#search-btn'));
-    //     setTimeout(() => {
-    //         searchEl.triggerEventHandler('click', component.searchForm);
-    //     }, 0);
-    // });
 });
+
+// describe('SearchComponent Reset Event', () => {
+//     beforeEach(function(done) {
+//         setTimeout(() => {
+//             component['reset'](component.searchForm);
+//             done();
+//         }, 0);
+//     });
+//     it('초기화 버튼 클릭시 모든 입력 값이 초기화 되어야 함.', () => {
+//         const valueObj = component.searchForm['_directives'];
+//         for (const key in valueObj) {
+//             if (valueObj[key]) {
+//                 expect(valueObj[key].value).toBeFalsy();
+//             }
+//         }
+//         // view에서 select, radio, checkbox 확인 해야함;
+//     });
+//     // it('검색버튼 클릭시 ???', () => {
+//     //     const searchEl = fixture.debugElement.query(By.css('#search-btn'));
+//     //     setTimeout(() => {
+//     //         searchEl.triggerEventHandler('click', component.searchForm);
+//     //     }, 0);
+//     // });
+// });
