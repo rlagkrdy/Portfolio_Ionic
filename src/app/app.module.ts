@@ -5,7 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthGuard } from './shared';
+import { AuthGuard } from './core/yoGuard/auth.guard';
+import { ParamUtils } from './core/yoService/utils/params/param.service';
+import { RegexUtils } from './core/yoService/utils/regex/regex.service';
 
 @NgModule({
     imports: [
@@ -16,7 +18,7 @@ import { AuthGuard } from './shared';
         AppRoutingModule
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard],
+    providers: [AuthGuard, ParamUtils, RegexUtils],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

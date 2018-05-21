@@ -1,0 +1,16 @@
+<div class="yo_wrap">
+    <div class="yo-search-header">회원관리 > 유효회원</div>
+
+    <div class="yo-search-require">
+        <yo-search [searchObj]="searchObj" (searchClick)="aaa()"></yo-search>
+    </div>
+
+    <div class="yo-search-grid">
+        <div class="yo-btn-row">
+            <div class="yo-btn-right">
+                <button mat-raised-button class="green btn-color">등록</button>
+            </div>
+        </div>
+        <yo-grid [columnDefs]="columnDefs" [rowData]="rowData" (cellClick)="cellClick($event)"></yo-grid>
+    </div>
+</div>

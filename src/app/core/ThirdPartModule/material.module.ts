@@ -42,11 +42,11 @@ import { CdkTableModule } from '@angular/cdk/table';
 
 export const MOMENT_DATE_FORMATS: MatDateFormats = {
     parse: {
-        dateInput: 'YYYY/MM/DD'
+        dateInput: 'YYYY-MM-DD'
     },
     display: {
-        dateInput: 'YYYY/MM/DD',
-        monthYearLabel: 'MMMM Y',
+        dateInput: 'YYYY-MM-DD',
+        monthYearLabel: 'YY-MM',
         dateA11yLabel: 'LL',
         monthYearA11yLabel: 'MMMM Y'
     }

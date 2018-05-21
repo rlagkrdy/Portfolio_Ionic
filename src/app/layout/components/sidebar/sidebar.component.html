@@ -7,7 +7,7 @@
             <li class="nested" [class.expand]="showMenu === 'user_admin'">
                 <ul class="submenu">
                     <li>
-                        <a href="javascript:void(0)">
+                        <a [routerLink]="['/user-list']" [routerLinkActive]="['router-link-active']">
                             <span>유효회원</span>
                         </a>
                     </li>

@@ -8,6 +8,7 @@ import { MaterialModule } from '../ThirdPartModule/material.module';
 import { YoGridComponent } from './yo-grid/yo-grid.component';
 import { YoSearchComponent } from './yo-search/yo-search.component';
 import { YoDetailComponent } from './yo-detail/yo-detail.component';
+import { YoCtrlModule } from '../yoService/ctrl/yoCtrl.module';
 
 @NgModule({
     declarations: [YoGridComponent, YoSearchComponent, YoDetailComponent],
@@ -16,8 +17,9 @@ import { YoDetailComponent } from './yo-detail/yo-detail.component';
         ReactiveFormsModule,
         FormsModule,
         AgGridModule.withComponents([YoGridComponent]),
-        MaterialModule
+        MaterialModule,
+        YoCtrlModule
     ],
-    exports: [YoGridComponent, YoSearchComponent, YoDetailComponent]
+    exports: [YoGridComponent, YoSearchComponent, YoDetailComponent, MaterialModule]
 })
 export class YoCompModule {}

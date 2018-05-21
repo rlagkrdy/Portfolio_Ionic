@@ -3,7 +3,7 @@
   [pagination]="usePage" [paginationPageSize]="pageSize" [suppressPaginationPanel]="true" (paginationChanged)="onPaginationChanged($event)"
   [suppressMovableColumns]="true" [localeText]="localeText"></ag-grid-angular>
 
-<div class="ag-grid-pagination">
+<div class="ag-grid-pagination" *ngIf="isShow">
 
   <div class="ag-grid-pagination-wrap">
     <div class="ag-grid-pagination-left">

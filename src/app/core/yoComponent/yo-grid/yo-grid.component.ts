@@ -14,8 +14,8 @@ import { ColumnApi, GridApi, GridOptions } from 'ag-grid/main';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { AgEvent } from 'ag-grid/dist/lib/events';
 import { Router } from '@angular/router';
-import { ParamsUtils } from '../../yoUtils/paramUtils';
 import { ColDef, ColGroupDef } from 'ag-grid/dist/lib/entities/colDef';
+import { ParamUtils } from '../../yoService/utils/params/param.service';
 
 @Component({
     selector: 'yo-grid',
@@ -23,8 +23,8 @@ import { ColDef, ColGroupDef } from 'ag-grid/dist/lib/entities/colDef';
     styleUrls: ['./yo-grid.component.scss']
 })
 export class YoGridComponent implements OnInit, OnChanges {
-    @Input() private columnDefs: object;
-    @Input() private rowData: object;
+    @Input() private columnDefs: (ColDef | ColGroupDef)[];
+    @Input() private rowData: Array<any>;
     @Input() private usePage: boolean = true;
     @Input() private pageSize: number = 10;
     @Input() private rowheight: number = 40;
@@ -40,13 +40,14 @@ export class YoGridComponent implements OnInit, OnChanges {
     private pages: Array<Array<number>> = [];
     private pagesIndex: number = 0;
     private pageSizeArr: Array<number> = [10, 25, 50];
-
     private localeText: object = {
         noRowsToShow: '데이터가 없습니다.',
         loadingOoo: '데이터 로딩중...'
     };
 
-    constructor(private _router: Router) {
+    private isShow: boolean = true;
+
+    constructor(private paramUtils: ParamUtils, private _router: Router) {
         const urlParams: object = this._router['currentUrlTree'].queryParams;
         if (urlParams['pages']) {
             this.pageHis = urlParams['pages'];
@@ -57,16 +58,21 @@ export class YoGridComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        if (!this.columnDefs) {
-            alert('columnDefs를 넘겨주세요!!!');
-            this.columnDefs = [];
-        }
+        this.valid();
     }
 
     ngOnChanges(_changes: SimpleChanges) {
         if (_changes.rowData && _changes.rowData.currentValue) {
             const length = _changes.rowData.currentValue.length;
             this.setGridPagination(length);
+        }
+    }
+
+    valid(): void {
+        if (!this.columnDefs) {
+            console.error('columnDefs를 넘겨주세요!!!');
+            this.isShow = false;
+            this.columnDefs = [];
         }
     }
 
@@ -88,11 +94,13 @@ export class YoGridComponent implements OnInit, OnChanges {
     }
 
     setGridPagination(_rowDataLength?: number): void {
+        // if (!this.yoGrid.api) {
+        //     return;
+        // }
+
         const gridApi: GridApi = this.yoGrid.api,
             totalItem: number =
-                _rowDataLength > 0
-                    ? _rowDataLength
-                    : gridApi.getDisplayedRowCount(),
+                _rowDataLength > 0 ? _rowDataLength : gridApi.getDisplayedRowCount(),
             demiNum: number = totalItem / this.pageSize;
 
         let pageArr: Array<number> = [];
@@ -110,8 +118,7 @@ export class YoGridComponent implements OnInit, OnChanges {
 
     pageSizeChange(_pageSize: number): void {
         const gridApi: GridApi = this.yoGrid.api,
-            bodyWidth =
-                gridApi['alignedGridsService'].columnController.bodyWidth;
+            bodyWidth = gridApi['alignedGridsService'].columnController.bodyWidth;
         this.pageSize = _pageSize;
 
         gridApi.paginationSetPageSize(this.pageSize);
@@ -153,18 +160,18 @@ export class YoGridComponent implements OnInit, OnChanges {
     }
 
     setPaginationActive(_currentNum: number): void {
-        this.pageNumber.filter((item, index, arr) => {
-            const demiNum = parseInt(item.nativeElement.innerHTML, 10);
-            if (demiNum === _currentNum) {
-                item.nativeElement.classList.add('active');
-            } else {
-                item.nativeElement.classList.remove('active');
-            }
-        });
+        const className: string = 'active';
+        setTimeout(() => {
+            this.pageNumber.filter(item => {
+                const demiNum: number = parseInt(item.nativeElement.innerHTML, 10),
+                    action: string = demiNum === _currentNum ? 'add' : 'remove';
+                item.nativeElement.classList[action](className);
+            });
+        }, 0);
     }
 
     setPagingArray(_currentNum: number): void {
-        let demiNum = _currentNum / 10 - 0.1;
+        let demiNum: number = _currentNum / 10 - 0.1;
         demiNum = demiNum < 0 ? 0 : Math.floor(demiNum);
         this.pagesIndex = demiNum;
     }
@@ -181,7 +188,7 @@ export class YoGridComponent implements OnInit, OnChanges {
         }
         const param = {};
         param[_paramName] = _currentNum;
-        ParamsUtils.setUrlHis(param);
+        this.paramUtils.setUrlHis(param);
     }
 
     excelDown(): void {

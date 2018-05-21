@@ -6,8 +6,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { LayoutModule } from './layout/layout.module';
 import { NgModuleFactoryLoader } from '@angular/core';
-import { LoginModule } from './login/login.module';
-import { NotFoundModule } from './not-found/not-found.module';
+import { LoginModule } from './page/login/login.module';
+import { NotFoundModule } from './page/not-found/not-found.module';
 
 declare var module;
 
@@ -18,14 +18,12 @@ describe('AppComponent', () => {
     let router: Router;
     let location: Location;
 
-    beforeEach(
-        async(() => {
-            TestBed.configureTestingModule({
-                imports: [AppRoutingModule, RouterTestingModule.withRoutes(routes)],
-                declarations: [AppComponent]
-            }).compileComponents();
-        })
-    );
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [AppRoutingModule, RouterTestingModule.withRoutes(routes)],
+            declarations: [AppComponent]
+        }).compileComponents();
+    }));
     // AppRoutingModule를 Import안시켜 주면 router-outlet태그에러 발생
     // router를 추가 해주었는데 경로가 안 잡혀 있으면 경로를 알수 없기 때문에
     // 기본 경로 추가

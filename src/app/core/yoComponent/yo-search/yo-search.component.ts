@@ -5,13 +5,19 @@ import {
     Output,
     ViewChild,
     EventEmitter,
-    ElementRef
+    ElementRef,
+    ViewChildren,
+    QueryList,
+    ContentChild
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Event } from '@angular/router/src/events';
 import { Router } from '@angular/router';
-import { ParamsUtils } from '../../yoUtils/paramUtils';
-import { MatCheckboxChange } from '@angular/material';
+import { MatCheckboxChange, MatCheckbox } from '@angular/material';
+import { ParamUtils } from '../../yoService/utils/params/param.service';
+import { CheckCtrl } from '../../yoService/ctrl/CheckCtrl';
+import { DateCtrl } from '../../yoService/ctrl/DateCtrl';
+import { SelRaCtrl } from '../../yoService/ctrl/SelRaCtrl';
 
 @Component({
     selector: 'yo-search',
@@ -21,75 +27,67 @@ import { MatCheckboxChange } from '@angular/material';
 export class YoSearchComponent implements OnInit {
     @Input() private searchObj: Array<SearchObj>;
     @Output() private searchClick: EventEmitter<object> = new EventEmitter<object>();
-
     @ViewChild('searchForm') searchForm: NgForm;
+    @ViewChildren(MatCheckbox) matchk: QueryList<MatCheckbox>;
+
+    @ContentChild(MatCheckbox) matchk2: MatCheckbox;
 
     private formIsShow: boolean = true;
 
     // 라우터로 부터 url 파람 가지고옴
-    constructor(private _router: Router, private element: ElementRef) {
-        const urlParams: object = this._router['currentUrlTree'].queryParams;
+    constructor(
+        private _paramUtils: ParamUtils,
+        private _router: Router,
+        private _element: ElementRef,
+        private _chkCtrl: CheckCtrl,
+        private _dateCtrl: DateCtrl,
+        private _selRaCtrl: SelRaCtrl
+    ) {
+        const urlParams: any = this._router['currentUrlTree'].queryParams;
         setTimeout(() => {
-            for (const key of Object.keys(urlParams)) {
-                const formObj: any = this.searchForm.controls;
-                if (formObj[key]) {
-                    formObj[key].setValue(urlParams[key]);
-                }
+            console.log('viewchild', this.searchForm);
+            console.log('content', this.matchk2);
+
+            if (!this.formIsShow) {
+                return;
             }
+            this._dateCtrl.do(this.searchObj, this.searchForm, this._dateCtrl.set);
+            this.formSet(urlParams, this.searchForm);
+            this._chkCtrl.do(this.searchObj, this.matchk, this.searchForm, this._chkCtrl.set);
         }, 0);
     }
-    ngOnInit(): void {
-        this.searchObj = this.checkDefaultValue(this.searchObj);
 
+    ngOnInit(): void {
+        this.searchObj = this._selRaCtrl.defaultValue(this.searchObj);
+        this.componentValid();
+    }
+    // search component validation
+    private componentValid(): void {
         if (
             !this.searchObj ||
             this.searchObj.length === 0 ||
-            this.searchObjDuplicate() === false ||
+            this.searchObjDuplicate(this.searchObj) === false ||
             this.searchObjValid() === false
         ) {
             this.formIsShow = false;
         }
     }
 
-    private checkDefaultValue(_searchObj: Array<SearchObj>): Array<SearchObj> {
-        const isTypes: RegExp = new RegExp(/select|radio|check/);
-        for (const keys in _searchObj) {
-            if (isTypes.test(_searchObj[keys]['type'])) {
-                const value = _searchObj[keys]['value'];
-                const data = _searchObj[keys]['data'];
-                if (value === '' || value === null) {
-                    _searchObj[keys]['value'] = data[0].value;
-                } else {
-                    const valueAr = data.filter((item: any, idx: number, arr: any[]) => {
-                        return item.value === value;
-                    });
-                    if (valueAr.length === 0) {
-                        _searchObj[keys]['value'] = data[0].value;
-                    }
-                }
-            }
+    // searchObj check duplicate
+    private searchObjDuplicate(_arr: Array<any>): boolean {
+        const result: boolean = _arr.some((pItem: any) => {
+            return _arr.filter(cItem => cItem.id === pItem.id).length > 1;
+        });
+
+        if (result) {
+            console.error('SearchObj에 중복되는 값이 있습니다.');
         }
-        return _searchObj;
+
+        return !result;
     }
 
-    private inputChange(aaa: MatCheckboxChange) {
-        console.log(aaa);
-    }
-
-    private searchObjDuplicate(): boolean {
-        for (let i = 0; i < this.searchObj.length; i += 1) {
-            const multiObj = this.searchObj.filter((item: SearchObj) => {
-                return this.searchObj[i].id === item.id;
-            });
-
-            if (multiObj.length > 1) {
-                console.error('searchObj에 중복되는 id값이 있습니다.');
-                return false;
-            }
-        }
-        return true;
-    }
-
+    // searchObj validation
+    // 만약 select, radio, check타입 일때 data객체 여부
     private searchObjValid(): boolean {
         const validObj = this.searchObj.filter((item: SearchObj, idx: number, arr: SearchObj[]) => {
             if (
@@ -99,41 +97,57 @@ export class YoSearchComponent implements OnInit {
                 return item;
             }
         });
-
         if (validObj.length > 0) {
-            console.error('select, radio,check타입은 data객체도 같이 넘겨줘야 합니다.');
+            console.error('select, radio, check타입은 data객체도 같이 넘겨줘야 합니다.');
             return false;
         }
-
         return true;
     }
 
+    // enter search
     private enterSearch(event: Event, form: NgForm) {
         if (event['which'] === 13) {
             this.search(form);
         }
     }
 
+    // form value setting
+    private formSet(_urlParams: any, _searchForm: NgForm) {
+        if (!_urlParams || !_searchForm) {
+            return;
+        }
+
+        const formObj: any = _searchForm.controls;
+
+        for (const key of Object.keys(_urlParams)) {
+            if (formObj[key]) {
+                formObj[key].setValue(_urlParams[key]);
+            }
+        }
+    }
+
+    // form value reset
     private reset(form: NgForm): void {
         const obj = {};
-        this.searchObj.forEach((item, index, array) => {
-            obj[item['id']] = '';
+        this._selRaCtrl.defaultValue(this.searchObj, this._selRaCtrl.reset).forEach(item => {
+            obj[item['id']] = item.value;
         });
 
         form.reset(obj);
-        ParamsUtils.resetUrlHis();
+        this._paramUtils.resetUrlHis();
         this.searchClick.emit(form);
     }
 
+    // search
     private search(form: NgForm): void {
         const param = form.value;
-        console.log(param);
+        this._chkCtrl.do(this.searchObj, this.matchk, this.searchForm, this._chkCtrl.get);
         for (const key in param) {
             if (param[key] && typeof param[key] === 'object') {
                 param[key] = param[key].format('YYYY-MM-DD');
             }
         }
-        ParamsUtils.setUrlHis(form.value);
+        this._paramUtils.setUrlHis(param);
         this.searchClick.emit(param);
     }
 }
