@@ -4,8 +4,8 @@ import { YoSearchComponent, SearchObj } from './yo-search.component';
 import { YoCompModule } from '../yoComp.module';
 import { By } from '@angular/platform-browser';
 import { MaterialModule } from '../../ThirdPartModule/material.module';
-import { DateCtrl } from '../../yoCtrl/DateCtrl';
 import { NgForm } from '@angular/forms';
+import { DateCtrl } from '../../yoService/ctrl/DateCtrl';
 
 let component: YoSearchComponent;
 let fixture: ComponentFixture<YoSearchComponent>;

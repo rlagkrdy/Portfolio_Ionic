@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './core/yoGuard/auth.guard';
 import { ParamUtils } from './core/yoService/utils/params/param.service';
 import { RegexUtils } from './core/yoService/utils/regex/regex.service';
+import { YoaxService } from './core/yoService/db/yoax.service';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
     imports: [
@@ -15,10 +17,11 @@ import { RegexUtils } from './core/yoService/utils/regex/regex.service';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        AppRoutingModule
+        AppRoutingModule,
+        HttpModule
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard, ParamUtils, RegexUtils],
+    providers: [AuthGuard, ParamUtils, RegexUtils, YoaxService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

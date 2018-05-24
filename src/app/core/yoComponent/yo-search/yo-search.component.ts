@@ -26,7 +26,8 @@ import { SelRaCtrl } from '../../yoService/ctrl/SelRaCtrl';
 })
 export class YoSearchComponent implements OnInit {
     @Input() private searchObj: Array<SearchObj>;
-    @Output() private searchClick: EventEmitter<object> = new EventEmitter<object>();
+    @Output()
+    private searchClick: EventEmitter<object> = new EventEmitter<object>();
     @ViewChild('searchForm') searchForm: NgForm;
     @ViewChildren(MatCheckbox) matchk: QueryList<MatCheckbox>;
 
@@ -45,15 +46,21 @@ export class YoSearchComponent implements OnInit {
     ) {
         const urlParams: any = this._router['currentUrlTree'].queryParams;
         setTimeout(() => {
-            console.log('viewchild', this.searchForm);
-            console.log('content', this.matchk2);
-
             if (!this.formIsShow) {
                 return;
             }
-            this._dateCtrl.do(this.searchObj, this.searchForm, this._dateCtrl.set);
+            this._dateCtrl.do(
+                this.searchObj,
+                this.searchForm,
+                this._dateCtrl.set
+            );
             this.formSet(urlParams, this.searchForm);
-            this._chkCtrl.do(this.searchObj, this.matchk, this.searchForm, this._chkCtrl.set);
+            this._chkCtrl.do(
+                this.searchObj,
+                this.matchk,
+                this.searchForm,
+                this._chkCtrl.set
+            );
         }, 0);
     }
 
@@ -89,16 +96,22 @@ export class YoSearchComponent implements OnInit {
     // searchObj validation
     // 만약 select, radio, check타입 일때 data객체 여부
     private searchObjValid(): boolean {
-        const validObj = this.searchObj.filter((item: SearchObj, idx: number, arr: SearchObj[]) => {
-            if (
-                (item.type === 'select' || item.type === 'radio' || item.type === 'check') &&
-                !item.data
-            ) {
-                return item;
+        const validObj = this.searchObj.filter(
+            (item: SearchObj, idx: number, arr: SearchObj[]) => {
+                if (
+                    (item.type === 'select' ||
+                        item.type === 'radio' ||
+                        item.type === 'check') &&
+                    !item.data
+                ) {
+                    return item;
+                }
             }
-        });
+        );
         if (validObj.length > 0) {
-            console.error('select, radio, check타입은 data객체도 같이 넘겨줘야 합니다.');
+            console.error(
+                'select, radio, check타입은 data객체도 같이 넘겨줘야 합니다.'
+            );
             return false;
         }
         return true;
@@ -118,30 +131,44 @@ export class YoSearchComponent implements OnInit {
         }
 
         const formObj: any = _searchForm.controls;
+        const keys: Array<string> = Object.keys(_urlParams),
+            values: Array<string> = Object.values(_urlParams);
 
-        for (const key of Object.keys(_urlParams)) {
-            if (formObj[key]) {
-                formObj[key].setValue(_urlParams[key]);
+        keys.forEach((item: string, idx: number) => {
+            if (formObj[item]) {
+                formObj[item].setValue(decodeURI(values[idx]));
             }
-        }
+        });
     }
 
     // form value reset
     private reset(form: NgForm): void {
         const obj = {};
-        this._selRaCtrl.defaultValue(this.searchObj, this._selRaCtrl.reset).forEach(item => {
-            obj[item['id']] = item.value;
-        });
+        this._selRaCtrl
+            .defaultValue(this.searchObj, this._selRaCtrl.reset)
+            .forEach(item => {
+                if (item.type === 'date') {
+                    obj[item['id'] + '_ST'] = item.value;
+                    obj[item['id'] + '_ED'] = item.value;
+                }
+                obj[item['id']] = item.value;
+            });
 
         form.reset(obj);
         this._paramUtils.resetUrlHis();
-        this.searchClick.emit(form);
+
+        this.searchClick.emit(form.value);
     }
 
     // search
     private search(form: NgForm): void {
-        const param = form.value;
-        this._chkCtrl.do(this.searchObj, this.matchk, this.searchForm, this._chkCtrl.get);
+        const param: any = form.value;
+        this._chkCtrl.do(
+            this.searchObj,
+            this.matchk,
+            this.searchForm,
+            this._chkCtrl.get
+        );
         for (const key in param) {
             if (param[key] && typeof param[key] === 'object') {
                 param[key] = param[key].format('YYYY-MM-DD');

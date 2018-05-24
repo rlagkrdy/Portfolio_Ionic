@@ -30,8 +30,11 @@ export class DaumPostService {
 
     private setPostData(data): void {
         // (R)도로명 주소, (J)지번 주소
-        data.userSelectAddr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
-        this.geocoder.geocode({ address: data.userSelectAddr }, this.setGoogleLngLat);
+        data.userSelectAddr =
+            data.userSelectedType === 'R'
+                ? data.roadAddress
+                : data.jibunAddress;
+        // this.geocoder.geocode({ address: data.userSelectAddr }, this.setGoogleLngLat);
         this.setEleValue(data);
     }
 

@@ -94,13 +94,11 @@ export class YoGridComponent implements OnInit, OnChanges {
     }
 
     setGridPagination(_rowDataLength?: number): void {
-        // if (!this.yoGrid.api) {
-        //     return;
-        // }
-
         const gridApi: GridApi = this.yoGrid.api,
-            totalItem: number =
-                _rowDataLength > 0 ? _rowDataLength : gridApi.getDisplayedRowCount(),
+            gridRowCount: number = gridApi ? gridApi.getDisplayedRowCount() : 0;
+
+        const totalItem: number =
+                _rowDataLength > 0 ? _rowDataLength : gridRowCount,
             demiNum: number = totalItem / this.pageSize;
 
         let pageArr: Array<number> = [];
@@ -118,7 +116,8 @@ export class YoGridComponent implements OnInit, OnChanges {
 
     pageSizeChange(_pageSize: number): void {
         const gridApi: GridApi = this.yoGrid.api,
-            bodyWidth = gridApi['alignedGridsService'].columnController.bodyWidth;
+            bodyWidth =
+                gridApi['alignedGridsService'].columnController.bodyWidth;
         this.pageSize = _pageSize;
 
         gridApi.paginationSetPageSize(this.pageSize);
@@ -163,7 +162,10 @@ export class YoGridComponent implements OnInit, OnChanges {
         const className: string = 'active';
         setTimeout(() => {
             this.pageNumber.filter(item => {
-                const demiNum: number = parseInt(item.nativeElement.innerHTML, 10),
+                const demiNum: number = parseInt(
+                        item.nativeElement.innerHTML,
+                        10
+                    ),
                     action: string = demiNum === _currentNum ? 'add' : 'remove';
                 item.nativeElement.classList[action](className);
             });

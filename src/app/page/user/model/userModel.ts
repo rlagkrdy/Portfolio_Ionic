@@ -21,7 +21,7 @@ export class UserListModel {
             ]
         },
         {
-            id: 'USR_KEYWORD',
+            id: 'KEYWORD',
             name: '키워드',
             type: 'input',
             value: ''
@@ -34,7 +34,7 @@ export class UserListModel {
         { headerName: '연락처', field: 'USR_TEL', width: 150 },
         { headerName: 'SNS여부', field: 'USR_SNS_WAY', width: 100 },
         { headerName: '예약횟수', field: '', width: 100 },
-        { headerName: '가입일시', field: 'USR_CREATE', width: 100 }
+        { headerName: '가입일시', field: 'USR_CREATE_NM', width: 100 }
     ];
 }
 

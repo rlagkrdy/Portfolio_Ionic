@@ -1,0 +1,22 @@
+<div class="yo-page-layer" fusePerfectScrollbar>
+
+  <div class="yo-page-top">
+    <h1>회원관리 > 회원상세</h1>
+  </div>
+
+  <div class="yo-page-middle">
+
+    <!-- <app-yo-detail [detailObj]="usrObj" [detailObjData]="usrData"></app-yo-detail> -->
+
+    <div class="yo-btn-row">
+      <div class="yo-btn-left">
+        <button mat-raised-button class="default" (click)="backToList()">목록</button>
+      </div>
+      <div class="yo-btn-right">
+        <button mat-raised-button class="negative btn-color" (click)="commonAction('delete')">탈퇴</button>
+        <button mat-raised-button class="mainCta btn-color" (click)="commonAction('update')">수정</button>
+        <button mat-raised-button class="mainCta btn-color" (click)="commonAction('insert')">등록</button>
+      </div>
+    </div>
+  </div>
+</div>
