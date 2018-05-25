@@ -1,5 +1,7 @@
 <div class="yo_wrap">
-    <div class="yo-search-header">회원관리 > 유효회원</div>
+    <div class="yo-search-header">
+        <h1>회원관리 > 유효회원</h1>
+    </div>
 
     <div class="yo-search-require">
         <yo-search [searchObj]="searchObj" (searchClick)="searchClick($event)"></yo-search>
@@ -8,7 +10,7 @@
     <div class="yo-search-grid">
         <div class="yo-btn-row">
             <div class="yo-btn-right">
-                <button mat-raised-button class="green btn-color">등록</button>
+                <button mat-raised-button class="green btn-color" (click)="insertUsr()">등록</button>
             </div>
         </div>
         <yo-grid [columnDefs]="columnDefs" [rowData]="rowData" (cellClick)="cellClick($event)"></yo-grid>

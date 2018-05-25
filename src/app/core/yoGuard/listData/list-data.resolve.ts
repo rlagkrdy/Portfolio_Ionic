@@ -15,8 +15,17 @@ export class ListDataResolve implements Resolve<any> {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<any> {
+        let param: any;
+        if (route.params) {
+            param = Object.assign(route.params);
+        }
+        if (route.queryParams) {
+            param = Object.assign(param, route.queryParams);
+        }
+        console.log(param);
+
         let url: string = route.routeConfig.path.split('-list')[0];
         url = '/' + url + '/';
-        return this._as.yoax(url, 'get', route.queryParams);
+        return this._as.yoax(url, 'get', param);
     }
 }

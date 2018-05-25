@@ -7,6 +7,7 @@ import { UserListComponent } from '../page/user/list/user-list.component';
 import { ListDataResolve } from '../core/yoGuard/listData/list-data.resolve';
 import { UserDetailComponent } from '../page/user/detail/user-detail.component';
 import { DetailDataResolve } from '../core/yoGuard/detailData/detail-data.resolve';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
     {
@@ -27,6 +28,10 @@ const routes: Routes = [
                 path: 'usr-detail/:id',
                 component: UserDetailComponent,
                 resolve: { DetailResolve: DetailDataResolve }
+            },
+            {
+                path: 'usr-detail',
+                component: UserDetailComponent
             }
         ]
     }
@@ -35,7 +40,7 @@ const routes: Routes = [
 @NgModule({
     declarations: [BlankPageComponent, UserListComponent, UserDetailComponent],
     providers: [ListDataResolve, DetailDataResolve],
-    imports: [RouterModule.forChild(routes), YoCompModule],
+    imports: [CommonModule, RouterModule.forChild(routes), YoCompModule],
     exports: [RouterModule]
 })
 export class LayoutRoutingModule {}

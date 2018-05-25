@@ -30,8 +30,11 @@ export class UserListComponent implements OnInit {
     ngOnInit(): void {}
 
     cellClick(params: any): void {
-        console.log(params);
         this._router.navigate(['usr-detail/' + params.data.USR_KEY]);
+    }
+
+    insertUsr(): void {
+        this._router.navigate(['usr-detail']);
     }
 
     searchClick(params: any): void {

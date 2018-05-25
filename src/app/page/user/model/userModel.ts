@@ -1,4 +1,5 @@
 import { ColDef, ColGroupDef } from 'ag-grid';
+import { CommonCode } from '../../../commonCode';
 
 export class UserListModel {
     searchObj: Array<object> = [
@@ -13,12 +14,7 @@ export class UserListModel {
             name: 'SNS여부',
             type: 'radio',
             value: '',
-            data: [
-                { name: '전체', value: '' },
-                { name: '네이버', value: 'NAVER' },
-                { name: '페이스북', value: 'FACE' },
-                { name: '구글', value: 'GOOGLE' }
-            ]
+            data: CommonCode.getCode('sns')
         },
         {
             id: 'KEYWORD',
@@ -38,4 +34,57 @@ export class UserListModel {
     ];
 }
 
-export class UserDetailModel {}
+export class UserDetailModel {
+    usrObj: Array<object> = [
+        {
+            name: '회원명',
+            id: 'USR_NAME',
+            type: 'input',
+            value: '',
+            required: true
+        },
+        {
+            name: '아이디',
+            id: 'USR_ID',
+            type: 'input',
+            value: '',
+            required: true
+        },
+        {
+            name: '휴대폰번호',
+            id: 'USR_TEL',
+            type: 'input',
+            value: '',
+            required: true
+        },
+        {
+            name: 'SNS경로',
+            id: 'USR_SNS_WAY',
+            type: 'select',
+            value: '',
+            required: true,
+            data: CommonCode.getCode('sns')
+        },
+        {
+            name: '예약횟수',
+            id: 'USR',
+            type: 'input',
+            value: ''
+            // required: true
+        },
+        {
+            name: '사용횟수',
+            id: 'USR',
+            type: 'input',
+            value: ''
+            // required: true
+        },
+        {
+            name: '가입일시',
+            id: 'USR_CREATE',
+            type: 'date',
+            value: '',
+            disable: true
+        }
+    ];
+}

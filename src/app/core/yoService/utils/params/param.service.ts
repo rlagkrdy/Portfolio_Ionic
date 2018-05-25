@@ -29,26 +29,32 @@ export class ParamUtils {
     // json object convert to url string param
     public objConvertToUrlStr(queryObj: any): string {
         let str: string = '?';
-        str += this.convertString(queryObj, '=', '&');
+        str += this.queryObjConvertString(queryObj, '=', '&');
         return str;
-    }
-
-    private convertString(queryObj: any, joinDemi1: string = '', joinDemi2: string = '') {
-        return Object.keys(queryObj)
-            .map(prop => {
-                return [prop, queryObj[prop]].map(encodeURIComponent).join(joinDemi1);
-            })
-            .join(joinDemi2);
     }
 
     // json object convert to location search string
     public objConvertToSearch(queryObj: object): string {
-        const str = this.convertString(queryObj, '=', '&');
+        const str = this.queryObjConvertString(queryObj, '=', '&');
         return str;
     }
 
+    private queryObjConvertString(
+        queryObj: any,
+        joinDemi1: string = '',
+        joinDemi2: string = ''
+    ) {
+        return Object.keys(queryObj)
+            .map(prop => {
+                return [prop, queryObj[prop]]
+                    .map(encodeURIComponent)
+                    .join(joinDemi1);
+            })
+            .join(joinDemi2);
+    }
+
     // angular form Filter
-    public formFilter(_forms: NgForm, _filter: string): boolean {
+    public formFilter(_forms: NgForm, _filter?: string): boolean {
         const idObj: any = _forms['_directives'].filter(obj => {
                 if ('name' in obj && obj['name'] === _filter) {
                     return true;
@@ -56,66 +62,58 @@ export class ParamUtils {
                     return false;
                 }
             }),
-            isValid: boolean = this.formValid(idObj);
+            isValid: boolean = this.customFormValid(idObj);
         return isValid;
     }
 
-    // form 유효성 검사
-    public formValid(formArr: Array<any>): boolean {
-        let isVaild: boolean = true;
-        formArr.forEach((item, index, arr) => {
-            const errorObj = item.errors,
-                targetEle: any = document.querySelector('#' + item.name);
-            if (!targetEle) {
-                alert(`${item.name}의 id와 name은 같아야 합니다.`);
-                return;
+    // custom form 유효성 검사
+    public customFormValid(formArr: Array<any>): boolean {
+        const result: boolean = !formArr.some(item => item.errors !== null);
+        if (result) {
+            return true;
+        }
+
+        const firstFilter = formArr
+            .filter(item => item.errors !== null)
+            .reduce(this.makeTargetOption.bind(this), [])
+            .some(this.formSwal);
+
+        return result;
+    }
+
+    private makeTargetOption(preItem: Array<any>, currItem: any): Array<any> {
+        const targetEle: any = document.querySelector('#' + currItem.name);
+        const option = {
+            errorOption: currItem.errors,
+            targetEle: targetEle,
+            patternName: targetEle.getAttribute('data-patterns'),
+            targetName: this.koreanWordLastValid(
+                targetEle.getAttribute('data-target')
+            ),
+            actionName: targetEle.tagName !== 'INPUT' ? '선택' : '입력'
+        };
+        preItem.push(option);
+        return preItem;
+    }
+
+    private formSwal(item): void {
+        Object.keys(item.errorOption).forEach(key => {
+            let msg: string;
+            if (key === 'required') {
+                msg = `${item.targetName} ${item.actionName}해주시기 바랍니다`;
             }
-
-            const isRequired: any = targetEle.getAttribute('required'),
-                patternName: string = targetEle.getAttribute('data-patterns');
-            let targetName: string = targetEle.getAttribute('data-target'),
-                actionName: string = '입력';
-
-            if (isRequired === null) {
-                return;
-            }
-
-            if (!targetName) {
-                alert(
-                    `${item.name}에 validation대상에 data-target속성으로 명칭을 같이 넘겨주세요.`
-                );
-                return;
-            }
-
-            targetName = this.koreanWordLastValid(targetName);
-
-            if (targetEle.tagName !== 'INPUT') {
-                actionName = '선택';
-            }
-
-            for (const key of Object.keys(errorObj)) {
-                let msg: string;
-                if (key === 'required') {
-                    msg = `${targetName} ${actionName}해주시기 바랍니다`;
+            if (key === 'pattern') {
+                msg = `${item.targetName} 형식의 맞게 ${
+                    item.actionName
+                }해주시기 바랍니다`;
+                if (item.patternName) {
+                    msg = this.ru.getErrMsg(item.patternName);
                 }
-                if (key === 'pattern') {
-                    msg = `${targetName} 형식의 맞게 ${actionName}해주시기 바랍니다`;
-                    if (patternName) {
-                        msg = this.ru.getErrMsg(patternName);
-                    }
-                }
-                swal('', msg, 'error').then(() => {
-                    targetEle.focus();
-                });
-                isVaild = false;
-                return;
             }
-            if (!isVaild) {
-                return false;
-            }
+            swal('', msg, 'error').then(() => {
+                item.targetEle.focus();
+            });
         });
-
-        return isVaild;
     }
 
     // url Parameter Setting 및 location reloadState 처리
@@ -165,7 +163,9 @@ export class ParamUtils {
 
     public moneyFommat(_money: string | number): string {
         if (_money !== null || _money !== '') {
-            return _money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원';
+            return (
+                _money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원'
+            );
         } else {
             return '0원';
         }

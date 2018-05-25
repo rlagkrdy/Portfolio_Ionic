@@ -24,19 +24,23 @@ $btn-basic: #fff;
     }
 }
 :host /deep/ {
-    .yo-search-header {
-        font-size: 16px !important;
-        margin-top: 0px;
-        margin-bottom: 10px;
-        @media screen and (max-width: $mobile-max) {
-            font-size: 14px !important;
+    .yo-search-header,
+    .yo-detail-top {
+        > h1 {
+            font-size: 16px !important;
+            margin-top: 0px;
+            margin-bottom: 10px;
+            @media screen and (max-width: $mobile-max) {
+                font-size: 14px !important;
+            }
         }
     }
-    .yo-search-require {
+    .yo-search-require,
+    .yo-detail-middle {
         position: relative;
         background-color: #fff;
-        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-            0 1px 10px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+            0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
         padding: 20px;
         @media screen and (max-width: $mobile-max) {
             padding: 16px;
@@ -44,8 +48,8 @@ $btn-basic: #fff;
     }
     .yo-search-grid {
         background-color: #fff;
-        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-            0 1px 10px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+            0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
         margin-top: 30px;
         padding: 20px;
     }
@@ -125,6 +129,7 @@ $btn-basic: #fff;
         display: flex;
         flex-direction: row;
         margin: 0 10px;
+        margin-top: 15px;
         @media screen and (max-width: $mobile-max) {
             margin: 0px;
         }
@@ -141,13 +146,11 @@ $btn-basic: #fff;
             min-width: 100px;
             outline: none;
             @media screen and (max-width: $mobile-max) {
+                min-width: 60px;
                 font-size: 12px;
                 width: 40px;
                 padding: 0px;
             }
-        }
-        button:nth-child(2n + 0) {
-            margin-left: 10px;
         }
         button.btn-color {
             color: white;
@@ -174,5 +177,8 @@ $btn-basic: #fff;
             background-color: $btn-basic;
             color: black;
         }
+    }
+    .ml10 {
+        margin-left: 10px;
     }
 }
