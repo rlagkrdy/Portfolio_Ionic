@@ -8,6 +8,7 @@ import { ListDataResolve } from '../core/yoGuard/listData/list-data.resolve';
 import { UserDetailComponent } from '../page/user/detail/user-detail.component';
 import { DetailDataResolve } from '../core/yoGuard/detailData/detail-data.resolve';
 import { CommonModule } from '@angular/common';
+import { ModelDataResolve } from '../core/yoGuard/modelData/model-data.resolve';
 
 const routes: Routes = [
     {
@@ -17,12 +18,18 @@ const routes: Routes = [
             {
                 path: 'blank-page',
                 component: BlankPageComponent,
-                resolve: { ListResolve: ListDataResolve }
+                resolve: {
+                    ListResolve: ListDataResolve,
+                    modelResolve: ModelDataResolve
+                }
             },
             {
                 path: 'usr-list',
                 component: UserListComponent,
-                resolve: { ListResolve: ListDataResolve }
+                resolve: {
+                    ListResolve: ListDataResolve,
+                    modelResolve: ModelDataResolve
+                }
             },
             {
                 path: 'usr-detail/:id',
@@ -39,7 +46,7 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [BlankPageComponent, UserListComponent, UserDetailComponent],
-    providers: [ListDataResolve, DetailDataResolve],
+    providers: [ListDataResolve, DetailDataResolve, ModelDataResolve],
     imports: [CommonModule, RouterModule.forChild(routes), YoCompModule],
     exports: [RouterModule]
 })

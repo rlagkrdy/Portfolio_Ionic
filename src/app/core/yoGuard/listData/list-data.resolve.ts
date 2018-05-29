@@ -6,23 +6,27 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { YoaxService } from '../../yoService/db/yoax.service';
+import { ParamUtils } from '../../yoService/utils/params/param.service';
 
 @Injectable()
 export class ListDataResolve implements Resolve<any> {
-    constructor(private _as: YoaxService) {}
+    constructor(private _as: YoaxService, private _paramUtils: ParamUtils) {}
 
     resolve(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<any> {
-        let param: any;
-        if (route.params) {
-            param = Object.assign(route.params);
+        const param: any = {};
+        for (const key in route.params) {
+            if (route.params[key]) {
+                param[key] = route.params[key];
+            }
         }
-        if (route.queryParams) {
-            param = Object.assign(param, route.queryParams);
+        for (const key in route.queryParams) {
+            if (route.queryParams[key]) {
+                param[key] = route.queryParams[key];
+            }
         }
-        console.log(param);
 
         let url: string = route.routeConfig.path.split('-list')[0];
         url = '/' + url + '/';

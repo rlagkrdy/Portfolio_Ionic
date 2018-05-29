@@ -66,6 +66,15 @@ export class YoGridComponent implements OnInit, OnChanges {
             const length = _changes.rowData.currentValue.length;
             this.setGridPagination(length);
         }
+        if (_changes.columnDefs) {
+            if (this.yoGrid.api) {
+                const bodyWidth = this.yoGrid.api['columnController']
+                    .scrollWidth;
+                setTimeout(() => {
+                    this.gridColumnsFit(bodyWidth);
+                }, 0);
+            }
+        }
     }
 
     valid(): void {
@@ -116,8 +125,7 @@ export class YoGridComponent implements OnInit, OnChanges {
 
     pageSizeChange(_pageSize: number): void {
         const gridApi: GridApi = this.yoGrid.api,
-            bodyWidth =
-                gridApi['alignedGridsService'].columnController.bodyWidth;
+            bodyWidth = gridApi['columnController'].bodyWidth;
         this.pageSize = _pageSize;
 
         gridApi.paginationSetPageSize(this.pageSize);

@@ -54,6 +54,7 @@ export class UserDetailComponent implements OnInit {
 
     private getActionOption(_type: string): any {
         const actionOption: any = {
+            type: _type,
             targetName: this.name,
             actionName: '등록',
             requestType: 'post',
@@ -71,31 +72,44 @@ export class UserDetailComponent implements OnInit {
             actionOption.actionName = '탈퇴';
             actionOption.requestType = 'put';
             actionOption.requestUrl += this.num;
+        } else if (_type === 'restore') {
+            actionOption.actionName = '복원';
+            actionOption.requestType = 'put';
+            actionOption.requestUrl += this.num;
         }
         return actionOption;
     }
 
     private detailDo(_type: string): void {
-        const actionOption: any = this.getActionOption(_type),
-            params: object = this._ydc.detailForm.value;
+        const actionOption: any = this.getActionOption(_type);
+        let params: object = this._ydc.detailForm.value;
         let isVaild: boolean = true;
 
-        if (
-            actionOption.requestType === 'post' ||
-            actionOption.requestType === 'put'
-        ) {
+        if (actionOption.type === 'insert' || actionOption.type === 'update') {
             const formArr: any = this._ydc.detailForm['_directives'];
             isVaild = this._pu.customFormValid(formArr);
         }
-
         if (!isVaild) {
             return;
+        }
+        if (actionOption.type === 'restore') {
+            params = {
+                USR_STATE: 2,
+                USR_DELETE_DATE: 'NOW'
+            };
+        }
+        if (actionOption.type === 'leave') {
+            params = {
+                USR_STATE: 1
+            };
         }
 
         this.confirm(actionOption, params);
     }
 
     private confirm(actionOption: any, params: any): void {
+        console.log('actionOption', actionOption);
+        console.log('params', params);
         swal({
             title: `${actionOption.targetName} ${
                 actionOption.actionName

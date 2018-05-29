@@ -13,7 +13,7 @@
         <button mat-raised-button class="default" (click)="backToList()">목록</button>
       </div>
       <div class="yo-btn-right">
-        <button *ngIf="!isInsert" mat-raised-button class="negative btn-color" (click)="detailDo('delete')">탈퇴</button>
+        <button *ngIf="!isInsert" mat-raised-button class="negative btn-color" (click)="detailDo('leave')">탈퇴</button>
         <button *ngIf="!isInsert" mat-raised-button class="mainCta btn-color ml10" (click)="detailDo('update')">수정</button>
         <button *ngIf="isInsert" mat-raised-button class="mainCta btn-color ml10" (click)="detailDo('insert')">등록</button>
       </div>

@@ -12,22 +12,47 @@ import { Route } from '@angular/compiler/src/core';
 })
 export class UserListComponent implements OnInit {
     private model: UserListModel = new UserListModel();
-    private searchObj: Array<object> = this.model.searchObj;
-    private columnDefs: (ColDef | ColGroupDef)[] = this.model.columnDefs;
+    private searchObj: Array<object> = [];
+    private columnDefs: (ColDef | ColGroupDef)[] = [];
+    public titles: string = '';
 
     private rowData: Array<any> = [];
 
+    private checkBool: RegExp = /true|false/;
+    private isInsert: boolean = false;
+
+    private subParam: any;
     constructor(
         private _ys: YoaxService,
         private _ar: ActivatedRoute,
         private _router: Router
     ) {
         this._ar.data.subscribe(data => {
+            this.setDefaultData(data.modelResolve);
+
             this.rowData = JSON.parse(data.ListResolve._body);
+        });
+        this._ar.params.subscribe(data => {
+            this.subParam = data;
+            for (const key in data) {
+                if (this.hasOwnProperty(key)) {
+                    this[key] = this.checkBool.test(data[key])
+                        ? JSON.parse(data[key])
+                        : data[key];
+                }
+            }
         });
     }
 
     ngOnInit(): void {}
+
+    setDefaultData(data: any): void {
+        for (const key in data) {
+            if (this.hasOwnProperty(key)) {
+                this[key] = data[key];
+            }
+        }
+    }
 
     cellClick(params: any): void {
         this._router.navigate(['usr-detail/' + params.data.USR_KEY]);
@@ -38,6 +63,11 @@ export class UserListComponent implements OnInit {
     }
 
     searchClick(params: any): void {
+        for (const key in this.subParam) {
+            if (this.subParam[key]) {
+                params[key] = this.subParam[key];
+            }
+        }
         this._ys.yoax('/usr/', 'get', params).subscribe(result => {
             this.rowData = JSON.parse(result._body);
         });
