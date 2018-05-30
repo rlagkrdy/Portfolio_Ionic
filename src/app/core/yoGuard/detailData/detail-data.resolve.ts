@@ -15,8 +15,6 @@ export class DetailDataResolve implements Resolve<any> {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<any> {
-        console.log(route);
-
         let url: string = route.routeConfig.path.split('-detail/:id')[0];
         url = '/' + url + '/' + route.params.id;
         return this._as.yoax(url, 'get', route.queryParams);

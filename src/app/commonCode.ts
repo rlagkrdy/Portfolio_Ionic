@@ -1,15 +1,15 @@
 export class CommonCode {
     public static getTitle(_type): string {
         let result: string;
-        if (_type === 'usr') {
+        if (_type === '/usr/') {
             result = '회원';
-        } else if (_type === 'comp') {
+        } else if (_type === '/comp/') {
             result = '회사';
-        } else if (_type === 'prod') {
+        } else if (_type === '/prod/') {
             result = '상품';
-        } else if (_type === 'reserv') {
+        } else if (_type === '/reserv/') {
             result = '예약';
-        } else if (_type === 'room') {
+        } else if (_type === '/room/') {
             result = '스터디룸';
         }
         return result;
@@ -25,9 +25,19 @@ export class CommonCode {
                 { name: '구글', value: 'GOOGLE' }
             ];
         } else if (_type === 'prod') {
-            result = [];
+            result = [
+                { name: '전체', value: '' },
+                { name: '음료', value: '1' },
+                { name: '과자', value: '2' }
+            ];
         } else if (_type === 'reserv') {
-            result = [];
+            result = [
+                { name: '전체', value: '' },
+                { name: '예약대기', value: '1' },
+                { name: '예약완료', value: '2' },
+                { name: '예약취소', value: '3' },
+                { name: '예약거절', value: '4' }
+            ];
         }
         return result;
     }

@@ -7,32 +7,34 @@
             <li class="nested" [class.expand]="showMenu === 'user_admin'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/usr-list', {titles : 'usrList', USR_STATE : 1, isInsert : true}]" [routerLinkActive]="['router-link-active']">
+                        <a [routerLink]="['/usr-list', {type : 'usrList', USR_STATE : 1, isInsert : true}]" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-user"></i>&nbsp;
                             <span>유효회원</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/usr-list', {titles : 'usrDeleteList', USR_STATE : 2, isInsert : false}]" [routerLinkActive]="['router-link-active']">
+                        <a [routerLink]="['/usr-list-delete', {type : 'usrDeleteList', USR_STATE : 2, isInsert : false}]" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-user"></i>&nbsp;
                             <span>탈퇴회원</span>
                         </a>
                     </li>
                 </ul>
             </li>
 
-            <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-                <i class="fa fa-file-o"></i>&nbsp;스터디룸 관리
+            <a [routerLink]="['/room-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-archive"></i>&nbsp;스터디룸 관리
             </a>
 
-            <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-                <i class="fa fa-file-o"></i>&nbsp;상품 관리
+            <a [routerLink]="['/prod-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-sitemap"></i>&nbsp;상품 관리
             </a>
 
-            <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-                <i class="fa fa-file-o"></i>&nbsp;예약 관리
+            <a [routerLink]="['/reserv-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-clock-o"></i>&nbsp;예약 관리
             </a>
 
-            <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-                <i class="fa fa-file-o"></i>&nbsp;설정 관리
+            <a [routerLink]="['/setting-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-cog"></i>&nbsp;설정 관리
             </a>
 
         </div>

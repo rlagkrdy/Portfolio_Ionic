@@ -31,7 +31,7 @@
         <!-- DATE -->
         <div class="yo-date-row" *ngIf='item.type === "date"'>
           <input type="text" class="yo-control" [matDatepicker]="yoDateSt" placeholder="시작일" (click)="yoDateSt.open()" [name]='item.id'
-            [id]='item.id' [attr.data-target]="item.name" [required]="item.required" [disabled]="item.disable" [(ngModel)]="item.value">
+            [id]='item.id' [attr.data-target]="item.name" [required]="item.required" [disabled]="item.disable" ngModel>
           <mat-datepicker-toggle matSuffix [for]="yoDateSt"></mat-datepicker-toggle>
           <mat-datepicker #yoDateSt></mat-datepicker>
         </div>

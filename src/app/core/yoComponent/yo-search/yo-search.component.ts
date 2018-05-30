@@ -52,7 +52,7 @@ export class YoSearchComponent implements OnInit {
             this._dateCtrl.do(
                 this.searchObj,
                 this.searchForm,
-                this._dateCtrl.set
+                this._dateCtrl.setRange
             );
             this.formSet(urlParams, this.searchForm);
             this._chkCtrl.do(
@@ -169,11 +169,13 @@ export class YoSearchComponent implements OnInit {
             this.searchForm,
             this._chkCtrl.get
         );
+
         for (const key in param) {
             if (param[key] && typeof param[key] === 'object') {
                 param[key] = param[key].format('YYYY-MM-DD');
             }
         }
+
         this._paramUtils.setUrlHis(param);
         this.searchClick.emit(param);
     }

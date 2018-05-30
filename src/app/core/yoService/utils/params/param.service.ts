@@ -5,7 +5,7 @@ import { RegexUtils } from '../regex/regex.service';
 
 @Injectable()
 export class ParamUtils {
-    constructor(private ru: RegexUtils) {}
+    constructor() {}
 
     // url string param convert to json object
     public urlStrParseToObj(queryString: string): any {
@@ -53,69 +53,6 @@ export class ParamUtils {
             .join(joinDemi2);
     }
 
-    // angular form Filter
-    public formFilter(_forms: NgForm, _filter?: string): boolean {
-        const idObj: any = _forms['_directives'].filter(obj => {
-                if ('name' in obj && obj['name'] === _filter) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }),
-            isValid: boolean = this.customFormValid(idObj);
-        return isValid;
-    }
-
-    // custom form 유효성 검사
-    public customFormValid(formArr: Array<any>): boolean {
-        const result: boolean = !formArr.some(item => item.errors !== null);
-        if (result) {
-            return true;
-        }
-
-        const firstFilter = formArr
-            .filter(item => item.errors !== null)
-            .reduce(this.makeTargetOption.bind(this), [])
-            .some(this.formSwal);
-
-        return result;
-    }
-
-    private makeTargetOption(preItem: Array<any>, currItem: any): Array<any> {
-        const targetEle: any = document.querySelector('#' + currItem.name);
-        const option = {
-            errorOption: currItem.errors,
-            targetEle: targetEle,
-            patternName: targetEle.getAttribute('data-patterns'),
-            targetName: this.koreanWordLastValid(
-                targetEle.getAttribute('data-target')
-            ),
-            actionName: targetEle.tagName !== 'INPUT' ? '선택' : '입력'
-        };
-        preItem.push(option);
-        return preItem;
-    }
-
-    private formSwal(item): void {
-        Object.keys(item.errorOption).forEach(key => {
-            let msg: string;
-            if (key === 'required') {
-                msg = `${item.targetName} ${item.actionName}해주시기 바랍니다`;
-            }
-            if (key === 'pattern') {
-                msg = `${item.targetName} 형식의 맞게 ${
-                    item.actionName
-                }해주시기 바랍니다`;
-                if (item.patternName) {
-                    msg = this.ru.getErrMsg(item.patternName);
-                }
-            }
-            swal('', msg, 'error').then(() => {
-                item.targetEle.focus();
-            });
-        });
-    }
-
     // url Parameter Setting 및 location reloadState 처리
     public setUrlHis(paramObj: any): void {
         let changeUrl: string = window.location.pathname,
@@ -148,6 +85,7 @@ export class ParamUtils {
 
     // 한국어 단어 을를 구분
     public koreanWordLastValid(_word: string): string {
+        console.log(_word);
         let word = _word;
         const lastChar = word.charCodeAt(word.length - 1),
             seletedValue = (lastChar - 0xac00) % 28 > 0 ? '을' : '를';
@@ -159,15 +97,5 @@ export class ParamUtils {
     public strIfNull(_str: string, _text?: string): string {
         const ct: string = _text ? _text : '';
         return _str ? _str : '' + ct + '';
-    }
-
-    public moneyFommat(_money: string | number): string {
-        if (_money !== null || _money !== '') {
-            return (
-                _money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원'
-            );
-        } else {
-            return '0원';
-        }
     }
 }

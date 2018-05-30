@@ -5,27 +5,34 @@ import {
     RouterStateSnapshot
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { UserListModel } from '../../../page/user/model/userModel';
 import { of } from 'rxjs/observable/of';
+import { ProjectModel } from '../../../model/project-model';
 
 @Injectable()
 export class ModelDataResolve implements Resolve<any> {
-    private model = new UserListModel();
-    constructor() {}
+    constructor(private _pm: ProjectModel) {}
 
     resolve(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<any> {
-        const modelOption = {};
+        const urlPath: string = route.routeConfig.path.split('-')[0];
+        let listOption: any = {};
 
-        modelOption['searchObj'] = this.model.getSearchObj(route.params.titles);
-        modelOption['columnDefs'] = this.model.getColumDef(route.params.titles);
-        modelOption['titles'] =
-            route.params.titles === 'usrList'
-                ? '회원관리 > 유효회원'
-                : '회원관리 > 탈퇴회원';
+        listOption = Object.assign(listOption, route.params);
+        listOption['searchObj'] = this._pm.getSearchObj(
+            urlPath,
+            route.params.type ? route.params.type : urlPath
+        );
+        listOption['columnDefs'] = this._pm.getColumDef(
+            urlPath,
+            route.params.type ? route.params.type : urlPath
+        );
+        listOption['titles'] = this._pm.getTitle(
+            urlPath,
+            route.params.type ? route.params.type : urlPath
+        );
 
-        return of(modelOption);
+        return of(listOption);
     }
 }

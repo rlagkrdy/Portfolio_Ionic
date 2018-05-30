@@ -81,15 +81,6 @@ describe('ParamService', () => {
     );
 
     it(
-        'moneyFommat() :: 30000은 30,000원을 리턴',
-        inject([ParamUtils], (service: ParamUtils) => {
-            let data: string | number = 30000;
-            data = service.moneyFommat(data);
-            expect(data).toBe('30,000원');
-        })
-    );
-
-    it(
         'resetUrlHis() :: url param string이 초기화 됨',
         inject([ParamUtils], (service: ParamUtils) => {
             service.resetUrlHis();
