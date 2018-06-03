@@ -4,7 +4,10 @@ import { Location } from '@angular/common';
 import { YoDetailComponent } from '../../../core/yoComponent/yo-detail/yo-detail.component';
 import { FormUtils } from '../../../core/yoService/utils/form/form.service';
 import { UserModel } from '../../../model/userModel';
-import { ConfirmUtils } from '../../../core/yoService/utils/confirm/confirm.service';
+import {
+    ConfirmUtils,
+    ActionOption
+} from '../../../core/yoService/utils/confirm/confirm.service';
 import swal, { SweetAlertType } from 'sweetalert2';
 import { ProjectModel } from '../../../model/project-model';
 
@@ -59,7 +62,7 @@ export class UserDetailComponent implements OnInit {
     }
 
     private detailDo(_type: string): void {
-        const actionOption: any = this._cu.getActionOption(
+        const actionOption: ActionOption = this._cu.getActionOption(
             this.url,
             this.num,
             _type

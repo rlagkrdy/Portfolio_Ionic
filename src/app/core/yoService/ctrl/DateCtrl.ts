@@ -8,7 +8,7 @@ export class DateCtrl {
 
     // 1. _searchArr배열중에서 type이 date인것을 골라낸다
     // 2. SearchObj타입의 객체의 name과 value로 각각 값을 집어 넣는다.
-    do(_searchArr: Array<any>, _form: NgForm, _func: Function): void {
+    init(_searchArr: Array<any>, _form: NgForm, _func: Function): void {
         _searchArr.filter(pItem => pItem.type === 'date').forEach(cItem => {
             if (!cItem.value) {
                 return;

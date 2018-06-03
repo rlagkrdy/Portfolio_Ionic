@@ -6,10 +6,17 @@ import swal, { SweetAlertType } from 'sweetalert2';
 
 @Injectable()
 export class ConfirmUtils {
+    private typeReg: RegExp = /insert|update|delete|leave|restore/;
     constructor(private _ys: YoaxService, private _pu: ParamUtils) {}
 
-    getActionOption(_url: string, _num: number, _type: string): any {
-        const actionOption: any = {
+    getActionOption(_url: string, _num: number, _type: string): ActionOption {
+        if (!this.typeReg.test(_type)) {
+            console.error(
+                'type은 insert|update|delete|leave|restore중 하나여야 합니다.'
+            );
+            return null;
+        }
+        const actionOption: ActionOption = {
             type: _type,
             targetName: this._pu.koreanWordLastValid(CommonCode.getTitle(_url)),
             actionName: '등록',
@@ -36,7 +43,7 @@ export class ConfirmUtils {
         return actionOption;
     }
 
-    confirm(actionOption: any, params: any): Promise<any> {
+    confirm(actionOption: ActionOption, params: any): Promise<any> {
         return swal({
             title: `${actionOption.targetName} ${
                 actionOption.actionName
@@ -62,4 +69,12 @@ export class ConfirmUtils {
             }
         });
     }
+}
+
+export interface ActionOption {
+    type: string;
+    targetName: string;
+    actionName: string;
+    requestType: string;
+    requestUrl: string;
 }

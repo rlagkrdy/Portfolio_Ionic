@@ -45,7 +45,7 @@ describe('YoaxService', () => {
     );
 
     it(
-        'setReqParam() :: RequestOptionsArgs객체를 return 받고 get일 때는 search에 아닐때는 params, body에 파마미터를 담는다.',
+        'setReqParam() :: RequestOptionsArgs객체를 return 받고 params, body에 파마미터를 담는다.',
         inject(
             [YoaxService, ParamUtils, RegexUtils],
             (yoax: YoaxService, param: ParamUtils, regex: RegexUtils) => {
@@ -55,8 +55,10 @@ describe('YoaxService', () => {
                     USR_PHONE: '01058701111'
                 };
                 option = yoax.setReqParam(option, 'post', params);
-                expect(option.params).toBe(params);
-                expect(option.body).toBe(params);
+                expect(option.params['USR_NAME']).toBe(params.USR_NAME);
+                expect(option.params['USR_PHONE']).toBe(params.USR_PHONE);
+                expect(option.body['USR_NAME']).toBe(params.USR_NAME);
+                expect(option.body['USR_PHONE']).toBe(params.USR_PHONE);
             }
         )
     );

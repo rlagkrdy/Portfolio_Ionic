@@ -51,7 +51,7 @@ export class UserModel {
         { headerName: '아이디', field: 'USR_ID', width: 100 },
         { headerName: '연락처', field: 'USR_TEL', width: 150 },
         { headerName: 'SNS여부', field: 'USR_SNS_WAY', width: 100 },
-        { headerName: '예약횟수', field: '', width: 100 },
+        { headerName: '예약횟수', field: 'RESERV_TIME', width: 100 },
         { headerName: '가입일시', field: 'USR_CREATE_NM', width: 100 }
     ];
 
@@ -60,7 +60,7 @@ export class UserModel {
         { headerName: '아이디', field: 'USR_ID', width: 100 },
         { headerName: '연락처', field: 'USR_TEL', width: 150 },
         { headerName: 'SNS여부', field: 'USR_SNS_WAY', width: 100 },
-        { headerName: '예약횟수', field: '', width: 100 },
+        { headerName: '예약횟수', field: 'RESERV_TIME', width: 100 },
         { headerName: '탈퇴일시', field: 'USR_DELETE_DATE_NM', width: 100 }
     ];
 
@@ -99,14 +99,14 @@ export class UserModel {
         },
         {
             name: '예약횟수',
-            id: 'USR',
+            id: 'RESERV_TIME',
             type: 'input',
             value: '',
             disable: true
         },
         {
-            name: '사용횟수',
-            id: 'USR',
+            name: '사용금액',
+            id: 'SUM_PRICE',
             type: 'input',
             value: '',
             disable: true

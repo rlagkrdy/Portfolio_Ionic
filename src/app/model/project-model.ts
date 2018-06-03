@@ -5,6 +5,7 @@ import { RoomModel } from './roomModel';
 import { FormatterUtils } from '../core/yoService/utils/formatter/formatter.service';
 import { ProdModel } from './prodModel';
 import { ReservModel } from './reservModel';
+import { DefModel } from './defModel';
 
 @Injectable()
 export class ProjectModel {
@@ -13,6 +14,7 @@ export class ProjectModel {
     private roomModel = new RoomModel(this._fu);
     private prodModel = new ProdModel(this._fu);
     private reservModel = new ReservModel(this._fu);
+    private defModel = new DefModel();
 
     getSearchObj(_objName: string, _type: string): Array<any> {
         return this[_objName + 'Model'][_type + 'Obj'];

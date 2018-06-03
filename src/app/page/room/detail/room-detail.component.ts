@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RoomModel } from '../../../model/roomModel';
 import { YoDetailComponent } from '../../../core/yoComponent/yo-detail/yo-detail.component';
-import { ConfirmUtils } from '../../../core/yoService/utils/confirm/confirm.service';
+import {
+    ConfirmUtils,
+    ActionOption
+} from '../../../core/yoService/utils/confirm/confirm.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormUtils } from '../../../core/yoService/utils/form/form.service';
 import { Location } from '@angular/common';
@@ -53,7 +56,7 @@ export class RoomDetailComponent implements OnInit {
     }
 
     private detailDo(_type: string): void {
-        const actionOption: any = this._cu.getActionOption(
+        const actionOption: ActionOption = this._cu.getActionOption(
             this.url,
             this.num,
             _type

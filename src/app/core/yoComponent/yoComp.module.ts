@@ -9,9 +9,20 @@ import { YoGridComponent } from './yo-grid/yo-grid.component';
 import { YoSearchComponent } from './yo-search/yo-search.component';
 import { YoDetailComponent } from './yo-detail/yo-detail.component';
 import { YoCtrlModule } from '../yoService/ctrl/yoCtrl.module';
+import {
+    ReservBtnComponent,
+    DialogComponent
+} from './reserv-btn/reserv-btn.component';
 
 @NgModule({
-    declarations: [YoGridComponent, YoSearchComponent, YoDetailComponent],
+    declarations: [
+        YoGridComponent,
+        YoSearchComponent,
+        YoDetailComponent,
+        ReservBtnComponent,
+        DialogComponent
+    ],
+    entryComponents: [ReservBtnComponent, DialogComponent],
     imports: [
         CommonModule,
         ReactiveFormsModule,
@@ -20,6 +31,12 @@ import { YoCtrlModule } from '../yoService/ctrl/yoCtrl.module';
         MaterialModule,
         YoCtrlModule
     ],
-    exports: [YoGridComponent, YoSearchComponent, YoDetailComponent, MaterialModule]
+    exports: [
+        YoGridComponent,
+        YoSearchComponent,
+        YoDetailComponent,
+        ReservBtnComponent,
+        MaterialModule
+    ]
 })
 export class YoCompModule {}

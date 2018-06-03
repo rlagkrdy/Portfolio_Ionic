@@ -29,7 +29,6 @@ export class UserListComponent implements OnInit {
             this.setDefaultData(data.modelResolve);
             this.rowData = JSON.parse(data.ListResolve._body);
         });
-
         this._ar.params.subscribe(data => {
             this.routeParam = data;
         });

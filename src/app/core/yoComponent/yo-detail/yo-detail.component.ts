@@ -14,7 +14,7 @@ export class YoDetailComponent implements OnInit, OnChanges {
     @Input() private detailObj: Array<any>;
     @Input() private detailObjData: object;
     @ViewChild('detailForm') detailForm: NgForm;
-    constructor(private _dateCtrl: DateCtrl) {
+    constructor(private _dateCtrl: DateCtrl, private _selRaCtrl: SelRaCtrl) {
         setTimeout(() => {
             this.detailObj.forEach(item => {
                 item.value = '';
@@ -29,7 +29,6 @@ export class YoDetailComponent implements OnInit, OnChanges {
         if (changes.detailObjData && changes.detailObjData.currentValue) {
             setTimeout(() => {
                 this.setObjValue();
-                this.setDateValue();
             }, 0);
         }
     }
@@ -41,15 +40,17 @@ export class YoDetailComponent implements OnInit, OnChanges {
                 item['value'] = this.detailObjData[item['id']];
             }
         });
+        this.setDateValue();
     }
 
     setDateValue() {
         setTimeout(() => {
-            this._dateCtrl.do(
+            this._dateCtrl.init(
                 this.detailObj,
                 this.detailForm,
                 this._dateCtrl.setOne
             );
+            this._selRaCtrl.init(this.detailObj);
         }, 0);
     }
 }

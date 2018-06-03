@@ -85,7 +85,6 @@ export class ParamUtils {
 
     // 한국어 단어 을를 구분
     public koreanWordLastValid(_word: string): string {
-        console.log(_word);
         let word = _word;
         const lastChar = word.charCodeAt(word.length - 1),
             seletedValue = (lastChar - 0xac00) % 28 > 0 ? '을' : '를';

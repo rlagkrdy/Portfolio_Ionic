@@ -49,13 +49,15 @@ export class YoSearchComponent implements OnInit {
             if (!this.formIsShow) {
                 return;
             }
-            this._dateCtrl.do(
+            this._dateCtrl.init(
                 this.searchObj,
                 this.searchForm,
                 this._dateCtrl.setRange
             );
+
             this.formSet(urlParams, this.searchForm);
-            this._chkCtrl.do(
+
+            this._chkCtrl.init(
                 this.searchObj,
                 this.matchk,
                 this.searchForm,
@@ -65,7 +67,7 @@ export class YoSearchComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.searchObj = this._selRaCtrl.defaultValue(this.searchObj);
+        this.searchObj = this._selRaCtrl.init(this.searchObj);
         this.componentValid();
     }
     // search component validation
@@ -145,7 +147,7 @@ export class YoSearchComponent implements OnInit {
     private reset(form: NgForm): void {
         const obj = {};
         this._selRaCtrl
-            .defaultValue(this.searchObj, this._selRaCtrl.reset)
+            .init(this.searchObj, this._selRaCtrl.reset)
             .forEach(item => {
                 if (item.type === 'date') {
                     obj[item['id'] + '_ST'] = item.value;
@@ -163,7 +165,7 @@ export class YoSearchComponent implements OnInit {
     // search
     private search(form: NgForm): void {
         const param: any = form.value;
-        this._chkCtrl.do(
+        this._chkCtrl.init(
             this.searchObj,
             this.matchk,
             this.searchForm,

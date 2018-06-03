@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable()
 export class FormatterUtils {
-    constructor() {}
+    constructor(private _sanitizer: DomSanitizer) {}
 
-    public moneyFommat(_money: any): string {
+    moneyFommat(_money: any): string {
         _money = typeof _money === 'object' ? _money.value : _money;
         if (_money !== null || _money !== '') {
             return (

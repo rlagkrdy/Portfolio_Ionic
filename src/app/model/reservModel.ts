@@ -1,6 +1,7 @@
 import { ColDef, ColGroupDef } from 'ag-grid';
 import { FormatterUtils } from '../core/yoService/utils/formatter/formatter.service';
 import { CommonCode } from '../commonCode';
+import { ReservBtnComponent } from '../core/yoComponent/reserv-btn/reserv-btn.component';
 
 export class ReservModel {
     constructor(private _fu: FormatterUtils) {}
@@ -33,7 +34,12 @@ export class ReservModel {
         { headerName: '예약자명', field: 'RESERV_USR_NAME', width: 100 },
         { headerName: '연락처', field: 'RESERV_USR_TEL', width: 100 },
         { headerName: '예약인원', field: 'RESERV_USR_NUM', width: 100 },
-        { headerName: '예약상태', field: 'RESERV_STATE', width: 100 }
+        {
+            headerName: '예약상태',
+            field: 'RESERV_STATE',
+            width: 100,
+            cellRendererFramework: ReservBtnComponent
+        }
     ];
 
     private reservTitle: string = '예약관리';

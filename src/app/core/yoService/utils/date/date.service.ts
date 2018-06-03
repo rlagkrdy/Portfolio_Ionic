@@ -4,38 +4,51 @@ import { Injectable } from '@angular/core';
 export class DateUtils {
     constructor() {}
 
-    public getYear(): Array<number> {
+    getYear(_stYear?: number): Array<number> {
         const yearArr: Array<number> = [],
             nowYear = new Date().getFullYear(),
-            yearST: number = 1960;
+            yearST: number = _stYear ? _stYear : 1960;
         for (let i = nowYear; i >= yearST; i -= 1) {
             yearArr.push(i);
         }
         return yearArr;
     }
 
-    public getDay(_year?: number, _month?: number): Array<number> {
+    getDay(_year?: number, _month?: number): Array<number> {
         const dayArr: Array<number> = [],
-            monthDayArray: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        let monthIndex: number = 0;
+            monthDayArray: Array<number> = [
+                31,
+                28,
+                31,
+                30,
+                31,
+                30,
+                31,
+                31,
+                30,
+                31,
+                30,
+                31
+            ];
+        let monthIndex: number = 1;
 
         if (_month) {
             monthIndex = _month;
         }
 
-        if (_month === 1) {
+        if (_month === 2) {
             if ((_year % 4 === 0 && _year % 100 !== 0) || _year % 400 === 0) {
                 monthDayArray[1] = 29;
             }
         }
 
-        for (let i = 1; i <= monthDayArray[monthIndex]; i += 1) {
+        for (let i = 1; i <= monthDayArray[monthIndex - 1]; i += 1) {
             dayArr.push(i);
         }
         return dayArr;
     }
 
-    public dateStrToArray(_date: string, _demiStr: string): Array<string> {
+    dateStrToArray(_date: string, _demiStr: string): Array<string> {
         if (!_date || !_demiStr) {
             alert('날짜 문자열 및 구분자를 넘겨주여야 합니다.');
             return;
@@ -48,15 +61,16 @@ export class DateUtils {
         const dateArr: Array<string> = _date.split(_demiStr),
             monthArr: Array<string> = dateArr[1].split('');
 
-        if (monthArr[0] === '0') {
-            dateArr[1] = monthArr[1];
-        }
+        // if (monthArr[0] === '0') {
+        //     dateArr[1] = monthArr[1];
+        // }
 
         return dateArr;
     }
 
-    public getTodayText(): string {
+    getTodayText(): string {
         const today: Date = new Date(),
+            yy: number = today.getFullYear(),
             mm: number = today.getMonth() + 1,
             dd: number = today.getDate();
         let dayOfWeek: string = null,
@@ -84,7 +98,7 @@ export class DateUtils {
                 dayOfWeek = '(토)';
                 break;
         }
-        dateText = mm + '월 ' + dd + '일' + dayOfWeek;
+        dateText = yy + '년 ' + mm + '월 ' + dd + '일 ' + dayOfWeek;
         return dateText;
     }
 }

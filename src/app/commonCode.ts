@@ -11,6 +11,8 @@ export class CommonCode {
             result = '예약';
         } else if (_type === '/room/') {
             result = '스터디룸';
+        } else if (_type === '/def/') {
+            result = '설정관리';
         }
         return result;
     }

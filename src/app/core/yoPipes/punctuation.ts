@@ -8,7 +8,7 @@ export class PunctuationPipe implements PipeTransform {
         if (!value) {
             return 0;
         }
-        let str: string = value.toString(),
+        const str: string = value.toString(),
             length: number = str.length;
 
         if (length < 10 || length > 11) {

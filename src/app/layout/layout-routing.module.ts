@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 import { YoCompModule } from '../core/yoComponent/yoComp.module';
-import { BlankPageComponent } from '../page/blank-page/blank-page.component';
 import { UserListComponent } from '../page/user/list/user-list.component';
 import { ListDataResolve } from '../core/yoGuard/listData/list-data.resolve';
 import { UserDetailComponent } from '../page/user/detail/user-detail.component';
@@ -21,14 +20,6 @@ const routes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
-            {
-                path: 'blank-page',
-                component: BlankPageComponent,
-                resolve: {
-                    ListResolve: ListDataResolve,
-                    modelResolve: ModelDataResolve
-                }
-            },
             {
                 path: 'usr-list',
                 component: UserListComponent,
@@ -95,6 +86,11 @@ const routes: Routes = [
                     ListResolve: ListDataResolve,
                     modelResolve: ModelDataResolve
                 }
+            },
+            {
+                path: 'def-detail/:id',
+                component: SettingDetailComponent,
+                resolve: { DetailResolve: DetailDataResolve }
             }
         ]
     }
@@ -102,7 +98,6 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        BlankPageComponent,
         UserListComponent,
         UserDetailComponent,
         RoomListComponent,

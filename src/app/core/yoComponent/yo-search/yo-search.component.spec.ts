@@ -6,6 +6,9 @@ import { By } from '@angular/platform-browser';
 import { MaterialModule } from '../../ThirdPartModule/material.module';
 import { NgForm } from '@angular/forms';
 import { DateCtrl } from '../../yoService/ctrl/DateCtrl';
+import { ParamUtils } from '../../yoService/utils/params/param.service';
+import { CheckCtrl } from '../../yoService/ctrl/CheckCtrl';
+import { SelRaCtrl } from '../../yoService/ctrl/SelRaCtrl';
 
 let component: YoSearchComponent;
 let fixture: ComponentFixture<YoSearchComponent>;
@@ -61,7 +64,8 @@ const searchObj: Array<SearchObj> = [
 describe('SearchComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [YoCompModule, RouterTestingModule, MaterialModule]
+            imports: [YoCompModule, RouterTestingModule, MaterialModule],
+            providers: [ParamUtils, CheckCtrl, DateCtrl, SelRaCtrl]
         }).compileComponents();
     }));
 
@@ -87,7 +91,9 @@ describe('SearchComponent', () => {
 
     it('formIsShow가 false라면 화면은 보여서는 안된다.', () => {
         const formIsShow: boolean = component['formIsShow'];
-        const searchFormEl = fixture.debugElement.query(By.css('.yo-search-session'));
+        const searchFormEl = fixture.debugElement.query(
+            By.css('.yo-search-session')
+        );
         if (!formIsShow) {
             expect(searchFormEl).toBeFalsy();
         }
@@ -98,7 +104,9 @@ describe('SearchComponent', () => {
             if (searchObj[keys]) {
                 expect(searchObj[keys].id).toBeTruthy();
                 expect(searchObj[keys].name).toBeTruthy();
-                expect(searchObj[keys].type).toMatch(/input|select|radio|check|date/g);
+                expect(searchObj[keys].type).toMatch(
+                    /input|select|radio|check|date/g
+                );
             }
         }
     });
@@ -117,7 +125,7 @@ describe('SearchComponent', () => {
                 expect(_form.value[name + dateItem]).toBe(value);
             });
         };
-        dCtrl.do(searchObj, component.searchForm, expectFunc);
+        dCtrl.init(searchObj, component.searchForm, expectFunc);
     });
 
     it('searchObj중에 type이 select, radio, check일때 data가 없으면 false를 return해야한다', () => {
@@ -134,9 +142,11 @@ describe('SearchComponent', () => {
                 if (value === '' || value === null) {
                     expect(value).toBe(datas[0].value);
                 } else {
-                    const valueAr = datas.filter((item: any, idx: number, arr: any[]) => {
-                        return item.value === value;
-                    });
+                    const valueAr = datas.filter(
+                        (item: any, idx: number, arr: any[]) => {
+                            return item.value === value;
+                        }
+                    );
                     if (valueAr.length > 0) {
                         expect(value).toBe(valueAr[0].value);
                     } else {
@@ -171,7 +181,9 @@ describe('SearchComponent', () => {
 
         for (const key in valueObj) {
             if (valueObj[key]) {
-                const isSelRa = selRaArr.filter(item => valueObj[key].name === item.name);
+                const isSelRa = selRaArr.filter(
+                    item => valueObj[key].name === item.name
+                );
 
                 if (isSelRa.length > 0) {
                     expect(valueObj[key].value).toBe(isSelRa[0].data[0].value);
