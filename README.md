@@ -2,14 +2,14 @@
 
 Angular+Bootstrap 으로 구현한 스터디룸 관리자 페이지
 
-## [Demo](http://naver.com)
+## [Demo](http://221.149.240.50:8080)
 
 ### 구현중점:
 
 공통 Component 및 재사용성이 높은 기능을 core 폴더에 따로 구현,
 TDD 를 통한 개발,
 반응형 으로 구현,
-현재 데모페이지는 미정이며, 1 차 개발완료시 개인서버에 구현예정
+현재 예약관리 Dialog 컴포넌트 구현중...
 
 ### [관리자페이지 산출물](https://ovenapp.io/project/MYzNyQ8I47w9O0CcJlCrUbUh6TzR3m08#fcVku)
 
