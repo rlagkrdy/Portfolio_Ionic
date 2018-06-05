@@ -16,12 +16,7 @@ export class YoaxService {
 
     constructor(private _http: Http, private _param: ParamUtils) {}
 
-    public yoax(
-        _url: string,
-        _type: string,
-        _param?: object,
-        _demi?: string
-    ): Observable<any> {
+    public yoax(_url: string, _type: string, _param?: object): Observable<any> {
         if (!this.typeIsCorrect(_type) || !_url) {
             return;
         }

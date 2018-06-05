@@ -23,6 +23,10 @@ module.exports = function(config) {
         angularCli: {
             environment: 'dev'
         },
+        compilerOptions: {
+            sourceMap: true,
+            inlineSourceMap: false
+        },
         reporters: ['progress', 'kjhtml'],
         port: 9876,
         colors: true,

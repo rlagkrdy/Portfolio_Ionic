@@ -1,10 +1,9 @@
 import { ColDef, ColGroupDef } from 'ag-grid';
-import { FormatterUtils } from '../core/yoService/utils/formatter/formatter.service';
 import { CommonCode } from '../commonCode';
-import { ReservBtnComponent } from '../core/yoComponent/reserv-btn/reserv-btn.component';
+import { ReservBtnComponent } from '../core/yoComponent/yo-aggrid/reserv-btn/reserv-btn.component';
 
 export class ReservModel {
-    constructor(private _fu: FormatterUtils) {}
+    constructor() {}
     private reservObj: Array<any> = [
         {
             id: 'RESERV_DATE',

@@ -43,4 +43,21 @@ export class CommonCode {
         }
         return result;
     }
+
+    public static getStateObj(_objName: string): any {
+        let result: any;
+        if (_objName === 'reserv') {
+            result = {
+                id: 'RESERV_STATE',
+                title: '예약상태변경',
+                states: [
+                    { name: '예약대기', value: '1' },
+                    { name: '예약완료', value: '2' },
+                    { name: '예약취소', value: '3' },
+                    { name: '예약거절', value: '4' }
+                ]
+            };
+        }
+        return result;
+    }
 }

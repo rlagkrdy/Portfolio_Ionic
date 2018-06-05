@@ -13,7 +13,7 @@ export class ProjectModel {
     private usrModel = new UserModel();
     private roomModel = new RoomModel(this._fu);
     private prodModel = new ProdModel(this._fu);
-    private reservModel = new ReservModel(this._fu);
+    private reservModel = new ReservModel();
     private defModel = new DefModel();
 
     getSearchObj(_objName: string, _type: string): Array<any> {
@@ -30,5 +30,9 @@ export class ProjectModel {
 
     getDetailObj(_objName: string) {
         return this[_objName + 'Model'][_objName + 'DetailObj'];
+    }
+
+    getStateObj(_objName: string) {
+        return this[_objName + 'Model'][_objName + 'StateObj'];
     }
 }
