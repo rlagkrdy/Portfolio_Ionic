@@ -11,6 +11,8 @@ import { YoDetailComponent } from './yo-detail/yo-detail.component';
 import { YoCtrlModule } from '../yoService/ctrl/yoCtrl.module';
 import { ChangeStateDialogComponent } from './yo-dialoag/change-state/change-state.component';
 import { ReservBtnComponent } from './yo-aggrid/reserv-btn/reserv-btn.component';
+import { YoProfileComponent } from './yo-profile/yo-profile.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -18,7 +20,8 @@ import { ReservBtnComponent } from './yo-aggrid/reserv-btn/reserv-btn.component'
         YoSearchComponent,
         YoDetailComponent,
         ReservBtnComponent,
-        ChangeStateDialogComponent
+        ChangeStateDialogComponent,
+        YoProfileComponent
     ],
     entryComponents: [ReservBtnComponent, ChangeStateDialogComponent],
     imports: [
@@ -27,12 +30,14 @@ import { ReservBtnComponent } from './yo-aggrid/reserv-btn/reserv-btn.component'
         FormsModule,
         AgGridModule.withComponents([YoGridComponent]),
         MaterialModule,
+        HttpClientModule,
         YoCtrlModule
     ],
     exports: [
         YoGridComponent,
         YoSearchComponent,
         YoDetailComponent,
+        YoProfileComponent,
         ReservBtnComponent,
         MaterialModule
     ]

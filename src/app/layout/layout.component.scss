@@ -37,6 +37,8 @@ $btn-basic: #fff;
     }
     .yo-search-require,
     .yo-detail-middle {
+        display: flex;
+        flex-flow: row wrap;
         position: relative;
         background-color: #fff;
         box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
@@ -44,6 +46,13 @@ $btn-basic: #fff;
         padding: 20px;
         @media screen and (max-width: $mobile-max) {
             padding: 16px;
+        }
+        > yo-profile {
+            flex: 0;
+            margin: 0 auto;
+        }
+        > yo-detail {
+            flex: auto;
         }
     }
     .yo-search-grid {
@@ -127,6 +136,7 @@ $btn-basic: #fff;
     }
     .yo-btn-row {
         display: flex;
+        width: 100%;
         flex-direction: row;
         margin: 0 10px;
         margin-top: 15px;

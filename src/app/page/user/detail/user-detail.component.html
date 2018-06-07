@@ -5,7 +5,7 @@
   </div>
 
   <div class="yo-detail-middle">
-
+    <yo-profile *ngIf="!isInsert"></yo-profile>
     <yo-detail [detailObj]="detailObj" [detailObjData]="detailData"></yo-detail>
 
     <div class="yo-btn-row">

@@ -70,28 +70,4 @@ export class YoaxService {
         console.log('서버 에러 발생!');
         return null;
     }
-
-    // jjaxConfirm(
-    //     _text: string,
-    //     _actionName: string,
-    //     _url: string,
-    //     _type: string,
-    //     _param?: object,
-    //     _demi?: string
-    // ): Promise<any> {
-    //     return swal({
-    //         title: '',
-    //         text: `${_text} ${_actionName} 하시겠습니까?`,
-    //         type: 'question',
-    //         showCancelButton: true,
-    //         cancelButtonText: '취소',
-    //         showConfirmButton: true,
-    //         confirmButtonText: `${_actionName}`,
-    //         allowOutsideClick: false,
-    //         showLoaderOnConfirm: true,
-    //         preConfirm: () => {
-    //             return this.jjax(_url, _type, _param, _demi);
-    //         }
-    //     });
-    // }
 }
