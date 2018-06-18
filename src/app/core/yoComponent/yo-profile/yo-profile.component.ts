@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { Http } from '@angular/http';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
@@ -9,9 +9,10 @@ import { NgForm } from '@angular/forms';
     styleUrls: ['./yo-profile.component.scss']
 })
 export class YoProfileComponent implements OnInit {
-    @ViewChild('profileForm') profileForm: NgForm;
-    private imgUrl: string = 'assets/images/profile-icon.png';
+    @ViewChild('profileImg') profileImg: ElementRef;
+    @Input() private imgUrl: string = 'assets/images/profile-icon.png';
     private oriUrl: string = '';
+    private imgClassList: string = 'profile-image by-width';
     constructor(private _http: Http, private _hc: HttpClient) {}
 
     ngOnInit() {
@@ -23,7 +24,6 @@ export class YoProfileComponent implements OnInit {
     }
 
     imageChange(event: any): void {
-        console.log(event);
         const files: Array<File> = event.target.files;
         const isChange: boolean = files.length > 0 ? true : false;
         if (isChange) {
@@ -58,8 +58,24 @@ export class YoProfileComponent implements OnInit {
         const reader: FileReader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onload = (e: any) => {
+            const image: HTMLImageElement = new Image();
+            image.src = e.target.result;
+            image.onload = (event: any) => {
+                this.setImageClassList(event.path[0]);
+            };
             this.imgUrl = e.target.result;
         };
+    }
+
+    setImageClassList(target?: any): void {
+        if (!target) {
+            this.imgClassList = 'profile-image by-width';
+            return;
+        }
+        this.imgClassList =
+            target.width >= target.height
+                ? 'profile-image by-height'
+                : 'profile-image by-width';
     }
 
     setOriImg(): void {
@@ -67,6 +83,7 @@ export class YoProfileComponent implements OnInit {
     }
 
     changeToOriImg(): void {
+        this.setImageClassList();
         this.imgUrl = this.oriUrl;
     }
 }

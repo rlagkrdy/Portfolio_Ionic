@@ -1,4 +1,4 @@
 <div class="img-center">
-    <img class="profile-image" [src]="imgUrl" alt="" (click)="openFileUpload()">
+    <img #profileImg class="profile-image" [class]='imgClassList' [src]="imgUrl" alt="" (click)="openFileUpload()">
 </div>
 <input type="file" id="profile_file" (change)="imageChange($event)">

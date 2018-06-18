@@ -9,9 +9,10 @@ import { ParamUtils } from '../utils/params/param.service';
 
 @Injectable()
 export class YoaxService {
-    private URI: string = 'http://localhost:8080';
+    private URI: string = 'http://221.149.240.50:8080';
     private putContentType: string = 'application/json; charset=utf-8';
-    private otherContentType: string = 'application/x-www-form-urlencoded;charset=UTF-8';
+    private otherContentType: string =
+        'application/x-www-form-urlencoded;charset=UTF-8';
     private isPostPut: RegExp = /post|put/;
 
     constructor(private _http: Http, private _param: ParamUtils) {}
