@@ -1,6 +1,7 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
 import { HttpClient, HttpEventType } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'yo-profile',
@@ -8,29 +9,30 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
     styleUrls: ['./yo-profile.component.scss']
 })
 export class YoProfileComponent implements OnInit {
+    @ViewChild('profileForm') profileForm: NgForm;
     private imgUrl: string = 'assets/images/profile-icon.png';
-    // private oriUrl: string = '';
-    // private isChange: boolean = false;
+    private oriUrl: string = '';
     constructor(private _http: Http, private _hc: HttpClient) {}
 
     ngOnInit() {
-        //this.setOriImg();
+        this.setOriImg();
     }
 
     openFileUpload(): void {
         document.getElementById('profile_file').click();
     }
 
-    // imageChange(event: any): void {
-    //     const files: Array<File> = event.target.files;
-    //     this.isChange = files.length > 0 ? true : false;
-    //     if (this.isChange) {
-    //         this.setImgPreview(files);
-    //         // this.imageUpload(files);
-    //     } else {
-    //         this.changeToOriImg();
-    //     }
-    // }
+    imageChange(event: any): void {
+        console.log(event);
+        const files: Array<File> = event.target.files;
+        const isChange: boolean = files.length > 0 ? true : false;
+        if (isChange) {
+            this.setImgPreview(files);
+            // this.imageUpload(files);
+        } else {
+            this.changeToOriImg();
+        }
+    }
 
     // imageUpload(files: Array<File>): void {
     //     const fd: FormData = new FormData();
@@ -52,19 +54,19 @@ export class YoProfileComponent implements OnInit {
     //         });
     // }
 
-    // setImgPreview(files: Array<File>): void {
-    //     const reader: FileReader = new FileReader();
-    //     reader.readAsDataURL(files[0]);
-    //     reader.onload = (e: any) => {
-    //         this.imgUrl = e.target.result;
-    //     };
-    // }
+    setImgPreview(files: Array<File>): void {
+        const reader: FileReader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = (e: any) => {
+            this.imgUrl = e.target.result;
+        };
+    }
 
-    // setOriImg(): void {
-    //     this.oriUrl = this.imgUrl;
-    // }
+    setOriImg(): void {
+        this.oriUrl = this.imgUrl;
+    }
 
-    // changeToOriImg(): void {
-    //     this.imgUrl = this.oriUrl;
-    // }
+    changeToOriImg(): void {
+        this.imgUrl = this.oriUrl;
+    }
 }
