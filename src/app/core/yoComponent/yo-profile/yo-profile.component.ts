@@ -9,13 +9,17 @@ import { NgForm } from '@angular/forms';
     styleUrls: ['./yo-profile.component.scss']
 })
 export class YoProfileComponent implements OnInit {
-    @ViewChild('profileImg') profileImg: ElementRef;
-    @Input() private imgUrl: string = 'assets/images/profile-icon.png';
+    @ViewChild('profileFile') profileFile: ElementRef;
+    @Input() private imgUrl: string;
+
     private oriUrl: string = '';
     private imgClassList: string = 'profile-image by-width';
-    constructor(private _http: Http, private _hc: HttpClient) {}
+
+    constructor(private _hc: HttpClient) {}
 
     ngOnInit() {
+        this.imgUrl = this.imgUrl || 'assets/images/profile-icon.png';
+        console.log(this.imgUrl);
         this.setOriImg();
     }
 
@@ -34,25 +38,30 @@ export class YoProfileComponent implements OnInit {
         }
     }
 
-    // imageUpload(files: Array<File>): void {
-    //     const fd: FormData = new FormData();
-    //     fd.append('img', files[0], files[0].name);
-    //     this._hc
-    //         .post('http://localhost:8080/usr/imageInsert', fd, {
-    //             reportProgress: true,
-    //             observe: 'events'
-    //         })
-    //         .subscribe(event => {
-    //             if (event.type === HttpEventType.UploadProgress) {
-    //                 console.log(
-    //                     '업로드 이벤트',
-    //                     Math.round((event.loaded / event.total) * 100) + '%'
-    //                 );
-    //             } else if (event.type === HttpEventType.Response) {
-    //                 console.log('Response 이벤트', event);
-    //             }
-    //         });
-    // }
+    imageUpload(files: Array<File>): void {
+        const fd: FormData = new FormData();
+        fd.append('img', files[0], files[0].name);
+        const params = {
+            aa: 'aa',
+            bb: 'bb'
+        };
+        this._hc
+            .post('http://localhost:8080/usr/imageInsert', fd, {
+                reportProgress: true,
+                observe: 'events',
+                params: params
+            })
+            .subscribe(event => {
+                if (event.type === HttpEventType.UploadProgress) {
+                    console.log(
+                        '업로드 이벤트',
+                        Math.round((event.loaded / event.total) * 100) + '%'
+                    );
+                } else if (event.type === HttpEventType.Response) {
+                    console.log('Response 이벤트', event);
+                }
+            });
+    }
 
     setImgPreview(files: Array<File>): void {
         const reader: FileReader = new FileReader();

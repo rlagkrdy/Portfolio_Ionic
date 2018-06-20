@@ -19,7 +19,7 @@ export class YoDetailComponent implements OnInit, OnChanges {
             this.detailObj.forEach(item => {
                 item.value = '';
             });
-        });
+        }, 0);
     }
 
     ngOnInit() {}

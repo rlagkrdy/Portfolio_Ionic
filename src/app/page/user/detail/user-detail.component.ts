@@ -10,6 +10,7 @@ import {
 } from '../../../core/yoService/utils/confirm/confirm.service';
 import swal, { SweetAlertType } from 'sweetalert2';
 import { ProjectModel } from '../../../model/project-model';
+import { YoProfileComponent } from '../../../core/yoComponent/yo-profile/yo-profile.component';
 
 @Component({
     selector: 'app-user-detail',
@@ -18,12 +19,13 @@ import { ProjectModel } from '../../../model/project-model';
 })
 export class UserDetailComponent implements OnInit {
     private detailObj: Array<object>;
-    private detailData: object;
+    private detailData: any;
 
     private isInsert: boolean = false;
     private isRestore: boolean = false;
 
     @ViewChild(YoDetailComponent) private _ydc: YoDetailComponent;
+    @ViewChild(YoProfileComponent) private _ypc: YoProfileComponent;
 
     private num: number;
     private url: string;
@@ -62,6 +64,13 @@ export class UserDetailComponent implements OnInit {
     }
 
     private detailDo(_type: string): void {
+        const formArr: any = this._ydc.detailForm['_directives'],
+            isVaild: boolean = this._fu.customFormValid(formArr);
+
+        if (!isVaild) {
+            return;
+        }
+
         const actionOption: ActionOption = this._cu.getActionOption(
             this.url,
             this.num,
@@ -69,44 +78,38 @@ export class UserDetailComponent implements OnInit {
         );
 
         let params: object = this._ydc.detailForm.value;
-        let isVaild: boolean = true;
+        params = this.setParam(params, actionOption.type);
 
-        if (actionOption.type === 'insert' || actionOption.type === 'update') {
-            const formArr: any = this._ydc.detailForm['_directives'];
-            isVaild = this._fu.customFormValid(formArr);
-        }
+        const fileArr: Array<File> = this._ypc.profileFile.nativeElement.files;
 
-        if (!isVaild) {
-            return;
-        }
+        this._cu.confirm(actionOption, params, fileArr).then(result => {
+            if (result.value) {
+                this.confirmed(actionOption);
+            }
+        });
+    }
 
-        if (actionOption.type === 'restore') {
-            params = {
+    private setParam(_params: object, type: string): object {
+        if (type === 'restore') {
+            _params = {
                 USR_STATE: 1
             };
-        }
-        if (actionOption.type === 'leave') {
-            params = {
+        } else if (type === 'leave') {
+            _params = {
                 USR_STATE: 2,
                 USR_DELETE_DATE: 'NOW'
             };
         }
+        return _params;
+    }
 
-        this._cu.confirm(actionOption, params).then(result => {
-            if (result.value) {
-                swal(
-                    `${actionOption.targetName} ${
-                        actionOption.actionName
-                    } 하였습니다.`,
-                    '',
-                    'success'
-                ).then(() => {
-                    this.backToList();
-                });
-            }
-            if (result.dismiss) {
-                console.log('취소 클릭...');
-            }
+    private confirmed(actionOption: ActionOption): void {
+        swal(
+            `${actionOption.targetName} ${actionOption.actionName} 하였습니다.`,
+            '',
+            'success'
+        ).then(() => {
+            // this.backToList();
         });
     }
 }

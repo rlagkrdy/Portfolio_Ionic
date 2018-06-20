@@ -39,7 +39,7 @@ describe('YoProfileComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [YoProfileComponent],
-            imports: [BrowserModule, HttpModule, HttpClientModule, FormsModule],
+            imports: [BrowserModule, HttpClientModule, FormsModule],
             providers: []
         }).compileComponents();
     }));
@@ -115,10 +115,34 @@ describe('YoProfileComponent', () => {
         expect(component['imgUrl']).toBe(component['oriUrl']);
     });
 
+    it('changeToOriImg이벤트 발생하면 imgClassList는 profile-image by-width로 변경된다', () => {
+        component.changeToOriImg();
+        expect(component['imgClassList']).toBe('profile-image by-width');
+    });
+
     it('component가 init하면 oriImg에 값을 imgUrl로 세팅해야 한다.', () => {
         const oriFn: jasmine.Spy = spyOn(component, 'setOriImg');
         component.ngOnInit();
         expect(oriFn).toHaveBeenCalled();
         expect(component['oriUrl']).toBe(component['imgUrl']);
+    });
+
+    it('setImageClass가 발생시 이미지의 width와 height의 따라 imgClassList값이 바뀐다.', () => {
+        let mockTarget: any = {
+            width: 300,
+            height: 250
+        };
+        component.setImageClassList(mockTarget);
+        expect(component['imgClassList']).toBe('profile-image by-height');
+        mockTarget = {
+            width: 250,
+            height: 300
+        };
+        component.setImageClassList(mockTarget);
+        expect(component['imgClassList']).toBe('profile-image by-width');
+    });
+
+    it('파일 업로드 테스트...', () => {
+        component.imageUpload(fileArr);
     });
 });

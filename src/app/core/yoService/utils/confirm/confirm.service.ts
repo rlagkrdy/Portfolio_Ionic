@@ -39,11 +39,23 @@ export class ConfirmUtils {
             actionOption.actionName = '복원';
             actionOption.requestType = 'put';
             actionOption.requestUrl += _num;
+        } else if (_type === 'update_image') {
+            actionOption.actionName = '수정';
+            actionOption.requestType = 'post';
+            actionOption.requestUrl += 'images/' + _num;
+        } else if (_type === 'insert_image') {
+            actionOption.actionName = '등록';
+            actionOption.requestType = 'post';
+            actionOption.requestUrl += 'images';
         }
         return actionOption;
     }
 
-    confirm(actionOption: ActionOption, params: any): Promise<any> {
+    confirm(
+        actionOption: ActionOption,
+        params: any,
+        files?: Array<File>
+    ): Promise<any> {
         return swal({
             title: `${actionOption.targetName} ${
                 actionOption.actionName
@@ -57,15 +69,24 @@ export class ConfirmUtils {
             allowOutsideClick: false,
             showLoaderOnConfirm: true,
             preConfirm: () => {
-                this._ys
-                    .yoax(
-                        actionOption.requestUrl,
-                        actionOption.requestType,
-                        params
-                    )
-                    .subscribe(result => {
-                        return result;
-                    });
+                if (
+                    actionOption.type === 'update_image' ||
+                    actionOption.type === 'insert_image'
+                ) {
+                    this._ys
+                        .fileYoax(actionOption.requestUrl, files, params)
+                        .subscribe(this._ys.checkUploadState);
+                } else {
+                    this._ys
+                        .yoax(
+                            actionOption.requestUrl,
+                            actionOption.requestType,
+                            params
+                        )
+                        .subscribe(result => {
+                            return result;
+                        });
+                }
             }
         });
     }

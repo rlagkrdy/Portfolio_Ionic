@@ -5,7 +5,7 @@
   </div>
 
   <div class="yo-detail-middle">
-    <yo-profile *ngIf="!isInsert"></yo-profile>
+    <yo-profile [imgUrl]="detailData.MEDIA_URL"></yo-profile>
     <yo-detail [detailObj]="detailObj" [detailObjData]="detailData"></yo-detail>
 
     <div class="yo-btn-row">
@@ -15,8 +15,8 @@
       <div class="yo-btn-right">
         <button *ngIf="!isInsert && !isRestore" mat-raised-button class="negative btn-color" (click)="detailDo('leave')">탈퇴</button>
         <button *ngIf="!isInsert && isRestore" mat-raised-button class="negative btn-color" (click)="detailDo('restore')">복원</button>
-        <button *ngIf="!isInsert" mat-raised-button class="mainCta btn-color ml10" (click)="detailDo('update')">수정</button>
-        <button *ngIf="isInsert" mat-raised-button class="mainCta btn-color ml10" (click)="detailDo('insert')">등록</button>
+        <button *ngIf="!isInsert" mat-raised-button class="mainCta btn-color ml10" (click)="detailDo('update_image')">수정</button>
+        <button *ngIf="isInsert" mat-raised-button class="mainCta btn-color ml10" (click)="detailDo('insert_image')">등록</button>
       </div>
     </div>
   </div>

@@ -6,16 +6,30 @@ import { errorHandler } from '@angular/platform-browser/src/browser';
 import { resetFakeAsyncZone } from '@angular/core/testing';
 import swal from 'sweetalert2';
 import { ParamUtils } from '../utils/params/param.service';
+import {
+    HttpClient,
+    HttpEventType,
+    HttpSentEvent,
+    HttpHeaderResponse,
+    HttpProgressEvent,
+    HttpResponse,
+    HttpUserEvent
+} from '@angular/common/http';
 
 @Injectable()
 export class YoaxService {
-    private URI: string = 'http://221.149.240.50:8080';
+    private URI: string = 'http://localhost:8080';
     private putContentType: string = 'application/json; charset=utf-8';
     private otherContentType: string =
         'application/x-www-form-urlencoded;charset=UTF-8';
     private isPostPut: RegExp = /post|put/;
 
-    constructor(private _http: Http, private _param: ParamUtils) {}
+    private uploadState: string;
+    constructor(
+        private _http: Http,
+        private _httpClient: HttpClient,
+        private _param: ParamUtils
+    ) {}
 
     public yoax(_url: string, _type: string, _param?: object): Observable<any> {
         if (!this.typeIsCorrect(_type) || !_url) {
@@ -32,6 +46,45 @@ export class YoaxService {
             : this._http[_type](url, option);
 
         return returnPromise;
+    }
+
+    public fileYoax(
+        _url: string,
+        files: Array<File>,
+        _params?: any
+    ): Observable<any> {
+        const fd: FormData = new FormData();
+
+        Array.prototype.forEach.call(files, item =>
+            fd.append('img', item, item.name)
+        );
+
+        console.log('FILE URI : ', this.URI + _url);
+
+        return this._httpClient.post(this.URI + _url, fd, {
+            reportProgress: true,
+            observe: 'events',
+            params: _params
+        });
+    }
+
+    checkUploadState(
+        event:
+            | HttpSentEvent
+            | HttpHeaderResponse
+            | HttpProgressEvent
+            | HttpResponse<Object>
+            | HttpUserEvent<Object>
+    ): HttpResponse<Object> {
+        if (event.type === HttpEventType.UploadProgress) {
+            console.log(
+                '업로드 이벤트',
+                Math.round((event.loaded / event.total) * 100) + '%'
+            );
+        } else if (event.type === HttpEventType.Response) {
+            console.log('Response 이벤트', event);
+            return event;
+        }
     }
 
     // Request Method Type Valid

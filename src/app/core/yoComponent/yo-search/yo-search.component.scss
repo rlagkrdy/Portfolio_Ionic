@@ -6,6 +6,7 @@ $btn-warm: #f44336;
 $btn-basic: #fff;
 
 yo-search:host /deep/ {
+    width: 100%;
     .yo-search-wrap {
         display: flex;
         flex-flow: row wrap;
