@@ -6,14 +6,14 @@ export class DefModel {
         {
             name: '이용약관동의',
             id: 'DEF_USE',
-            type: 'input',
+            type: 'editor',
             value: '',
             required: true
         },
         {
             name: '개인정보수집',
             id: 'DEF_PERSON',
-            type: 'input',
+            type: 'editor',
             value: '',
             required: true
         }

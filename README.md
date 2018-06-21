@@ -9,7 +9,7 @@ Angular+Bootstrap 으로 구현한 스터디룸 관리자 페이지
 공통 Component 및 재사용성이 높은 기능을 core 폴더에 따로 구현,
 TDD 를 통한 개발,
 반응형 으로 구현,
-현재 text editor 구현중...
+로그인 기능 구현중...
 
 ### [관리자페이지 산출물](https://ovenapp.io/project/MYzNyQ8I47w9O0CcJlCrUbUh6TzR3m08#fcVku)
 
@@ -29,6 +29,7 @@ erdcloud.com 웹툴을 활용하여 작성,
 3.font-awesome
 4.sweetalert2
 5.ag-grid
+6.ngx-editor(이미지 업로드 수정 필요...) / ngx-bootstrap
 
 ## 폴더구성
 
@@ -52,7 +53,5 @@ erdcloud.com 웹툴을 활용하여 작성,
 
 1.  멀티이미지 업로드 및 뷰 컨포넌트
 2.  http 통신시 error 핸들러
-3.  text editor 기능(구현중 ...)
-4.  로그인 기능
-5.  각종 통계
-6.  추가 input UI
+3.  각종 통계
+4.  추가 input UI

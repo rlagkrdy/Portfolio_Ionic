@@ -14,15 +14,23 @@ export class YoDetailComponent implements OnInit, OnChanges {
     @Input() private detailObj: Array<any>;
     @Input() private detailObjData: object;
     @ViewChild('detailForm') detailForm: NgForm;
-    constructor(private _dateCtrl: DateCtrl, private _selRaCtrl: SelRaCtrl) {
-        setTimeout(() => {
-            this.detailObj.forEach(item => {
-                item.value = '';
-            });
-        }, 0);
+
+    private editorConfig : any = {
+        "spellcheck": true,
+        "height": "500",
+        "minHeight" : "500",
+        "width": "auto",
+        "imageEndPoint" : "http://localhost:8080/media/",
+        "placeholder": "내용을 입력하세요...",
     }
 
-    ngOnInit() {}
+    constructor(private _dateCtrl: DateCtrl, private _selRaCtrl: SelRaCtrl) {}
+
+    ngOnInit() {
+        this.detailObj.forEach(item => {
+            item.value = '';
+        });
+    }
 
     // 부모로 부터 데이터 받으면 호출
     ngOnChanges(changes: SimpleChanges) {

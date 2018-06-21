@@ -65,7 +65,7 @@ export class ProdModel {
         {
             name: '상품설명',
             id: 'PROD_INTRO',
-            type: 'input',
+            type: 'editor',
             value: ''
             // required: true
         }

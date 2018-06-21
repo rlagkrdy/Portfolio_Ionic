@@ -58,7 +58,7 @@ export class RoomModel {
         {
             name: '소개',
             id: 'ROOM_INTRO',
-            type: 'input',
+            type: 'editor',
             value: ''
             // required: true
         }

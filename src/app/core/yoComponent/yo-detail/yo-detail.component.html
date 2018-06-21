@@ -23,8 +23,8 @@
         </mat-radio-group>
 
         <!-- CHECKBOX -->
-        <div class="atzo-checkbox-wrap" *ngIf='item.type === "check"'>
-          <mat-checkbox class="atzo-checkbox" [name]='item.id' [attr.data-target]="item.name" *ngFor='let code of item.data' [value]="code.value"
+        <div class="yo-checkbox-wrap" *ngIf='item.type === "check"'>
+          <mat-checkbox class="yo-checkbox" [name]='item.id' [attr.data-target]="item.name" *ngFor='let code of item.data' [value]="code.value"
             ngModel>{{code.name}}</mat-checkbox>
         </div>
 
@@ -34,6 +34,12 @@
             [id]='item.id' [attr.data-target]="item.name" [required]="item.required" [disabled]="item.disable" ngModel>
           <mat-datepicker-toggle matSuffix [for]="yoDateSt"></mat-datepicker-toggle>
           <mat-datepicker #yoDateSt></mat-datepicker>
+        </div>
+
+        <!-- EDITOR -->
+        <div class="yo-editor-row" *ngIf='item.type === "editor"'>
+          <app-ngx-editor [config]="editorConfig" [(ngModel)]="item.value" [name]='item.id'
+            [id]='item.id'></app-ngx-editor>
         </div>
       </div>
 

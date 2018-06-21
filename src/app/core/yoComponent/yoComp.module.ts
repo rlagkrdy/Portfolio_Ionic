@@ -12,7 +12,7 @@ import { YoCtrlModule } from '../yoService/ctrl/yoCtrl.module';
 import { ChangeStateDialogComponent } from './yo-dialoag/change-state/change-state.component';
 import { ReservBtnComponent } from './yo-aggrid/reserv-btn/reserv-btn.component';
 import { YoProfileComponent } from './yo-profile/yo-profile.component';
-import { HttpClientModule } from '@angular/common/http';
+import { NgxEditorModule } from 'ngx-editor';
 
 @NgModule({
     declarations: [
@@ -30,8 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
         FormsModule,
         AgGridModule.withComponents([YoGridComponent]),
         MaterialModule,
-        HttpClientModule,
-        YoCtrlModule
+        YoCtrlModule,
+        NgxEditorModule
     ],
     exports: [
         YoGridComponent,
