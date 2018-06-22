@@ -6,10 +6,10 @@ import { SearchObj } from '../../yoComponent/yo-search/yo-search.component';
 export class DateCtrl {
     constructor() {}
 
-    // 1. _searchArr배열중에서 type이 date인것을 골라낸다
+    // 1. _objArr배열중에서 type이 date인것을 골라낸다
     // 2. SearchObj타입의 객체의 name과 value로 각각 값을 집어 넣는다.
-    init(_searchArr: Array<any>, _form: NgForm, _func: Function): void {
-        _searchArr.filter(pItem => pItem.type === 'date').forEach(cItem => {
+    init(_objArr: Array<any>, _form: NgForm, _func: Function): void {
+        _objArr.filter(pItem => pItem.type === 'date').forEach(cItem => {
             if (!cItem.value) {
                 return;
             }

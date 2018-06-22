@@ -1,4 +1,10 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import {
+    async,
+    ComponentFixture,
+    TestBed,
+    tick,
+    fakeAsync
+} from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { AppRoutingModule, routes } from './app-routing.module';
 import { APP_BASE_HREF, Location } from '@angular/common';
@@ -8,6 +14,9 @@ import { LayoutModule } from './layout/layout.module';
 import { NgModuleFactoryLoader } from '@angular/core';
 import { LoginModule } from './page/login/login.module';
 import { NotFoundModule } from './page/not-found/not-found.module';
+import { YoaxService } from './core/yoService/db/yoax.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ParamUtils } from './core/yoService/utils/params/param.service';
 
 declare var module;
 
@@ -20,7 +29,12 @@ describe('AppComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [AppRoutingModule, RouterTestingModule.withRoutes(routes)],
+            imports: [
+                AppRoutingModule,
+                RouterTestingModule.withRoutes(routes),
+                HttpClientModule
+            ],
+            providers: [YoaxService, ParamUtils],
             declarations: [AppComponent]
         }).compileComponents();
     }));

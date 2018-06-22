@@ -20,7 +20,8 @@ const usrData: object = {
     USR_NAME: '김학요',
     USR_ID: 'RLAGKRDY',
     USR_TEL: '01000000000',
-    USR_SNS_WAY: 'GOOGLE'
+    USR_SNS_WAY: 'GOOGLE',
+    USR_CREATE_NM: '2018-06-22'
 };
 
 describe('YoDetailComponent', () => {
@@ -36,7 +37,7 @@ describe('YoDetailComponent', () => {
         component = fixture.componentInstance;
         component['detailObj'] = usrObj;
         component['detailObjData'] = usrData;
-        component.setObjValue();
+        component.setObjValue(usrData);
         setTimeout(() => {
             done();
         }, 0);
@@ -47,10 +48,43 @@ describe('YoDetailComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('customFormValid() :: form value가 없다면 return false 아니면 true', () => {
+    it('ngOnInit() :: detailObj의 value를 ""로 최기화 한다', () => {
+        component['detailObj'].forEach(item => {
+            expect(item.value).toBe('');
+        });
+    });
+
+    it('setObjValue() :: 부모로 부터 받은 데이터의 값을 세팅하고, setViewCtrlValue()를 호출한다.', () => {
+        const viewCtrl: jasmine.Spy = spyOn(component, 'setViewCtrlValue');
+        component.setObjValue(usrData);
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            component['detailObj'].forEach(item => {
+                if (item.id in usrData) {
+                    expect(item.value).toBe(usrData[item.id]);
+                }
+            });
+            expect(viewCtrl).toHaveBeenCalled();
+        });
+    });
+
+    it('customFormValid() :: form value가 없다면 return false', () => {
         const pu: FormUtils = new FormUtils(new RegexUtils(), new ParamUtils());
         const form: Array<any> = component.detailForm['_directives'];
         const result = pu.customFormValid(form);
-        expect(result).toBeTruthy();
+        expect(result).toBeFalsy();
+    });
+
+    it('customFormValid() :: form value가 있가면 return true', () => {
+        const pu: FormUtils = new FormUtils(new RegexUtils(), new ParamUtils());
+        const form: Array<any> = component.detailForm['_directives'];
+
+        component.setObjValue(usrData);
+
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            const result = pu.customFormValid(form);
+            expect(result).toBeTruthy();
+        });
     });
 });

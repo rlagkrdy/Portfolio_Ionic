@@ -27,7 +27,7 @@ export class UserListComponent implements OnInit {
     ) {
         this._ar.data.subscribe(data => {
             this.setDefaultData(data.modelResolve);
-            this.rowData = JSON.parse(data.ListResolve._body);
+            this.rowData = data.ListResolve;
         });
         this._ar.params.subscribe(data => {
             this.routeParam = data;
@@ -61,7 +61,7 @@ export class UserListComponent implements OnInit {
         params = Object.assign(params, this.routeParam);
 
         this._ys.yoax('/usr/', 'get', params).subscribe(result => {
-            this.rowData = JSON.parse(result._body);
+            this.rowData = result;
         });
     }
 }

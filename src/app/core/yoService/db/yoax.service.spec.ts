@@ -1,7 +1,7 @@
 import { TestBed, inject, async, tick } from '@angular/core/testing';
 import { YoaxService } from './yoax.service';
 import { ParamUtils } from '../utils/params/param.service';
-import { Http, HttpModule, Headers, RequestOptionsArgs } from '@angular/http';
+import { Http, Headers, RequestOptionsArgs } from '@angular/http';
 import { RegexUtils } from '../utils/regex/regex.service';
 import {
     HttpClient,
@@ -36,7 +36,7 @@ describe('YoaxService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpModule, HttpClientModule],
+            imports: [HttpClientModule],
             providers: [YoaxService, ParamUtils, RegexUtils]
         });
     });
@@ -93,7 +93,7 @@ describe('YoaxService', () => {
 
                 yoax.yoax('/usr/', 'get', params).subscribe(
                     result => {
-                        expect(result.ok).toBeTruthy();
+                        expect(result.length).toBeGreaterThan(0);
                     },
                     error => {
                         expect(error.ok).toBeFalsy();

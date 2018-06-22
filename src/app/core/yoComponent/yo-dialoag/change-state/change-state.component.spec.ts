@@ -88,7 +88,6 @@ describe('ChangeStateDialogComponent', () => {
         const close: jasmine.Spy = spyOn(component.dialogRef, 'close');
         component.do('close');
         expect(close).toHaveBeenCalled();
-        console.log(close);
         expect(component.dialogRef.close).toHaveBeenCalledWith({
             state: false
         });

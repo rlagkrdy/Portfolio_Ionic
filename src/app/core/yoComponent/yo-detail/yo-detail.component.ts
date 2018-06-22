@@ -12,17 +12,17 @@ import { SelRaCtrl } from '../../yoService/ctrl/SelRaCtrl';
 })
 export class YoDetailComponent implements OnInit, OnChanges {
     @Input() private detailObj: Array<any>;
-    @Input() private detailObjData: object;
+    @Input() private detailObjData: any;
     @ViewChild('detailForm') detailForm: NgForm;
 
-    private editorConfig : any = {
-        "spellcheck": true,
-        "height": "500",
-        "minHeight" : "500",
-        "width": "auto",
-        "imageEndPoint" : "http://localhost:8080/media/",
-        "placeholder": "내용을 입력하세요...",
-    }
+    private editorConfig: any = {
+        spellcheck: true,
+        height: '500',
+        minHeight: '500',
+        width: 'auto',
+        imageEndPoint: 'http://localhost:8080/media/',
+        placeholder: '내용을 입력하세요...'
+    };
 
     constructor(private _dateCtrl: DateCtrl, private _selRaCtrl: SelRaCtrl) {}
 
@@ -36,22 +36,22 @@ export class YoDetailComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         if (changes.detailObjData && changes.detailObjData.currentValue) {
             setTimeout(() => {
-                this.setObjValue();
+                this.setObjValue(this.detailObjData);
             }, 0);
         }
     }
 
     // 부모로 부터 데이터 세팅
-    setObjValue() {
+    setObjValue(detailObjData: any) {
         this.detailObj.forEach((item, index, array) => {
-            if (item['id'] in this.detailObjData) {
-                item['value'] = this.detailObjData[item['id']];
+            if (item.id in detailObjData) {
+                item.value = detailObjData[item.id];
             }
         });
-        this.setDateValue();
+        this.setViewCtrlValue();
     }
 
-    setDateValue() {
+    setViewCtrlValue() {
         setTimeout(() => {
             this._dateCtrl.init(
                 this.detailObj,

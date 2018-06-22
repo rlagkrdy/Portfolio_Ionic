@@ -52,7 +52,7 @@ export class UserDetailComponent implements OnInit {
 
         this._ar.data.subscribe(data => {
             if (data.DetailResolve) {
-                this.detailData = JSON.parse(data.DetailResolve._body);
+                this.detailData = data.DetailResolve;
             }
         });
     }

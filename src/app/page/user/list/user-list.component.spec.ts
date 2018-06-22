@@ -13,6 +13,7 @@ import { YoCompModule } from '../../../core/yoComponent/yoComp.module';
 import { HttpModule } from '@angular/http';
 import { ParamUtils } from '../../../core/yoService/utils/params/param.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('Setting UserListComponent', () => {
     let component: UserListComponent;
@@ -91,16 +92,56 @@ describe('Setting UserListComponent', () => {
                         titles: '회원관리 > 유효회원',
                         type: 'usrList'
                     },
-                    ListResolve: {
-                        _body:
-                            '[{"USR_CHECK_EMAIL":"0","USR_ID":"rlagkrdy3","USR_NAME":"김학요3","USR_TEL":"01058703333","USR_FCM":"","USR_KEY":3,"USR_EMAIL":"qwe333@qq.com","USR_STATE":"1","USR_CREATE_NM":"2018-05-22","USR_SNS_WAY":"NAVER","USR_CREATE":1526999633000,"RESERV_TIME":0},{"USR_CHECK_EMAIL":"0","USR_ID":"rlagkrdy2","USR_NAME":"김학요2","USR_TEL":"01058702222","USR_FCM":"","USR_KEY":2,"USR_EMAIL":"qwe222@qq.com","USR_STATE":"1","USR_CREATE_NM":"2018-05-22","USR_SNS_WAY":"FACEBOOK","USR_CREATE":1526999633000,"RESERV_TIME":1},{"USR_CHECK_EMAIL":"0","USR_ID":"rlagkrdy1","USR_NAME":"김학요1","USR_TEL":"01058701111","USR_FCM":"","USR_KEY":1,"USR_EMAIL":"qwe111@qq.com","USR_STATE":"1","USR_CREATE_NM":"2018-05-22","USR_SNS_WAY":"GOOGLE","USR_CREATE":1526999633000,"RESERV_TIME":2}]'
-                    }
+                    ListResolve: [
+                        {
+                            USR_CHECK_EMAIL: '0',
+                            USR_ID: 'rlagkrdy3',
+                            USR_NAME: '김학요3',
+                            USR_TEL: '01058703333',
+                            USR_FCM: '',
+                            USR_KEY: 3,
+                            USR_EMAIL: 'qwe333@qq.com',
+                            USR_STATE: '1',
+                            USR_CREATE_NM: '2018-05-22',
+                            USR_SNS_WAY: 'NAVER',
+                            USR_CREATE: 1526999633000,
+                            RESERV_TIME: 0
+                        },
+                        {
+                            USR_CHECK_EMAIL: '0',
+                            USR_ID: 'rlagkrdy2',
+                            USR_NAME: '김학요2',
+                            USR_TEL: '01058702222',
+                            USR_FCM: '',
+                            USR_KEY: 2,
+                            USR_EMAIL: 'qwe222@qq.com',
+                            USR_STATE: '1',
+                            USR_CREATE_NM: '2018-05-22',
+                            USR_SNS_WAY: 'FACEBOOK',
+                            USR_CREATE: 1526999633000,
+                            RESERV_TIME: 1
+                        },
+                        {
+                            USR_CHECK_EMAIL: '0',
+                            USR_ID: 'rlagkrdy1',
+                            USR_NAME: '김학요1',
+                            USR_TEL: '01058701111',
+                            USR_FCM: '',
+                            USR_KEY: 1,
+                            USR_EMAIL: 'qwe111@qq.com',
+                            USR_STATE: '1',
+                            USR_CREATE_NM: '2018-05-22',
+                            USR_SNS_WAY: 'GOOGLE',
+                            USR_CREATE: 1526999633000,
+                            RESERV_TIME: 2
+                        }
+                    ]
                 })
         }
     };
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [YoCompModule, HttpModule, RouterTestingModule],
+            imports: [YoCompModule, HttpClientModule, RouterTestingModule],
             declarations: [UserListComponent],
             providers: [
                 YoaxService,

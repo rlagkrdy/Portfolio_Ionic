@@ -9,11 +9,11 @@ import { ProjectModel } from '../../../../model/project-model';
 import { FormatterUtils } from '../../../yoService/utils/formatter/formatter.service';
 import { ChangeStateDialogComponent } from '../../yo-dialoag/change-state/change-state.component';
 import { YoaxService } from '../../../yoService/db/yoax.service';
-import { HttpModule } from '@angular/http';
 import { ParamUtils } from '../../../yoService/utils/params/param.service';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import swal from 'sweetalert2';
+import { HttpClientModule } from '@angular/common/http';
 
 let component: ReservBtnComponent;
 let fixture: ComponentFixture<ReservBtnComponent>;
@@ -27,14 +27,14 @@ const initParams = {
     },
     value: 2
 };
-describe('ChangeStateDialogComponent', () => {
+describe('ReservBtnComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
                 YoCompModule,
                 MaterialModule,
                 BrowserAnimationsModule,
-                HttpModule
+                HttpClientModule
             ],
             providers: [ProjectModel, FormatterUtils, YoaxService, ParamUtils]
         }).compileComponents();
@@ -49,7 +49,7 @@ describe('ChangeStateDialogComponent', () => {
         fixture.detectChanges();
     });
 
-    it('ChangeStateDialogComponent가 생성되어야 한다.', () => {
+    it('ReservBtnComponent가 생성되어야 한다.', () => {
         expect(component).toBeTruthy();
     });
 
@@ -99,7 +99,7 @@ describe('ChangeStateDialogComponent', () => {
             }
         );
     });
-    it('updateState(_cell, _resilt) :: 예약변경후 state는 _result.data.RESERV_STATE와 같아야 한다.', done => {
+    it('updateState(_cell, _resilt) :: 예약변경후 state는 _result.data.RESERV_STATE와 같아야 한다.', () => {
         component.agInit(initParams);
         component
             .updateState({ id: 2 }, { data: { RESERV_STATE: 1 } })
@@ -111,7 +111,6 @@ describe('ChangeStateDialogComponent', () => {
                     expect(component['btn_name']).toBe('예약대기');
                     expect(component['btn_class']).toBe('');
                     expect(component['cell'].state).toBe(1);
-                    done();
                 });
             });
     });

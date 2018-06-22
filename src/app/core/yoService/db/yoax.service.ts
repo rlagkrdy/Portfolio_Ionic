@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Request, Headers } from '@angular/http';
+import { Response, Request, Headers } from '@angular/http';
 import { RequestOptionsArgs } from '@angular/http/src/interfaces';
 import { Observable } from 'rxjs/Observable';
 import { errorHandler } from '@angular/platform-browser/src/browser';
@@ -25,11 +25,7 @@ export class YoaxService {
     private isPostPut: RegExp = /post|put/;
 
     private uploadState: string;
-    constructor(
-        private _http: Http,
-        private _httpClient: HttpClient,
-        private _param: ParamUtils
-    ) {}
+    constructor(private _httpClient: HttpClient, private _param: ParamUtils) {}
 
     public yoax(_url: string, _type: string, _param?: object): Observable<any> {
         if (!this.typeIsCorrect(_type) || !_url) {
@@ -41,11 +37,11 @@ export class YoaxService {
         option = this.setReqParam(option, _type, _param);
         option.headers = this.setReqContentType(_type);
 
-        const returnPromise = this.isPostPut.test(_type)
-            ? this._http[_type](url, _param, option)
-            : this._http[_type](url, option);
+        const observe: Observable<Response> = this.isPostPut.test(_type)
+            ? this._httpClient[_type](url, _param, option)
+            : this._httpClient[_type](url, option);
 
-        return returnPromise;
+        return observe;
     }
 
     public fileYoax(

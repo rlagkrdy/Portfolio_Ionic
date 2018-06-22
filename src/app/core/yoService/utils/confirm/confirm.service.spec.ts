@@ -3,34 +3,31 @@ import { TestBed, inject } from '@angular/core/testing';
 import { ConfirmUtils, ActionOption } from './confirm.service';
 import { YoaxService } from '../../db/yoax.service';
 import { ParamUtils } from '../params/param.service';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ConfirmService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpModule],
+            imports: [HttpClientModule],
             providers: [ConfirmUtils, YoaxService, ParamUtils]
         });
     });
 
-    it(
-        'should be created',
-        inject([ConfirmUtils], (service: ConfirmUtils) => {
-            expect(service).toBeTruthy();
-        })
-    );
+    it('should be created', inject([ConfirmUtils], (service: ConfirmUtils) => {
+        expect(service).toBeTruthy();
+    }));
 
-    it(
-        'getActionOption() :: _type이 틀리면 null 이여야 한다.',
-        inject([ConfirmUtils], (service: ConfirmUtils) => {
+    it('getActionOption() :: _type이 틀리면 null 이여야 한다.', inject(
+        [ConfirmUtils],
+        (service: ConfirmUtils) => {
             const result: ActionOption = service.getActionOption(
                 '/usr/',
                 123,
                 'post'
             );
             expect(result).toBe(null);
-        })
-    );
+        }
+    ));
 
     it(
         'getActionOption() :: _type이 insert이면 actionName은 등록, requestType은 post/' +
@@ -62,18 +59,18 @@ describe('ConfirmService', () => {
         })
     );
 
-    it(
-        'getActionOption() :: url이 /usr/이면 targetName은 회원을 이여야 한다',
-        inject([ConfirmUtils], (service: ConfirmUtils) => {
+    it('getActionOption() :: url이 /usr/이면 targetName은 회원을 이여야 한다', inject(
+        [ConfirmUtils],
+        (service: ConfirmUtils) => {
             let result: ActionOption;
             result = service.getActionOption('/usr/', 123, 'insert');
             expect(result.targetName).toBe('회원을');
-        })
-    );
+        }
+    ));
 
-    it(
-        'getActionOption() :: type이 insert이면 requestUrl===url, 아니면 requestUrl===url+num',
-        inject([ConfirmUtils], (service: ConfirmUtils) => {
+    it('getActionOption() :: type이 insert이면 requestUrl===url, 아니면 requestUrl===url+num', inject(
+        [ConfirmUtils],
+        (service: ConfirmUtils) => {
             let result: ActionOption;
             result = service.getActionOption('/usr/', 123, 'insert');
             expect(result.requestUrl).toBe('/usr/');
@@ -89,6 +86,6 @@ describe('ConfirmService', () => {
 
             result = service.getActionOption('/usr/', 123, 'restore');
             expect(result.requestUrl).toBe('/usr/123');
-        })
-    );
+        }
+    ));
 });

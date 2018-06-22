@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { routerTransition } from '../../router.animations';
+import { YoaxService } from '../../core/yoService/db/yoax.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-login',
@@ -9,11 +11,32 @@ import { routerTransition } from '../../router.animations';
     animations: [routerTransition()]
 })
 export class LoginComponent implements OnInit {
-    constructor(public router: Router) {}
+    @ViewChild('login') login: NgForm;
+    private isFaile: Boolean = false;
+
+    constructor(public router: Router, private _ys: YoaxService) {}
 
     ngOnInit() {}
 
-    onLoggedin() {
-        localStorage.setItem('isLoggedin', 'true');
+    onLoggedin(form: NgForm) {
+        if (!form.valid) {
+            return;
+        }
+        this._ys.yoax('/comp/', 'get', form.value).subscribe(result => {
+            console.log(result);
+            if (result.length === 0) {
+                this.login.reset();
+                this.isFaile = true;
+            } else {
+                localStorage.setItem('isLoggedin', 'true');
+                this.router.navigate(['/usr-list'], {
+                    queryParams: {
+                        type: 'usrList',
+                        USR_STATE: 1,
+                        isInsert: true
+                    }
+                });
+            }
+        });
     }
 }

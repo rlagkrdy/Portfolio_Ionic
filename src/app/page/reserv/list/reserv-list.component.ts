@@ -22,7 +22,7 @@ export class ReservListComponent implements OnInit {
     ) {
         this._ar.data.subscribe(data => {
             this.setDefaultData(data.modelResolve);
-            this.rowData = JSON.parse(data.ListResolve._body);
+            this.rowData = data.ListResolve;
         });
     }
 
@@ -40,7 +40,7 @@ export class ReservListComponent implements OnInit {
 
     searchClick(params: any): void {
         this._ys.yoax('/reserv/', 'get', params).subscribe(result => {
-            this.rowData = JSON.parse(result._body);
+            this.rowData = result;
         });
     }
 }
