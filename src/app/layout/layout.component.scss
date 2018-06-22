@@ -48,7 +48,8 @@ $btn-basic: #fff;
             padding: 16px;
         }
         > yo-profile {
-            flex: 0;
+            flex: none;
+            -webkit-box-flex: auto;
             margin: 0 auto;
         }
         > yo-detail {

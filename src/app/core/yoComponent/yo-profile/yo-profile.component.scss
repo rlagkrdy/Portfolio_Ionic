@@ -8,9 +8,25 @@
     align-items: center;
     overflow: hidden;
     position: relative;
+
+    display: -moz-box;
+    -moz-box-orient: horizontal;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+
+    display: -ms-flexbox;
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+    -ms-box-orient: horizontal;
 }
 .profile-image {
     position: absolute;
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        position: relative;
+    }
+    @supports (-ms-accelerator: true) {
+        position: relative;
+    }
 }
 #profile_file {
     display: none;
