@@ -18,6 +18,7 @@ import { ParamUtils } from '../../yoService/utils/params/param.service';
 import { CheckCtrl } from '../../yoService/ctrl/CheckCtrl';
 import { DateCtrl } from '../../yoService/ctrl/DateCtrl';
 import { SelRaCtrl } from '../../yoService/ctrl/SelRaCtrl';
+import { createTimelineInstruction } from '@angular/animations/browser/src/dsl/animation_timeline_instruction';
 
 @Component({
     selector: 'yo-search',
@@ -34,6 +35,7 @@ export class YoSearchComponent implements OnInit {
     @ContentChild(MatCheckbox) matchk2: MatCheckbox;
 
     private formIsShow: boolean = true;
+    private urlParams: any;
 
     // 라우터로 부터 url 파람 가지고옴
     constructor(
@@ -44,18 +46,19 @@ export class YoSearchComponent implements OnInit {
         private _dateCtrl: DateCtrl,
         private _selRaCtrl: SelRaCtrl
     ) {
-        const urlParams: any = this._router['currentUrlTree'].queryParams;
+        this.urlParams = this._router['currentUrlTree'].queryParams;
         setTimeout(() => {
             if (!this.formIsShow) {
                 return;
             }
+            console.log('진입??');
             this._dateCtrl.init(
                 this.searchObj,
                 this.searchForm,
                 this._dateCtrl.setRange
             );
 
-            this.formSet(urlParams, this.searchForm);
+            this.formSet(this.urlParams, this.searchForm);
 
             this._chkCtrl.init(
                 this.searchObj,
@@ -133,12 +136,11 @@ export class YoSearchComponent implements OnInit {
         }
 
         const formObj: any = _searchForm.controls;
-        const keys: Array<string> = Object.keys(_urlParams),
-            values: Array<string> = Object.values(_urlParams);
+        const keys: Array<string> = Object.keys(_urlParams);
 
         keys.forEach((item: string, idx: number) => {
             if (formObj[item]) {
-                formObj[item].setValue(decodeURI(values[idx]));
+                formObj[item].setValue(decodeURI(_urlParams[item]));
             }
         });
     }
@@ -152,19 +154,23 @@ export class YoSearchComponent implements OnInit {
                 if (item.type === 'date') {
                     obj[item['id'] + '_ST'] = item.value;
                     obj[item['id'] + '_ED'] = item.value;
+                } else {
+                    obj[item['id']] = '';
                 }
-                obj[item['id']] = item.value;
             });
 
         form.reset(obj);
-        this._paramUtils.resetUrlHis();
 
-        this.searchClick.emit(form.value);
+        this.search(form);
     }
 
     // search
     private search(form: NgForm): void {
-        const param: any = form.value;
+        let param: any = Object.assign({}, this.urlParams);
+
+        const formParam = form.value;
+        param = Object.assign(param, form.value);
+
         this._chkCtrl.init(
             this.searchObj,
             this.matchk,
@@ -177,7 +183,6 @@ export class YoSearchComponent implements OnInit {
                 param[key] = param[key].format('YYYY-MM-DD');
             }
         }
-
         this._paramUtils.setUrlHis(param);
         this.searchClick.emit(param);
     }

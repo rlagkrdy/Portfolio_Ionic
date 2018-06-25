@@ -11,20 +11,26 @@ export class DateCtrl {
     init(_objArr: Array<any>, _form: NgForm, _func: Function): void {
         _objArr.filter(pItem => pItem.type === 'date').forEach(cItem => {
             if (!cItem.value) {
+                this.setIeValue(_func, _form, cItem.id);
                 return;
             }
+
             _func(_form, cItem.id, cItem.value);
         });
     }
 
-    setRange(_form: NgForm, name: string, value: string) {
+    setRange(_form: NgForm, name: string, value: string): void {
         const dateName: Array<string> = ['_ST', '_ED'];
         dateName.forEach(dateItem => {
             _form.controls[name + dateItem].setValue(value);
         });
     }
 
-    setOne(_form: NgForm, name: string, value: string) {
+    setOne(_form: NgForm, name: string, value: string): void {
         _form.controls[name].setValue(value);
+    }
+
+    private setIeValue(func: Function, _form: NgForm, name: string): void {
+        func(_form, name, '');
     }
 }

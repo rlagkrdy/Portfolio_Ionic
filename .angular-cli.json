@@ -21,7 +21,12 @@
                 "../src/styles/ag-grid/ag-grid.css",
                 "../src/styles/ag-grid/theme-material.css"
             ],
-            "scripts": ["../node_modules/chart.js/dist/Chart.js"],
+            "scripts": [
+                "../node_modules/chart.js/dist/Chart.js",
+                "../node_modules/core-js/client/shim.min.js",
+                "../node_modules/web-animations-js/web-animations.min.js",
+                "../node_modules/zone.js/dist/zone.js"
+            ],
             "environmentSource": "environments/environment.ts",
             "environments": {
                 "dev": "environments/environment.ts",
