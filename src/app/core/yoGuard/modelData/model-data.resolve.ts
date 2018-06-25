@@ -19,18 +19,18 @@ export class ModelDataResolve implements Resolve<any> {
         const urlPath: string = route.routeConfig.path.split('-')[0];
         let listOption: any = {};
 
-        listOption = Object.assign(listOption, route.params);
+        listOption = Object.assign(listOption, route.queryParams);
         listOption['searchObj'] = this._pm.getSearchObj(
             urlPath,
-            route.params.type ? route.params.type : urlPath
+            listOption.type ? listOption.type : urlPath
         );
         listOption['columnDefs'] = this._pm.getColumDef(
             urlPath,
-            route.params.type ? route.params.type : urlPath
+            listOption.type ? listOption.type : urlPath
         );
         listOption['titles'] = this._pm.getTitle(
             urlPath,
-            route.params.type ? route.params.type : urlPath
+            listOption.type ? listOption.type : urlPath
         );
 
         return of(listOption);

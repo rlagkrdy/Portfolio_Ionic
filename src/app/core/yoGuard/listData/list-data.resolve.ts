@@ -17,7 +17,6 @@ export class ListDataResolve implements Resolve<any> {
         state: RouterStateSnapshot
     ): Observable<any> {
         let param: any = {};
-        param = Object.assign(param, route.params);
         param = Object.assign(param, route.queryParams);
 
         let url: string = route.routeConfig.path.split('-list')[0];

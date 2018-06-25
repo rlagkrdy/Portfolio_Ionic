@@ -47,10 +47,9 @@ export class UserListComponent implements OnInit {
     }
 
     cellClick(params: any): void {
-        this._router.navigate([
-            'usr-detail/' + params.data.USR_KEY,
-            { type: this.routeParam.type }
-        ]);
+        this._router.navigate(['usr-detail/' + params.data.USR_KEY], {
+            queryParams: { type: this.routeParam.type }
+        });
     }
 
     insertUsr(): void {

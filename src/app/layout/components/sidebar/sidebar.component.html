@@ -7,13 +7,13 @@
             <li class="nested" [class.expand]="showMenu === 'user_admin'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/usr-list', {type : 'usrList', USR_STATE : 1, isInsert : true}]" [routerLinkActive]="['router-link-active']">
+                        <a [routerLink]="['/usr-list']" [queryParams]="{type : 'usrList', USR_STATE : 1, isInsert : true}" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-user"></i>&nbsp;
                             <span>유효회원</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/usr-list-delete', {type : 'usrDeleteList', USR_STATE : 2, isInsert : false}]" [routerLinkActive]="['router-link-active']">
+                        <a [routerLink]="['/usr-list-delete']" [queryParams]="{type : 'usrDeleteList', USR_STATE : 2, isInsert : false}" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-user"></i>&nbsp;
                             <span>탈퇴회원</span>
                         </a>
