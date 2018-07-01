@@ -8,88 +8,57 @@ import {
     ConfirmUtils,
     ActionOption
 } from '../../../core/yoService/utils/confirm/confirm.service';
-import swal, { SweetAlertType } from 'sweetalert2';
 import { ProjectModel } from '../../../model/project-model';
 import { YoProfileComponent } from '../../../core/yoComponent/yo-profile/yo-profile.component';
+import { BaseDetailCtrl } from '../../../core/yoController/BaseDetailCtrl';
 
 @Component({
     selector: 'app-user-detail',
     templateUrl: './user-detail.component.html',
     styleUrls: ['./user-detail.component.scss']
 })
-export class UserDetailComponent implements OnInit {
-    private detailObj: Array<object>;
-    private detailData: any;
-
-    private isInsert: boolean = false;
-    private isRestore: boolean = false;
-
-    @ViewChild(YoDetailComponent) private _ydc: YoDetailComponent;
+export class UserDetailComponent extends BaseDetailCtrl implements OnInit {
+    @ViewChild(YoDetailComponent) _ydc: YoDetailComponent;
     @ViewChild(YoProfileComponent) private _ypc: YoProfileComponent;
 
-    private num: number;
-    private url: string;
-
     constructor(
-        private _cu: ConfirmUtils,
-        private _ar: ActivatedRoute,
-        private _fu: FormUtils,
-        private _location: Location,
-        private _pm: ProjectModel
+        formUtils: FormUtils,
+        activatedRoute: ActivatedRoute,
+        location: Location,
+        projectModel: ProjectModel,
+        confirmUtils: ConfirmUtils
     ) {
-        this.url = this._ar.snapshot.url[0].path.split('-detail')[0];
-        this.detailObj = this._pm.getDetailObj(this.url);
-        this.url = '/' + this.url + '/';
+        super(
+            activatedRoute,
+            location,
+            confirmUtils,
+            formUtils,
+            projectModel,
+            'usr'
+        );
 
-        this.num = this._ar.snapshot.params.id;
-        this.isInsert = this.num ? false : true;
-
-        this._ar.params.subscribe(result => {
+        this.activatedRoute.queryParams.subscribe(result => {
             if (result.type === 'usrDeleteList') {
                 this.isRestore = true;
             }
         });
-
-        this._ar.data.subscribe(data => {
-            if (data.DetailResolve) {
-                this.detailData = data.DetailResolve;
-            }
-        });
     }
 
-    ngOnInit() {}
-
-    private backToList(): void {
-        this._location.back();
+    ngOnInit() {
+        super.setDetailData();
     }
 
-    private detailDo(_type: string): void {
+    public detailDo(_type: string): void {
         const formArr: any = this._ydc.detailForm['_directives'],
-            isVaild: boolean = this._fu.customFormValid(formArr);
-
-        if (!isVaild) {
-            return;
-        }
-
-        const actionOption: ActionOption = this._cu.getActionOption(
-            this.url,
-            this.num,
-            _type
-        );
+            fileArr: Array<File> = this._ypc.profileFile.nativeElement.files;
 
         let params: object = this._ydc.detailForm.value;
-        params = this.setParam(params, actionOption.type);
+        params = this.setParam(params, _type);
 
-        const fileArr: Array<File> = this._ypc.profileFile.nativeElement.files;
-
-        this._cu.confirm(actionOption, params, fileArr).then(result => {
-            if (result.value) {
-                this.confirmed(actionOption);
-            }
-        });
+        super.confirm(_type, formArr, params, fileArr);
     }
 
-    private setParam(_params: object, type: string): object {
+    public setParam(_params: object, type: string): object {
         if (type === 'restore') {
             _params = {
                 USR_STATE: 1
@@ -101,15 +70,5 @@ export class UserDetailComponent implements OnInit {
             };
         }
         return _params;
-    }
-
-    private confirmed(actionOption: ActionOption): void {
-        swal(
-            `${actionOption.targetName} ${actionOption.actionName} 하였습니다.`,
-            '',
-            'success'
-        ).then(() => {
-            // this.backToList();
-        });
     }
 }

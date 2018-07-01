@@ -19,7 +19,6 @@ export class YoProfileComponent implements OnInit {
 
     ngOnInit() {
         this.imgUrl = this.imgUrl || 'assets/images/profile-icon.png';
-        console.log(this.imgUrl);
         this.setOriImg();
     }
 

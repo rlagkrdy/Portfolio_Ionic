@@ -36,10 +36,17 @@ module.exports = function(config) {
         singleRun: false,
         files: [
             './node_modules/font-awesome/css/font-awesome.css',
-            './node_modules/@angular/material/prebuilt-themes/indigo-pink.css',
+            {
+                pattern: 'node_modules/font-awesome/fonts/*',
+                watched: false,
+                included: false,
+                served: true,
+                nocache: false
+            },
             './src/styles/ag-grid/ag-grid.css',
             './src/styles/ag-grid/theme-material.css',
-            './src/styles/app.scss'
+            './src/styles/app.scss',
+            './node_modules/@angular/material/prebuilt-themes/indigo-pink.css'
         ],
         preprocessors: {
             './src/test.ts': ['@angular/cli'],

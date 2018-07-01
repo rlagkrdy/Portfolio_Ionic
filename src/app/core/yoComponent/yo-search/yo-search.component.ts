@@ -51,7 +51,6 @@ export class YoSearchComponent implements OnInit {
             if (!this.formIsShow) {
                 return;
             }
-            console.log('진입??');
             this._dateCtrl.init(
                 this.searchObj,
                 this.searchForm,

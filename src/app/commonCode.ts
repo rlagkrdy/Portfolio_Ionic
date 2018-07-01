@@ -1,17 +1,17 @@
 export class CommonCode {
     public static getTitle(_type): string {
         let result: string;
-        if (_type === '/usr/') {
+        if (_type === 'usr') {
             result = '회원';
-        } else if (_type === '/comp/') {
+        } else if (_type === 'comp') {
             result = '회사';
-        } else if (_type === '/prod/') {
+        } else if (_type === 'prod') {
             result = '상품';
-        } else if (_type === '/reserv/') {
+        } else if (_type === 'reserv') {
             result = '예약';
-        } else if (_type === '/room/') {
+        } else if (_type === 'room') {
             result = '스터디룸';
-        } else if (_type === '/def/') {
+        } else if (_type === 'def') {
             result = '설정관리';
         }
         return result;

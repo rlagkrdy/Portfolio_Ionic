@@ -10,16 +10,76 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ListDataResolve } from '../../../core/yoGuard/listData/list-data.resolve';
 import { YoCompModule } from '../../../core/yoComponent/yoComp.module';
-import { HttpModule } from '@angular/http';
 import { ParamUtils } from '../../../core/yoService/utils/params/param.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { BaseListCtrl } from '../../../core/yoController/BaseListCtrl';
+import { ColDef, ColGroupDef } from 'ag-grid';
 
 describe('Setting UserListComponent', () => {
     let component: UserListComponent;
     let fixture: ComponentFixture<UserListComponent>;
+    const searchObj: Array<object> = [
+        {
+            id: 'USR_CREATE',
+            name: '가입일시',
+            type: 'date',
+            value: ''
+        },
+        {
+            id: 'USR_SNS_WAY',
+            name: 'SNS여부',
+            type: 'radio',
+            value: '',
+            data: [
+                { name: '전체', value: '' },
+                { name: '네이버', value: 'NAVER' },
+                { name: '페이스북', value: 'FACEBOOK' },
+                { name: '구글', value: 'GOOGLE' }
+            ]
+        },
+        {
+            id: 'KEYWORD',
+            name: '키워드',
+            type: 'input',
+            value: ''
+        }
+    ];
+    const columnDefs: (ColDef | ColGroupDef)[] = [
+        {
+            headerName: '회원명',
+            field: 'USR_NAME',
+            width: 100
+        },
+        {
+            headerName: '아이디',
+            field: 'USR_ID',
+            width: 100
+        },
+        {
+            headerName: '연락처',
+            field: 'USR_TEL',
+            width: 150
+        },
+        {
+            headerName: 'SNS여부',
+            field: 'USR_SNS_WAY',
+            width: 100
+        },
+        {
+            headerName: '예약횟수',
+            field: 'RESERV_TIME',
+            width: 100
+        },
+        {
+            headerName: '가입일시',
+            field: 'USR_CREATE_NM',
+            width: 100
+        }
+    ];
+
     const fakeActivatedRoute: any = {
-        params: {
+        queryParams: {
             subscribe: (fn: (value: any) => void) =>
                 fn({
                     aaa: 'aaa'
@@ -30,65 +90,9 @@ describe('Setting UserListComponent', () => {
                 fn({
                     modelResolve: {
                         USR_STATE: '1',
-                        columnDefs: [
-                            {
-                                headerName: '회원명',
-                                field: 'USR_NAME',
-                                width: 100
-                            },
-                            {
-                                headerName: '아이디',
-                                field: 'USR_ID',
-                                width: 100
-                            },
-                            {
-                                headerName: '연락처',
-                                field: 'USR_TEL',
-                                width: 150
-                            },
-                            {
-                                headerName: 'SNS여부',
-                                field: 'USR_SNS_WAY',
-                                width: 100
-                            },
-                            {
-                                headerName: '예약횟수',
-                                field: 'RESERV_TIME',
-                                width: 100
-                            },
-                            {
-                                headerName: '가입일시',
-                                field: 'USR_CREATE_NM',
-                                width: 100
-                            }
-                        ],
+                        columnDefs: columnDefs,
                         isInsert: 'true',
-                        searchObj: [
-                            {
-                                id: 'USR_CREATE',
-                                name: '가입일시',
-                                type: 'date',
-                                value: ''
-                            },
-                            {
-                                id: 'USR_SNS_WAY',
-                                name: 'SNS여부',
-                                type: 'radio',
-                                value: '',
-                                data: [
-                                    { name: '전체', value: '' },
-                                    { name: '네이버', value: 'NAVER' },
-                                    { name: '페이스북', value: 'FACEBOOK' },
-                                    { name: '구글', value: 'GOOGLE' }
-                                ]
-                            },
-                            {
-                                id: 'KEYWORD',
-                                name: '키워드',
-                                type: 'input',
-                                value: ''
-                            }
-                        ],
+                        searchObj: searchObj,
                         titles: '회원관리 > 유효회원',
                         type: 'usrList'
                     },
@@ -139,9 +143,11 @@ describe('Setting UserListComponent', () => {
                 })
         }
     };
+    let superCtrl: BaseListCtrl;
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [YoCompModule, HttpClientModule, RouterTestingModule],
+            imports: [YoCompModule, HttpClientModule],
             declarations: [UserListComponent],
             providers: [
                 YoaxService,
@@ -158,19 +164,41 @@ describe('Setting UserListComponent', () => {
                 }
             ]
         }).compileComponents();
+
+        const _ar: ActivatedRoute = TestBed.get(ActivatedRoute);
+        const _ys: YoaxService = TestBed.get(YoaxService);
+        const _router: Router = TestBed.get(Router);
     }));
 
-    beforeEach(() => {
+    beforeEach(async(() => {
         fixture = TestBed.createComponent(UserListComponent);
         component = fixture.componentInstance;
+        superCtrl = component['__proto__']['__proto__'];
         fixture.detectChanges();
+    }));
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
     });
 
-    it('should create', () =>
-        inject(
-            [YoaxService, ActivatedRoute, Router],
-            (_yoax: YoaxService, _ar: ActivatedRoute, _router: Router) => {
-                expect(component).toBeFalsy();
-            }
-        ));
+    it('UserListComponent는 ListCtrl를 상속받아야 한다.', () => {
+        expect(component instanceof BaseListCtrl).toBeTruthy();
+    });
+
+    it('noOnInit() :: super.setListData가 호출되어야 한다.', () => {
+        const setListDataSpy: jasmine.Spy = spyOn(superCtrl, 'setListData');
+        component.ngOnInit();
+        expect(setListDataSpy).toHaveBeenCalled();
+    });
+
+    it('super.setListData() :: 함수가 호출되면 searchObj와 columnDefs는 MockData와 같아야 한다', () => {
+        expect(component['searchObj']).toBe(searchObj);
+    });
+
+    it('cellClick(param) :: 가 호출 되면 내부에서는 super의 cellClick을 다시 호출한다.', () => {
+        const MockParams = {};
+        const superCellClick: jasmine.Spy = spyOn(superCtrl, 'cellClick');
+        component.cellClick(MockParams);
+        expect(superCellClick).toHaveBeenCalled();
+    });
 });

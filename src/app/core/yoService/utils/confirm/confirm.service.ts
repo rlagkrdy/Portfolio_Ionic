@@ -21,7 +21,7 @@ export class ConfirmUtils {
             targetName: this._pu.koreanWordLastValid(CommonCode.getTitle(_url)),
             actionName: '등록',
             requestType: 'post',
-            requestUrl: _url
+            requestUrl: '/' + _url + '/'
         };
         if (_type === 'update') {
             actionOption.actionName = '수정';
@@ -68,6 +68,7 @@ export class ConfirmUtils {
             confirmButtonText: `${actionOption.actionName}`,
             allowOutsideClick: false,
             showLoaderOnConfirm: true,
+
             preConfirm: () => {
                 if (
                     actionOption.type === 'update_image' ||

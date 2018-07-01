@@ -18,7 +18,8 @@ import {
 
 @Injectable()
 export class YoaxService {
-    private URI: string = 'http://localhost:8080';
+    // private URI: string = 'http://localhost:8080';
+    private URI: string = 'http://221.149.240.50:8080';
     private putContentType: string = 'application/json; charset=utf-8';
     private otherContentType: string =
         'application/x-www-form-urlencoded;charset=UTF-8';
@@ -54,8 +55,6 @@ export class YoaxService {
         Array.prototype.forEach.call(files, item =>
             fd.append('img', item, item.name)
         );
-
-        console.log('FILE URI : ', this.URI + _url);
 
         return this._httpClient.post(this.URI + _url, fd, {
             reportProgress: true,

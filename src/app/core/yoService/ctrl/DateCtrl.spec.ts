@@ -7,7 +7,7 @@ describe('DateCtrl', () => {
     let dateCtrl: DateCtrl;
     const usrModel: any = new UserModel();
     const usrObjArr: Array<any> = usrModel.usrDetailObj;
-    const testForm = <NgForm>{
+    const testForm = {
         controls: {
             USR_CREATE_NM: {
                 setValue: value => {

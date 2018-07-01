@@ -21,7 +21,7 @@ describe('ConfirmService', () => {
         [ConfirmUtils],
         (service: ConfirmUtils) => {
             const result: ActionOption = service.getActionOption(
-                '/usr/',
+                'usr',
                 123,
                 'post'
             );
@@ -37,23 +37,23 @@ describe('ConfirmService', () => {
             'restore이면 actionName은 등록, requestType은 put/',
         inject([ConfirmUtils], (service: ConfirmUtils) => {
             let result: ActionOption;
-            result = service.getActionOption('/usr/', 123, 'insert');
+            result = service.getActionOption('usr', 123, 'insert');
             expect(result.actionName).toBe('등록');
             expect(result.requestType).toBe('post');
 
-            result = service.getActionOption('/usr/', 123, 'update');
+            result = service.getActionOption('usr', 123, 'update');
             expect(result.actionName).toBe('수정');
             expect(result.requestType).toBe('put');
 
-            result = service.getActionOption('/usr/', 123, 'delete');
+            result = service.getActionOption('usr', 123, 'delete');
             expect(result.actionName).toBe('삭제');
             expect(result.requestType).toBe('delete');
 
-            result = service.getActionOption('/usr/', 123, 'leave');
+            result = service.getActionOption('usr', 123, 'leave');
             expect(result.actionName).toBe('탈퇴');
             expect(result.requestType).toBe('put');
 
-            result = service.getActionOption('/usr/', 123, 'restore');
+            result = service.getActionOption('usr', 123, 'restore');
             expect(result.actionName).toBe('복원');
             expect(result.requestType).toBe('put');
         })
@@ -63,7 +63,7 @@ describe('ConfirmService', () => {
         [ConfirmUtils],
         (service: ConfirmUtils) => {
             let result: ActionOption;
-            result = service.getActionOption('/usr/', 123, 'insert');
+            result = service.getActionOption('usr', 123, 'insert');
             expect(result.targetName).toBe('회원을');
         }
     ));
@@ -72,19 +72,19 @@ describe('ConfirmService', () => {
         [ConfirmUtils],
         (service: ConfirmUtils) => {
             let result: ActionOption;
-            result = service.getActionOption('/usr/', 123, 'insert');
+            result = service.getActionOption('usr', 123, 'insert');
             expect(result.requestUrl).toBe('/usr/');
 
-            result = service.getActionOption('/usr/', 123, 'update');
+            result = service.getActionOption('usr', 123, 'update');
             expect(result.requestUrl).toBe('/usr/123');
 
-            result = service.getActionOption('/usr/', 123, 'delete');
+            result = service.getActionOption('usr', 123, 'delete');
             expect(result.requestUrl).toBe('/usr/123');
 
-            result = service.getActionOption('/usr/', 123, 'leave');
+            result = service.getActionOption('usr', 123, 'leave');
             expect(result.requestUrl).toBe('/usr/123');
 
-            result = service.getActionOption('/usr/', 123, 'restore');
+            result = service.getActionOption('usr', 123, 'restore');
             expect(result.requestUrl).toBe('/usr/123');
         }
     ));
