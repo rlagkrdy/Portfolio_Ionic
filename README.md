@@ -55,10 +55,16 @@ erdcloud.com 웹툴을 활용하여 작성,
 1.  http 통신시 error 핸들러
 2.  각종 통계
 
-# Server Spec
+## Server Spec
 
 -   Model : Orange Pi Plus2
 -   OS: Debian8
 -   Cpu: H3 Quad-core Cortex-A7 H.265/HEVC 4K
 -   Memory: 2GB DDR3
 -   Storage: 32GB
+
+## Licensing
+
+This software is licensed with the MIT license.
+
+© 2016-2017 Erik Barke, Monounity
