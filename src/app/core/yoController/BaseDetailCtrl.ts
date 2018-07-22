@@ -10,36 +10,51 @@ import { FormUtils } from '../yoService/utils/form/form.service';
 import { ProjectModel } from '../../model/project-model';
 
 export class BaseDetailCtrl {
-    public detailObj: Array<object>;
-    public detailData: any;
-    public profileUrl: string;
+    private title: string = '';
 
-    public num: number;
+    private detailObj: Array<object>;
+    private detailData: any;
+
+    private profileUrl: string;
+
+    private num: number;
 
     public isInsert: boolean = false;
     public isRestore: boolean = false;
 
     constructor(
         public activatedRoute: ActivatedRoute,
-        public location: Location,
-        public confirmUtils: ConfirmUtils,
-        public formUtils: FormUtils,
-        public projectModel: ProjectModel,
-        public url: string
+        private location: Location,
+        private confirmUtils: ConfirmUtils,
+        private formUtils: FormUtils,
+        private projectModel: ProjectModel,
+        private url: string
     ) {
         this.detailObj = this.projectModel.getDetailObj(this.url);
     }
 
     setDetailData(): void {
         this.activatedRoute.data.subscribe(data => {
+            console.log(data);
             if (data.DetailResolve) {
                 this.detailData = data.DetailResolve;
                 this.profileUrl = this.detailData.MEDIA_URL;
+            }
+            if (data.modelResolve) {
+                this.setDefaultData(data.modelResolve);
             }
         });
 
         this.num = this.activatedRoute.snapshot.params.id;
         this.isInsert = this.num ? false : true;
+    }
+
+    setDefaultData(data: any): void {
+        for (const key in data) {
+            if (this.hasOwnProperty(key)) {
+                this[key] = data[key];
+            }
+        }
     }
 
     backToList(): void {

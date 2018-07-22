@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { DateCtrl } from './DateCtrl';
-import { UserModel } from '../../../model/userModel';
+import { UserModel } from '../../../model/data/userModel';
 import { NgForm } from '@angular/forms';
 
 describe('DateCtrl', () => {

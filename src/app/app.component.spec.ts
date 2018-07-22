@@ -14,9 +14,9 @@ import { LayoutModule } from './layout/layout.module';
 import { NgModuleFactoryLoader } from '@angular/core';
 import { LoginModule } from './page/login/login.module';
 import { NotFoundModule } from './page/not-found/not-found.module';
-import { YoaxService } from './core/yoService/db/yoax.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ParamUtils } from './core/yoService/utils/params/param.service';
+import { YoaxService } from './core/yoService/http/yoax.service';
 
 declare var module;
 

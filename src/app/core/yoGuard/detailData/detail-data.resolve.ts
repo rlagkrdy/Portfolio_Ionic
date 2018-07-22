@@ -5,7 +5,7 @@ import {
     RouterStateSnapshot
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { YoaxService } from '../../yoService/db/yoax.service';
+import { YoaxService } from '../../yoService/http/yoax.service';
 
 @Injectable()
 export class DetailDataResolve implements Resolve<any> {

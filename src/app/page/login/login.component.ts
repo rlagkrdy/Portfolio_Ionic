@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { routerTransition } from '../../router.animations';
-import { YoaxService } from '../../core/yoService/db/yoax.service';
 import { NgForm } from '@angular/forms';
+import { YoaxService } from '../../core/yoService/http/yoax.service';
 
 @Component({
     selector: 'app-login',

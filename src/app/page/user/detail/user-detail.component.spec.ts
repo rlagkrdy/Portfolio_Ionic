@@ -10,9 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormatterUtils } from '../../../core/yoService/utils/formatter/formatter.service';
-import { YoaxService } from '../../../core/yoService/db/yoax.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BaseDetailCtrl } from '../../../core/yoController/BaseDetailCtrl';
+import { YoaxService } from '../../../core/yoService/http/yoax.service';
 
 describe('Setting UserDetailComponent', () => {
     let component: UserDetailComponent;

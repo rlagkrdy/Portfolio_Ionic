@@ -1,18 +1,20 @@
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { YoaxService } from '../yoService/db/yoax.service';
+import { YoaxService } from '../yoService/http/yoax.service';
+import { ColDef, ColGroupDef } from '../../../../node_modules/ag-grid';
 
 export class BaseListCtrl {
-    public rowData: Array<any> = [];
+    private searchObj: Array<object> = [];
+    private columnDefs: (ColDef | ColGroupDef)[] = [];
+    private rowData: Array<any> = [];
     public routeParam: any;
 
     private checkBool: RegExp = /true|false/;
-
-    public titles: string = '';
+    private title: string = '';
 
     constructor(
-        public activatedRoute: ActivatedRoute,
-        public yoaxService: YoaxService,
-        public router: Router,
+        private activatedRoute: ActivatedRoute,
+        private yoaxService: YoaxService,
+        private router: Router,
         private url: string
     ) {}
 
@@ -37,8 +39,6 @@ export class BaseListCtrl {
     }
 
     searchClick(params: any): void {
-        params = Object.assign(params, this.routeParam);
-
         this.yoaxService
             .yoax('/' + this.url + '/', 'get', params)
             .subscribe(result => {
@@ -46,14 +46,11 @@ export class BaseListCtrl {
             });
     }
 
-    insertUsr(): void {
+    insert(): void {
         this.router.navigate([this.url + '-detail']);
     }
 
-    cellClick(params: any, queryParam?: NavigationExtras): void {
-        this.router.navigate(
-            [this.url + '-detail/' + params.data.USR_KEY],
-            queryParam
-        );
+    cellClick(key: string, queryParam?: NavigationExtras): void {
+        this.router.navigate([this.url + '-detail/' + key], queryParam);
     }
 }

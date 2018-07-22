@@ -62,12 +62,12 @@ export class ParamUtils {
             if (!currentParam) {
                 currentParam = {};
             }
-            if (paramObj[key] === 'null') {
-                paramObj[key] = '';
+            if (paramObj[key] !== 'null' && paramObj[key] !== '') {
+                currentParam[key] = paramObj[key];
+            } else {
+                delete currentParam[key];
             }
-            currentParam[key] = paramObj[key];
         }
-
         const urlParams = this.objConvertToUrlStr(currentParam);
 
         changeUrl += urlParams;

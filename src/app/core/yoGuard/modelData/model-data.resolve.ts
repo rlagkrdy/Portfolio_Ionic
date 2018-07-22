@@ -16,23 +16,30 @@ export class ModelDataResolve implements Resolve<any> {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<any> {
-        const urlPath: string = route.routeConfig.path.split('-')[0];
-        let listOption: any = {};
+        const path: string = route.routeConfig.path,
+            urlPath: string = path.split('-')[0],
+            isDetail: RegExp = new RegExp(/detail/);
 
-        listOption = Object.assign(listOption, route.queryParams);
-        listOption['searchObj'] = this._pm.getSearchObj(
-            urlPath,
-            listOption.type ? listOption.type : urlPath
-        );
-        listOption['columnDefs'] = this._pm.getColumDef(
-            urlPath,
-            listOption.type ? listOption.type : urlPath
-        );
-        listOption['titles'] = this._pm.getTitle(
-            urlPath,
-            listOption.type ? listOption.type : urlPath
-        );
+        const componentOption: any = Object.assign({}, route.queryParams);
 
-        return of(listOption);
+        if (!isDetail.test(path)) {
+            componentOption['searchObj'] = this._pm.getSearchObj(
+                urlPath,
+                componentOption.type ? componentOption.type : urlPath
+            );
+            componentOption['columnDefs'] = this._pm.getColumDef(
+                urlPath,
+                componentOption.type ? componentOption.type : urlPath
+            );
+            componentOption['title'] = this._pm.getTitle(
+                urlPath,
+                componentOption.type ? componentOption.type : urlPath
+            );
+        } else {
+            componentOption['title'] = this._pm.getDetailTitle(urlPath);
+            componentOption['detailObj'] = this._pm.getDetailObj(urlPath);
+        }
+
+        return of(componentOption);
     }
 }

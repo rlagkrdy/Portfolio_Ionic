@@ -39,11 +39,17 @@ const routes: Routes = [
             {
                 path: 'usr-detail/:id',
                 component: UserDetailComponent,
-                resolve: { DetailResolve: DetailDataResolve }
+                resolve: {
+                    DetailResolve: DetailDataResolve,
+                    modelResolve: ModelDataResolve
+                }
             },
             {
                 path: 'usr-detail',
-                component: UserDetailComponent
+                component: UserDetailComponent,
+                resolve: {
+                    modelResolve: ModelDataResolve
+                }
             },
             {
                 path: 'room-list',
@@ -56,11 +62,17 @@ const routes: Routes = [
             {
                 path: 'room-detail/:id',
                 component: RoomDetailComponent,
-                resolve: { DetailResolve: DetailDataResolve }
+                resolve: {
+                    DetailResolve: DetailDataResolve,
+                    modelResolve: ModelDataResolve
+                }
             },
             {
                 path: 'room-detail',
-                component: RoomDetailComponent
+                component: RoomDetailComponent,
+                resolve: {
+                    modelResolve: ModelDataResolve
+                }
             },
             {
                 path: 'prod-list',
@@ -73,11 +85,17 @@ const routes: Routes = [
             {
                 path: 'prod-detail/:id',
                 component: ProdDetailComponent,
-                resolve: { DetailResolve: DetailDataResolve }
+                resolve: {
+                    DetailResolve: DetailDataResolve,
+                    modelResolve: ModelDataResolve
+                }
             },
             {
                 path: 'prod-detail',
-                component: ProdDetailComponent
+                component: ProdDetailComponent,
+                resolve: {
+                    modelResolve: ModelDataResolve
+                }
             },
             {
                 path: 'reserv-list',
@@ -87,10 +105,17 @@ const routes: Routes = [
                     modelResolve: ModelDataResolve
                 }
             },
+            // {
+            //     path: '',
+            //     redirectTo: '/usr-list?type=usrList&USR_STATE=1&isInsert=true'
+            // },
             {
                 path: 'def-detail/:id',
                 component: SettingDetailComponent,
-                resolve: { DetailResolve: DetailDataResolve }
+                resolve: {
+                    DetailResolve: DetailDataResolve,
+                    modelResolve: ModelDataResolve
+                }
             }
         ]
     }

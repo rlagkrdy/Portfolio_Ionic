@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { YoaxService } from '../../db/yoax.service';
 import { ParamUtils } from '../params/param.service';
 import { CommonCode } from '../../../../commonCode';
 import swal, { SweetAlertType } from 'sweetalert2';
+import { YoaxService } from '../../http/yoax.service';
 
 @Injectable()
 export class ConfirmUtils {

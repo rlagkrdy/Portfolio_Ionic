@@ -1,11 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
-import { YoaxService } from '../../../yoService/db/yoax.service';
 import swal from 'sweetalert2';
 import { ChangeStateDialogComponent } from '../../yo-dialoag/change-state/change-state.component';
 import { CommonCode } from '../../../../commonCode';
 import { Observable } from 'rxjs/Observable';
+import { YoaxService } from '../../../yoService/http/yoax.service';
 
 @Component({
     selector: 'app-reserv-btn',

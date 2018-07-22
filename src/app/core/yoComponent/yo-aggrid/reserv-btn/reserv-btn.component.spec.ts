@@ -8,12 +8,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProjectModel } from '../../../../model/project-model';
 import { FormatterUtils } from '../../../yoService/utils/formatter/formatter.service';
 import { ChangeStateDialogComponent } from '../../yo-dialoag/change-state/change-state.component';
-import { YoaxService } from '../../../yoService/db/yoax.service';
 import { ParamUtils } from '../../../yoService/utils/params/param.service';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import swal from 'sweetalert2';
 import { HttpClientModule } from '@angular/common/http';
+import { YoaxService } from '../../../yoService/http/yoax.service';
 
 let component: ReservBtnComponent;
 let fixture: ComponentFixture<ReservBtnComponent>;

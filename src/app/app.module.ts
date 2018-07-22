@@ -8,12 +8,12 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './core/yoGuard/auth.guard';
 import { ParamUtils } from './core/yoService/utils/params/param.service';
 import { RegexUtils } from './core/yoService/utils/regex/regex.service';
-import { YoaxService } from './core/yoService/db/yoax.service';
 import { HttpModule } from '@angular/http';
 import { FormatterUtils } from './core/yoService/utils/formatter/formatter.service';
 import { FormUtils } from './core/yoService/utils/form/form.service';
 import { ProjectModel } from './model/project-model';
 import { ConfirmUtils } from './core/yoService/utils/confirm/confirm.service';
+import { YoaxService } from './core/yoService/http/yoax.service';
 
 @NgModule({
     imports: [

@@ -12,13 +12,13 @@ import {
     NoopAnimationsModule,
     BrowserAnimationsModule
 } from '@angular/platform-browser/animations';
-import { YoaxService } from '../../core/yoService/db/yoax.service';
 import { HttpModule, Http } from '@angular/http';
 import { ParamUtils } from '../../core/yoService/utils/params/param.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs/observable/of';
+import { YoaxService } from '../../core/yoService/http/yoax.service';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;

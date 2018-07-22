@@ -1,10 +1,11 @@
 import { ColDef, ColGroupDef } from 'ag-grid';
-import { CommonCode } from '../commonCode';
-import { ReservBtnComponent } from '../core/yoComponent/yo-aggrid/reserv-btn/reserv-btn.component';
+import { CommonCode } from '../../commonCode';
+import { ReservBtnComponent } from '../../core/yoComponent/yo-aggrid/reserv-btn/reserv-btn.component';
+import { SearchObj } from '../../core/yoComponent/yo-search/yo-search.component';
 
 export class ReservModel {
     constructor() {}
-    private reservObj: Array<any> = [
+    private reservObj: SearchObj[] = [
         {
             id: 'RESERV_DATE',
             name: '예약일시',

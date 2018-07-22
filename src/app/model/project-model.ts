@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { UserModel } from './userModel';
 import { ColDef, ColGroupDef } from 'ag-grid';
-import { RoomModel } from './roomModel';
 import { FormatterUtils } from '../core/yoService/utils/formatter/formatter.service';
-import { ProdModel } from './prodModel';
-import { ReservModel } from './reservModel';
-import { DefModel } from './defModel';
+import { DetailObj } from '../core/yoComponent/yo-detail/yo-detail.component';
+import { SearchObj } from '../core/yoComponent/yo-search/yo-search.component';
+import { UserModel } from './data/userModel';
+import { RoomModel } from './data/roomModel';
+import { ProdModel } from './data/prodModel';
+import { ReservModel } from './data/reservModel';
+import { DefModel } from './data/defModel';
 
 @Injectable()
 export class ProjectModel {
@@ -16,7 +18,7 @@ export class ProjectModel {
     private reservModel = new ReservModel();
     private defModel = new DefModel();
 
-    getSearchObj(_objName: string, _type: string): Array<any> {
+    getSearchObj(_objName: string, _type: string): SearchObj[] {
         return this[_objName + 'Model'][_type + 'Obj'];
     }
 
@@ -28,8 +30,12 @@ export class ProjectModel {
         return this[_objName + 'Model'][_type + 'Title'];
     }
 
-    getDetailObj(_objName: string) {
+    getDetailObj(_objName: string): DetailObj[] {
         return this[_objName + 'Model'][_objName + 'DetailObj'];
+    }
+
+    getDetailTitle(_objName: string): DetailObj[] {
+        return this[_objName + 'Model'][_objName + 'DetailTitle'];
     }
 
     getStateObj(_objName: string) {

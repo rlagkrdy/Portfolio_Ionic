@@ -1,8 +1,8 @@
-import { ColDef, ColGroupDef } from 'ag-grid';
-import { CommonCode } from '../commonCode';
+import { DetailObj } from '../../core/yoComponent/yo-detail/yo-detail.component';
 
 export class DefModel {
-    private defDetailObj: Array<any> = [
+    private defDetailTitle: string = '설정관리';
+    private defDetailObj: DetailObj[] = [
         {
             name: '이용약관동의',
             id: 'DEF_USE',
@@ -18,6 +18,4 @@ export class DefModel {
             required: true
         }
     ];
-
-    private defTitle: string = '설정관리';
 }

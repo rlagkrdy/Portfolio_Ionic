@@ -5,7 +5,6 @@ import {
     inject
 } from '@angular/core/testing';
 import { UserListComponent } from './user-list.component';
-import { YoaxService } from '../../../core/yoService/db/yoax.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ListDataResolve } from '../../../core/yoGuard/listData/list-data.resolve';
@@ -15,6 +14,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { BaseListCtrl } from '../../../core/yoController/BaseListCtrl';
 import { ColDef, ColGroupDef } from 'ag-grid';
+import { YoaxService } from '../../../core/yoService/http/yoax.service';
 
 describe('Setting UserListComponent', () => {
     let component: UserListComponent;
@@ -93,7 +93,7 @@ describe('Setting UserListComponent', () => {
                         columnDefs: columnDefs,
                         isInsert: 'true',
                         searchObj: searchObj,
-                        titles: '회원관리 > 유효회원',
+                        title: '회원관리 > 유효회원',
                         type: 'usrList'
                     },
                     ListResolve: [
@@ -196,8 +196,13 @@ describe('Setting UserListComponent', () => {
     });
 
     it('cellClick(param) :: 가 호출 되면 내부에서는 super의 cellClick을 다시 호출한다.', () => {
-        const MockParams = {};
+        const MockParams = {
+            data: {
+                USR_KEY: '1'
+            }
+        };
         const superCellClick: jasmine.Spy = spyOn(superCtrl, 'cellClick');
+
         component.cellClick(MockParams);
         expect(superCellClick).toHaveBeenCalled();
     });

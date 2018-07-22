@@ -1,9 +1,9 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { ConfirmUtils, ActionOption } from './confirm.service';
-import { YoaxService } from '../../db/yoax.service';
 import { ParamUtils } from '../params/param.service';
 import { HttpClientModule } from '@angular/common/http';
+import { YoaxService } from '../../http/yoax.service';
 
 describe('ConfirmService', () => {
     beforeEach(() => {

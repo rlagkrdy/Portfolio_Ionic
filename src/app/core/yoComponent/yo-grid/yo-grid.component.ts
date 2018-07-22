@@ -10,7 +10,7 @@ import {
     ViewChildren,
     OnChanges
 } from '@angular/core';
-import { ColumnApi, GridApi, GridOptions } from 'ag-grid/main';
+import { ColumnApi, GridApi, GridOptions } from 'ag-grid';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { AgEvent } from 'ag-grid/dist/lib/events';
 import { Router } from '@angular/router';

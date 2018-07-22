@@ -1,52 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef, ColGroupDef } from 'ag-grid';
-import { Router, ActivatedRoute } from '@angular/router';
-import { YoaxService } from '../../../core/yoService/db/yoax.service';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+import { YoaxService } from '../../../core/yoService/http/yoax.service';
+import { BaseListCtrl } from '../../../core/yoController/BaseListCtrl';
 
 @Component({
     selector: 'app-room-list',
     templateUrl: './room-list.component.html',
     styleUrls: ['./room-list.component.scss']
 })
-export class RoomListComponent implements OnInit {
-    private searchObj: Array<object> = [];
-    private columnDefs: (ColDef | ColGroupDef)[] = [];
-    public titles: string = '';
-
-    private rowData: Array<any> = [];
-
+export class RoomListComponent extends BaseListCtrl implements OnInit {
     constructor(
-        private _ys: YoaxService,
-        private _ar: ActivatedRoute,
-        private _router: Router
+        yoaxService: YoaxService,
+        activatedRoute: ActivatedRoute,
+        router: Router
     ) {
-        this._ar.data.subscribe(data => {
-            this.setDefaultData(data.modelResolve);
-            this.rowData = data.ListResolve;
-        });
+        super(activatedRoute, yoaxService, router, 'room');
     }
 
-    ngOnInit() {}
-
-    setDefaultData(data: any): void {
-        for (const key in data) {
-            if (this.hasOwnProperty(key)) {
-                this[key] = data[key];
-            }
-        }
+    ngOnInit() {
+        super.setListData();
     }
 
     cellClick(params: any): void {
-        this._router.navigate(['room-detail/' + params.data.ROOM_KEY]);
-    }
-
-    insertUsr(): void {
-        this._router.navigate(['room-detail']);
-    }
-
-    searchClick(params: any): void {
-        this._ys.yoax('/room/', 'get', params).subscribe(result => {
-            this.rowData = result;
-        });
+        super.cellClick(params.data.ROOM_KEY);
     }
 }

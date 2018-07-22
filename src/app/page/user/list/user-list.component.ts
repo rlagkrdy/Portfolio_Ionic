@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef, ColGroupDef } from 'ag-grid/dist/lib/entities/colDef';
-import { YoaxService } from '../../../core/yoService/db/yoax.service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { Route } from '@angular/compiler/src/core';
 import { BaseListCtrl } from '../../../core/yoController/BaseListCtrl';
+import { YoaxService } from '../../../core/yoService/http/yoax.service';
 
 @Component({
     selector: 'app-user-list',
@@ -11,9 +10,6 @@ import { BaseListCtrl } from '../../../core/yoController/BaseListCtrl';
     styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent extends BaseListCtrl implements OnInit {
-    private searchObj: Array<object> = [];
-    private columnDefs: (ColDef | ColGroupDef)[] = [];
-
     private isInsert: boolean = false;
 
     constructor(
@@ -32,6 +28,6 @@ export class UserListComponent extends BaseListCtrl implements OnInit {
         const queryParam: NavigationExtras = {
             queryParams: { type: this.routeParam.type }
         };
-        super.cellClick(params, queryParam);
+        super.cellClick(params.data.USR_KEY, queryParam);
     }
 }

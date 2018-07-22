@@ -5,10 +5,10 @@ import { YoCompModule } from '../yoComp.module';
 import { By } from '@angular/platform-browser';
 import { MaterialModule } from '../../ThirdPartModule/material.module';
 import { NgForm } from '@angular/forms';
-import { DateCtrl } from '../../yoService/ctrl/DateCtrl';
 import { ParamUtils } from '../../yoService/utils/params/param.service';
-import { CheckCtrl } from '../../yoService/ctrl/CheckCtrl';
-import { SelRaCtrl } from '../../yoService/ctrl/SelRaCtrl';
+import { CheckCtrl } from '../../yoService/uiCtrl/CheckCtrl';
+import { SelRaCtrl } from '../../yoService/uiCtrl/SelRaCtrl';
+import { DateCtrl } from '../../yoService/uiCtrl/DateCtrl';
 
 let component: YoSearchComponent;
 let fixture: ComponentFixture<YoSearchComponent>;
@@ -73,10 +73,10 @@ describe('SearchComponent', () => {
         fixture = TestBed.createComponent(YoSearchComponent);
         component = fixture.componentInstance;
         component['searchObj'] = searchObj;
-        setTimeout(() => {
-            done();
-        }, 0);
         fixture.detectChanges();
+        fixture.whenRenderingDone().then(() => {
+            done();
+        });
     });
 
     it('SearchComponent가 생성되어야 한다.', () => {
@@ -111,13 +111,8 @@ describe('SearchComponent', () => {
         }
     });
 
-    it('searchObj중에 id값이 중복된다면 formIsShow는 false 여야한다.', () => {
-        if (!component['searchObjDuplicate'](searchObj)) {
-            expect(component['formIsShow']).toBeFalsy();
-        }
-    });
-
     it('searchObj중에 type이 date이면 시작일과 종료일은 value와 같아야한다.', () => {
+        component['initUiCtrl']();
         const dCtrl: DateCtrl = new DateCtrl();
         const expectFunc = (_form: NgForm, name: string, value: string) => {
             const dateName: Array<string> = ['_ST', '_ED'];
@@ -129,7 +124,7 @@ describe('SearchComponent', () => {
     });
 
     it('searchObj중에 type이 select, radio, check일때 data가 없으면 false를 return해야한다', () => {
-        if (!component['searchObjValid']()) {
+        if (component['searchObjValid']()) {
             expect(component['formIsShow']).toBeFalsy();
         }
     });
@@ -158,6 +153,7 @@ describe('SearchComponent', () => {
     });
 
     it('searchObj중에 type이 check일때 value값에 따라 각 checkbox 요소는 true이거나 false여야 한다', () => {
+        component['initUiCtrl']();
         searchObj.filter(item => item.type === 'check').forEach(cItem => {
             component.matchk
                 .filter(matchk_item => matchk_item.name === cItem.name)
@@ -173,9 +169,8 @@ describe('SearchComponent', () => {
         });
     });
 
-    it('초기화 버튼 클릭시 모든 입력 값이 초기화 되어야 함. select, radio일 겅유 첫 번째  옵션이 선택되어야함', () => {
+    it('초기화 버튼 클릭 시 모든 입력 값이 초기화 되어야 함. select, radio일 경유 첫 번째  옵션이 선택되어야 한다.', () => {
         component['reset'](component.searchForm);
-
         const valueObj = component.searchForm['_directives'];
         const selRaArr = searchObj.filter(item => isTypes.test(item.type));
 
@@ -194,7 +189,17 @@ describe('SearchComponent', () => {
         }
     });
 
-    // it('검색버튼 클릭시 ???', () => {
-    //     component['search'](component.searchForm);
-    // });
+    it('검색버튼 클릭 시 부모 이벤트를 호출하는 searchClick.Emit 함수와 setUrlHis 함수가 호출 되어야 한다.', () => {
+        const searchClickSpy: jasmine.Spy = spyOn(
+                component['searchClick'],
+                'emit'
+            ),
+            setUrlHisSpy: jasmine.Spy = spyOn(
+                component['_paramUtils'],
+                'setUrlHis'
+            );
+        component['search'](component.searchForm);
+        expect(searchClickSpy).toHaveBeenCalled();
+        expect(setUrlHisSpy).toHaveBeenCalled();
+    });
 });

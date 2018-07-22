@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { RoomModel } from '../../../model/roomModel';
+import { RoomModel } from '../../../model/data/roomModel';
 import { YoDetailComponent } from '../../../core/yoComponent/yo-detail/yo-detail.component';
 import {
     ConfirmUtils,
@@ -11,88 +11,45 @@ import { Location } from '@angular/common';
 import swal, { SweetAlertType } from 'sweetalert2';
 import { FormatterUtils } from '../../../core/yoService/utils/formatter/formatter.service';
 import { ProjectModel } from '../../../model/project-model';
+import { BaseDetailCtrl } from '../../../core/yoController/BaseDetailCtrl';
 
 @Component({
     selector: 'app-room-detail',
     templateUrl: './room-detail.component.html',
     styleUrls: ['./room-detail.component.scss']
 })
-export class RoomDetailComponent implements OnInit {
-    private detailObj: Array<object>;
-    private detailData: object;
-
-    private isInsert: boolean = false;
-
-    private num: number;
-    private url: string;
-
+export class RoomDetailComponent extends BaseDetailCtrl implements OnInit {
     @ViewChild(YoDetailComponent) private _ydc: YoDetailComponent;
+
     constructor(
-        private _cu: ConfirmUtils,
-        private _ar: ActivatedRoute,
-        private _fu: FormUtils,
-        private _foru: FormatterUtils,
-        private _location: Location,
-        private _pm: ProjectModel
+        formUtils: FormUtils,
+        activatedRoute: ActivatedRoute,
+        location: Location,
+        projectModel: ProjectModel,
+        confirmUtils: ConfirmUtils
     ) {
-        this.url = this._ar.snapshot.url[0].path.split('-detail')[0];
-        this.detailObj = this._pm.getDetailObj(this.url);
-        this.url = '/' + this.url + '/';
-
-        this.num = this._ar.snapshot.params.id;
-        this.isInsert = this.num ? false : true;
-
-        this._ar.data.subscribe(data => {
-            if (data.DetailResolve) {
-                this.detailData = data.DetailResolve;
-            }
-        });
+        super(
+            activatedRoute,
+            location,
+            confirmUtils,
+            formUtils,
+            projectModel,
+            'room'
+        );
     }
 
-    ngOnInit() {}
-
-    private backToList(): void {
-        this._location.back();
+    ngOnInit() {
+        super.setDetailData();
     }
 
     private detailDo(_type: string): void {
-        const actionOption: ActionOption = this._cu.getActionOption(
-            this.url,
-            this.num,
-            _type
-        );
+        const formArr: any = this._ydc.detailForm['_directives'],
+            params: any = this._ydc.detailForm.value;
 
-        const params: any = this._ydc.detailForm.value;
-        let isVaild: boolean = true;
-
-        if (actionOption.type === 'insert' || actionOption.type === 'update') {
-            const formArr: any = this._ydc.detailForm['_directives'];
-            isVaild = this._fu.customFormValid(formArr);
-        }
-
-        if (!isVaild) {
-            return;
-        }
-
-        if (actionOption.type === 'insert') {
+        if (_type === 'insert') {
             params.COMP_KEY = 2;
         }
 
-        this._cu.confirm(actionOption, params).then(result => {
-            if (result.value) {
-                swal(
-                    `${actionOption.targetName} ${
-                        actionOption.actionName
-                    } 하였습니다.`,
-                    '',
-                    'success'
-                ).then(() => {
-                    this.backToList();
-                });
-            }
-            if (result.dismiss) {
-                console.log('취소 클릭...');
-            }
-        });
+        super.confirm(_type, formArr, params);
     }
 }

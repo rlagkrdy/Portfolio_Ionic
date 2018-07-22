@@ -8,11 +8,11 @@ import { MaterialModule } from '../ThirdPartModule/material.module';
 import { YoGridComponent } from './yo-grid/yo-grid.component';
 import { YoSearchComponent } from './yo-search/yo-search.component';
 import { YoDetailComponent } from './yo-detail/yo-detail.component';
-import { YoCtrlModule } from '../yoService/ctrl/yoCtrl.module';
 import { ChangeStateDialogComponent } from './yo-dialoag/change-state/change-state.component';
 import { ReservBtnComponent } from './yo-aggrid/reserv-btn/reserv-btn.component';
 import { YoProfileComponent } from './yo-profile/yo-profile.component';
 import { NgxEditorModule } from 'ngx-editor';
+import { UiCtrlModule } from '../yoService/uiCtrl/UiCtrl.module';
 
 @NgModule({
     declarations: [
@@ -30,7 +30,7 @@ import { NgxEditorModule } from 'ngx-editor';
         FormsModule,
         AgGridModule.withComponents([YoGridComponent]),
         MaterialModule,
-        YoCtrlModule,
+        UiCtrlModule,
         NgxEditorModule
     ],
     exports: [

@@ -7,4 +7,4 @@ import { CheckCtrl } from './CheckCtrl';
     providers: [CheckCtrl, SelRaCtrl, DateCtrl],
     exports: []
 })
-export class YoCtrlModule {}
+export class UiCtrlModule {}

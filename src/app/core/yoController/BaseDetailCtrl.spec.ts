@@ -6,13 +6,13 @@ import { FormUtils } from '../yoService/utils/form/form.service';
 import { BaseDetailCtrl } from './BaseDetailCtrl';
 import { ProjectModel } from '../../model/project-model';
 import { RouterTestingModule } from '@angular/router/testing';
-import { YoaxService } from '../yoService/db/yoax.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ParamUtils } from '../yoService/utils/params/param.service';
 import { RegexUtils } from '../yoService/utils/regex/regex.service';
 import { FormatterUtils } from '../yoService/utils/formatter/formatter.service';
 import { NgForm, NgModel } from '@angular/forms';
 import { of } from 'rxjs/observable/of';
+import { YoaxService } from '../yoService/http/yoax.service';
 
 describe('BaseDetailCtrl', () => {
     const mockSnapshotParams = {
@@ -92,25 +92,25 @@ describe('BaseDetailCtrl', () => {
     });
 
     it('detailObj는 ProjectModel.getDetailObj("usr")와 같아야 한다.', () => {
-        expect(baseDetailCtrl.detailObj).toBe(
-            baseDetailCtrl.projectModel.getDetailObj('usr')
+        expect(baseDetailCtrl['detailObj']).toBe(
+            baseDetailCtrl['projectModel'].getDetailObj('usr')
         );
     });
     it('setDetailData() :: detailData는 mockDetailResolve와 같고, num은 activatedRoute.snapshot.params.id와 같아야 한다.', () => {
         baseDetailCtrl.setDetailData();
-        expect(baseDetailCtrl.detailData).toBe(mockDetailResolve);
-        expect(baseDetailCtrl.num).toBe(mockSnapshotParams.id);
+        expect(baseDetailCtrl['detailData']).toBe(mockDetailResolve);
+        expect(baseDetailCtrl['num']).toBe(mockSnapshotParams.id);
     });
 
     it('backToList() :: location.back()을 호출한다.', () => {
-        const backSpy: jasmine.Spy = spyOn(baseDetailCtrl.location, 'back');
+        const backSpy: jasmine.Spy = spyOn(baseDetailCtrl['location'], 'back');
         baseDetailCtrl.backToList();
         expect(backSpy).toHaveBeenCalled();
     });
 
     it('confirm(type, formArr, params, fileArr?) :: confirmUtils.confirm() 함수가 호출되어야 한다.', () => {
         const confirmSpy: jasmine.Spy = spyOn(
-            baseDetailCtrl.confirmUtils,
+            baseDetailCtrl['confirmUtils'],
             'confirm'
         ).and.returnValue(Promise.resolve({ value: true }));
 

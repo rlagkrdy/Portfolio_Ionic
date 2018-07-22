@@ -1,9 +1,12 @@
 import { ColDef, ColGroupDef } from 'ag-grid';
-import { FormatterUtils } from '../core/yoService/utils/formatter/formatter.service';
+import { FormatterUtils } from '../../core/yoService/utils/formatter/formatter.service';
+import { SearchObj } from '../../core/yoComponent/yo-search/yo-search.component';
+import { DetailObj } from '../../core/yoComponent/yo-detail/yo-detail.component';
 
 export class RoomModel {
     constructor(private _fu: FormatterUtils) {}
-    private roomObj: Array<any> = [
+    private roomTitle: string = '스터디룸관리';
+    private roomObj: SearchObj[] = [
         {
             id: 'ROOM_CREATE',
             name: '등록일시',
@@ -24,9 +27,8 @@ export class RoomModel {
         { headerName: '등록일시', field: 'ROOM_CREATE_NM', width: 100 }
     ];
 
-    private roomTitle: string = '스터디룸관리';
-
-    roomDetailObj: Array<any> = [
+    private roomDetailTitle: string = '스터디룸관리 > 스터디룸상세';
+    private roomDetailObj: DetailObj[] = [
         {
             name: '스터디룸명',
             id: 'ROOM_NAME',

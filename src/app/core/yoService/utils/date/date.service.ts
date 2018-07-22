@@ -4,18 +4,20 @@ import { Injectable } from '@angular/core';
 export class DateUtils {
     constructor() {}
 
-    getYear(_stYear?: number): Array<number> {
+    getYear(_stYear: number = 1960): Array<number> {
         const yearArr: Array<number> = [],
-            nowYear = new Date().getFullYear(),
-            yearST: number = _stYear ? _stYear : 1960;
-        for (let i = nowYear; i >= yearST; i -= 1) {
+            nowYear = new Date().getFullYear();
+
+        for (let i = nowYear; i >= _stYear; i -= 1) {
             yearArr.push(i);
         }
+
         return yearArr;
     }
 
     getDay(_year?: number, _month?: number): Array<number> {
         const dayArr: Array<number> = [],
+            monthIndex: number = _month ? _month : 1,
             monthDayArray: Array<number> = [
                 31,
                 28,
@@ -30,11 +32,6 @@ export class DateUtils {
                 30,
                 31
             ];
-        let monthIndex: number = 1;
-
-        if (_month) {
-            monthIndex = _month;
-        }
 
         if (_month === 2) {
             if ((_year % 4 === 0 && _year % 100 !== 0) || _year % 400 === 0) {
@@ -49,56 +46,28 @@ export class DateUtils {
     }
 
     dateStrToArray(_date: string, _demiStr: string): Array<string> {
-        if (!_date || !_demiStr) {
-            alert('날짜 문자열 및 구분자를 넘겨주여야 합니다.');
-            return;
+        if (!_date || !_demiStr || _date.indexOf(_demiStr) === -1) {
+            return null;
         }
-        if (_date.indexOf(_demiStr) === -1) {
-            alert(`날짜 문자열에 구분자 : ${_demiStr}가 없습니다.`);
-            return;
-        }
-
-        const dateArr: Array<string> = _date.split(_demiStr),
-            monthArr: Array<string> = dateArr[1].split('');
-
-        // if (monthArr[0] === '0') {
-        //     dateArr[1] = monthArr[1];
-        // }
-
-        return dateArr;
+        return _date.split(_demiStr);
     }
 
     getTodayText(): string {
+        const dayOfWeekArr: string[] = [
+            '(일)',
+            '(월)',
+            '(화)',
+            '(수)',
+            '(목)',
+            '(금)',
+            '(토)'
+        ];
+
         const today: Date = new Date(),
             yy: number = today.getFullYear(),
             mm: number = today.getMonth() + 1,
-            dd: number = today.getDate();
-        let dayOfWeek: string = null,
-            dateText: string;
-        switch (today.getDay()) {
-            case 0:
-                dayOfWeek = '(일)';
-                break;
-            case 1:
-                dayOfWeek = '(월)';
-                break;
-            case 2:
-                dayOfWeek = '(화)';
-                break;
-            case 3:
-                dayOfWeek = '(수)';
-                break;
-            case 4:
-                dayOfWeek = '(목)';
-                break;
-            case 5:
-                dayOfWeek = '(금)';
-                break;
-            case 6:
-                dayOfWeek = '(토)';
-                break;
-        }
-        dateText = yy + '년 ' + mm + '월 ' + dd + '일 ' + dayOfWeek;
-        return dateText;
+            dd: number = today.getDate(),
+            dayOfWeek: string = dayOfWeekArr[today.getDay()];
+        return yy + '년 ' + mm + '월 ' + dd + '일 ' + dayOfWeek;
     }
 }

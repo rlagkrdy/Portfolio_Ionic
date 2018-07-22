@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { SelRaCtrl } from './SelRaCtrl';
-import { UserModel } from '../../../model/userModel';
+import { UserModel } from '../../../model/data/userModel';
 
 describe('SelRaCtrl', () => {
     let selRaCtrl: SelRaCtrl;
@@ -20,9 +20,9 @@ describe('SelRaCtrl', () => {
 
     it('init() :: type이 select, radio인데 value가 data에 매칭되는 값이 없다면 value는 ""이야 한다.', () => {
         usrObjArr[3].value = 'gg';
-        const dataAr = selRaCtrl.init(usrObjArr);
-        dataAr.forEach(item => {
-            if (selRaCtrl['isTypes'].test(item)) {
+        selRaCtrl.init(usrObjArr);
+        usrObjArr.forEach(item => {
+            if (selRaCtrl['isTypes'].test(item.type)) {
                 expect(item.value).toBe('');
             }
         });
@@ -30,12 +30,13 @@ describe('SelRaCtrl', () => {
 
     it('init() :: type이 select, radio인데 value가 data에 매칭되는 값이 있다면 value는 같아야 한다.', () => {
         usrObjArr[3].value = 'NAVER';
-        const dataAr = selRaCtrl.init(usrObjArr);
-        dataAr.forEach(item => {
-            if (selRaCtrl['isTypes'].test(item)) {
+        selRaCtrl.init(usrObjArr);
+        usrObjArr.forEach(item => {
+            if (selRaCtrl['isTypes'].test(item.type)) {
                 expect(item.value).toBe('NAVER');
             }
         });
+        expect(usrObjArr).toBe(usrObjArr);
     });
 
     it('init() :: 두번째 인자로 함수를 넣어주면 해당 함수는 호출되어야 한다.', () => {
@@ -49,9 +50,9 @@ describe('SelRaCtrl', () => {
 
     it('init() :: 두번째 인자로 SelRaCtrl.reset함수를 넘겨주면 value를 ""로 변경되어야 한다.', () => {
         usrObjArr[3].value = 'NAVER';
-        const dataAr = selRaCtrl.init(usrObjArr, selRaCtrl.reset);
-        dataAr.forEach(item => {
-            if (selRaCtrl['isTypes'].test(item)) {
+        selRaCtrl.init(usrObjArr, selRaCtrl.reset);
+        usrObjArr.forEach(item => {
+            if (selRaCtrl['isTypes'].test(item.type)) {
                 expect(item.value).toBe('');
             }
         });

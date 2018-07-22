@@ -9,16 +9,16 @@ export class SelRaCtrl {
 
     // select, radio 타입일 때 value가 data중에 값이 없으면 첫번째 값으로 세팅한다.
     // _isReset값이 true이면 모든 값을 ''으로 리셋한다.
-    init(_dataArr: Array<any>, _fun?: Function): Array<any> {
-        const dataArr: Array<any> = _dataArr.filter(item =>
+    init(_dataArr: Array<any>, _fun?: Function): void {
+        const selRaArr: Array<any> = _dataArr.filter(item =>
             this.isTypes.test(item.type)
         );
 
         if (_fun) {
-            _fun(dataArr);
+            _fun(selRaArr);
         }
 
-        dataArr.forEach(pItem => {
+        selRaArr.forEach(pItem => {
             const valueAr: Array<any> = pItem.data.filter(
                 cItem => cItem.value === pItem.value
             );
@@ -27,7 +27,6 @@ export class SelRaCtrl {
                 ? pItem.data[0].value
                 : valueAr[0].value;
         });
-        return _dataArr;
     }
 
     reset(_dataArr: Array<SearchObj>): Array<SearchObj> {

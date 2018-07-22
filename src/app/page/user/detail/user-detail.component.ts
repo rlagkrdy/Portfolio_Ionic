@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { YoDetailComponent } from '../../../core/yoComponent/yo-detail/yo-detail.component';
 import { FormUtils } from '../../../core/yoService/utils/form/form.service';
-import { UserModel } from '../../../model/userModel';
+import { UserModel } from '../../../model/data/userModel';
 import {
     ConfirmUtils,
     ActionOption
@@ -18,7 +18,7 @@ import { BaseDetailCtrl } from '../../../core/yoController/BaseDetailCtrl';
     styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent extends BaseDetailCtrl implements OnInit {
-    @ViewChild(YoDetailComponent) _ydc: YoDetailComponent;
+    @ViewChild(YoDetailComponent) private _ydc: YoDetailComponent;
     @ViewChild(YoProfileComponent) private _ypc: YoProfileComponent;
 
     constructor(
@@ -48,7 +48,7 @@ export class UserDetailComponent extends BaseDetailCtrl implements OnInit {
         super.setDetailData();
     }
 
-    public detailDo(_type: string): void {
+    detailDo(_type: string): void {
         const formArr: any = this._ydc.detailForm['_directives'],
             fileArr: Array<File> = this._ypc.profileFile.nativeElement.files;
 
@@ -58,7 +58,7 @@ export class UserDetailComponent extends BaseDetailCtrl implements OnInit {
         super.confirm(_type, formArr, params, fileArr);
     }
 
-    public setParam(_params: object, type: string): object {
+    setParam(_params: object, type: string): object {
         if (type === 'restore') {
             _params = {
                 USR_STATE: 1

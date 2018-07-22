@@ -1,8 +1,10 @@
 import { ColDef, ColGroupDef } from 'ag-grid';
-import { CommonCode } from '../commonCode';
+import { CommonCode } from '../../commonCode';
+import { DetailObj } from '../../core/yoComponent/yo-detail/yo-detail.component';
+import { SearchObj } from '../../core/yoComponent/yo-search/yo-search.component';
 
 export class UserModel {
-    private usrListObj: Array<any> = [
+    private usrListObj: SearchObj[] = [
         {
             id: 'USR_CREATE',
             name: '가입일시',
@@ -24,7 +26,7 @@ export class UserModel {
         }
     ];
 
-    private usrDeleteListObj: Array<any> = [
+    private usrDeleteListObj: SearchObj[] = [
         {
             id: 'USR_DELETE_DATE',
             name: '탈퇴일시',
@@ -67,7 +69,8 @@ export class UserModel {
     private usrListTitle: string = '회원관리 > 유효회원';
     private usrDeleteListTitle: string = '회원관리 > 탈퇴회원';
 
-    usrDetailObj: Array<any> = [
+    private usrDetailTitle: string = '회원관리 > 회원상세';
+    private usrDetailObj: DetailObj[] = [
         {
             name: '회원명',
             id: 'USR_NAME',

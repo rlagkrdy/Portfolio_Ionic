@@ -1,11 +1,11 @@
 import { async, TestBed } from '@angular/core/testing';
 import { BaseListCtrl } from './BaseListCtrl';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
-import { YoaxService } from '../yoService/db/yoax.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ParamUtils } from '../yoService/utils/params/param.service';
 import { of } from 'rxjs/observable/of';
 import { RouterTestingModule } from '@angular/router/testing';
+import { YoaxService } from '../yoService/http/yoax.service';
 
 describe('ListCtrl Test', () => {
     let listCtrl: BaseListCtrl;
@@ -70,7 +70,7 @@ describe('ListCtrl Test', () => {
                 value: ''
             }
         ],
-        titles: '회원관리 > 유효회원',
+        title: '회원관리 > 유효회원',
         type: 'usrList'
     };
     const fakeActivatedRoute: any = {
@@ -165,25 +165,26 @@ describe('ListCtrl Test', () => {
         const setDefaultData: jasmine.Spy = spyOn(listCtrl, 'setDefaultData');
         listCtrl.setListData();
         expect(setDefaultData).toHaveBeenCalled();
-        expect(listCtrl.rowData.length).toBeGreaterThan(0);
-        expect(listCtrl.routeParam).not.toBeUndefined();
+        expect(listCtrl['rowData'].length).toBeGreaterThan(0);
+        expect(listCtrl['routeParam']).not.toBeUndefined();
     });
 
     it('setDefaultData(data) :: data가 정상적으로 세팅 되어야 한다.', () => {
         listCtrl.setDefaultData(modelResolve);
-        expect(listCtrl.titles).toBe(modelResolve.titles);
+        console.log(listCtrl);
+        expect(listCtrl['title']).toBe(modelResolve.title);
     });
 
     it('seachClick(param) :: yoaxSerivce에서 yoax함수가 실행되어야 하며, return 값은 rowData와 같아야 한다.', () => {
         const emptyMockParam: any = {};
         const observableValue: Array<any> = [{ aaa: 'bbb' }];
         const yoaxSpy: jasmine.Spy = spyOn(
-            listCtrl.yoaxService,
+            listCtrl['yoaxService'],
             'yoax'
         ).and.returnValue(of(observableValue));
         listCtrl.searchClick(emptyMockParam);
         expect(yoaxSpy).toHaveBeenCalled();
-        expect(listCtrl.rowData).toBe(observableValue);
+        expect(listCtrl['rowData']).toBe(observableValue);
     });
 
     it('cellClick(params, queryParam?) :: router의 navigate가 실행되어야 한다', () => {
@@ -193,6 +194,6 @@ describe('ListCtrl Test', () => {
             }
         };
         listCtrl.cellClick(mockParam);
-        expect(listCtrl.router.navigate).toHaveBeenCalled();
+        expect(listCtrl['router'].navigate).toHaveBeenCalled();
     });
 });
