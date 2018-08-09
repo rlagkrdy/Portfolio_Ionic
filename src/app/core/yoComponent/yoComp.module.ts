@@ -13,7 +13,7 @@ import { ReservBtnComponent } from './yo-aggrid/reserv-btn/reserv-btn.component'
 import { YoProfileComponent } from './yo-profile/yo-profile.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { UiCtrlModule } from '../yoService/uiCtrl/UiCtrl.module';
-
+import { CKEditorModule } from 'ng2-ckeditor';
 @NgModule({
     declarations: [
         YoGridComponent,
@@ -31,7 +31,8 @@ import { UiCtrlModule } from '../yoService/uiCtrl/UiCtrl.module';
         AgGridModule.withComponents([YoGridComponent]),
         MaterialModule,
         UiCtrlModule,
-        NgxEditorModule
+        NgxEditorModule,
+        CKEditorModule
     ],
     exports: [
         YoGridComponent,

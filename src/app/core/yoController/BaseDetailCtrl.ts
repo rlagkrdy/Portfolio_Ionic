@@ -77,7 +77,6 @@ export class BaseDetailCtrl {
             this.num,
             type
         );
-
         this.confirmUtils
             .confirm(actionOption, params, fileArr)
             .then(result => {

@@ -5,6 +5,7 @@ import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { DateCtrl } from '../../yoService/uiCtrl/DateCtrl';
 import { SelRaCtrl } from '../../yoService/uiCtrl/SelRaCtrl';
 import { CheckCtrl } from '../../yoService/uiCtrl/CheckCtrl';
+import { CommonCode } from '../../../commonCode';
 
 @Component({
     selector: 'yo-detail',
@@ -16,13 +17,10 @@ export class YoDetailComponent implements OnInit {
     @Input() private detailObjData: any;
     @ViewChild('detailForm') detailForm: NgForm;
 
-    private editorConfig: any = {
-        spellcheck: true,
-        height: '500',
-        minHeight: '500',
-        width: 'auto',
-        imageEndPoint: 'http://localhost:8080/media/',
-        placeholder: '내용을 입력하세요...'
+    private ckeditorConfig: any = {
+        height: 500,
+        cloudServices_tokenUrl: CommonCode.URL + '/media/?DEF_KEY=1',
+        cloudServices_uploadUrl: CommonCode.URL + '/media/?DEF_KEY=1'
     };
 
     constructor(

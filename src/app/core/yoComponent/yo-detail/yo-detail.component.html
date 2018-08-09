@@ -46,7 +46,8 @@
 
         <!-- EDITOR -->
         <div class="yo-editor-row" *ngIf='item.type === "editor"'>
-          <app-ngx-editor [config]="editorConfig" [(ngModel)]="item.value" [name]='item.id' [id]='item.id'></app-ngx-editor>
+          <!-- <app-ngx-editor [config]="editorConfig" [(ngModel)]="item.value" [name]='item.id' [id]='item.id'></app-ngx-editor> -->
+          <ckeditor [config]='ckeditorConfig' [(ngModel)]="item.value" [name]='item.id' [id]='item.id'></ckeditor>
         </div>
       </div>
 

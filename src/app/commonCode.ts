@@ -1,4 +1,6 @@
 export class CommonCode {
+    public static URL: string = 'http://localhost:8080';
+
     public static getTitle(_type): string {
         let result: string;
         if (_type === 'usr') {

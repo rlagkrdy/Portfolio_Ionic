@@ -32,7 +32,7 @@ erdcloud.com 웹툴을 활용하여 작성,
 -   font-awesome
 -   sweetalert2
 -   ag-grid
--   ngx-editor(이미지 업로드 수정 필요...) / ngx-bootstrap
+-   ng2-editor(CKEditor4 Easy Image Upload 로 변경)
 
 ## 폴더구성
 
@@ -54,8 +54,9 @@ erdcloud.com 웹툴을 활용하여 작성,
 
 ## 추가 구현 예정 부분:
 
-1.  http 통신시 error 핸들러
-2.  각종 통계
+1.  Slider 관리
+2.  http 통신시 error 핸들러
+3.  각종 통계
 
 ## Server Spec
 
