@@ -1,0 +1,11 @@
+// If you want to override variables do it here
+@import 'variables';
+@import 'spinner';
+// Import styles
+@import '~@coreui/coreui/scss/coreui';
+
+// If you want to add something do it here
+@import 'custom';
+
+@import './ag-grid/ag-grid';
+@import './ag-grid/theme-material';

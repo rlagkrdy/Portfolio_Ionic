@@ -1,0 +1,14 @@
+<div class="yo_wrap">
+    <div class="yo-search-require">
+        <yo-search [searchObj]="searchObj" (searchClick)="searchClick($event)"></yo-search>
+    </div>
+
+    <div class="yo-search-grid">
+        <div class="yo-btn-row mt-0 mb-3">
+            <div class="yo-btn-right" *ngIf="isInsert">
+                <button mat-raised-button class="green btn-color" (click)="insert()">등록</button>
+            </div>
+        </div>
+        <yo-grid [columnDefs]="columnDefs" [rowData]="rowData" (cellClick)="cellClick($event)"></yo-grid>
+    </div>
+</div>

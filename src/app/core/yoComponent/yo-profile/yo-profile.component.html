@@ -1,0 +1,9 @@
+<div class="img-center">
+    <img class="profile-image" [class]='imgClassList' [src]="imgUrl" alt="" (click)="openFileUpload()">
+</div>
+
+<div class="yo-btn-row">
+    <button mat-raised-button class="green btn-color upload-btn" (click)="openFileUpload()">이미지 변경</button>
+</div>
+
+<input #profileFile type="file" id="profile_file" (change)="imageChange($event)">
