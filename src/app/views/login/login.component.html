@@ -6,11 +6,11 @@
             <form role="form" #login="ngForm">
                 <div class="form-content">
                     <div class="form-group">
-                        <input type="text" required class="form-control input-underline input-lg" id="COMP_ID" name="COMP_ID" placeholder="아이디" ngModel>
+                        <input type="text" required class="form-control input-underline input-lg" id="COMP_ID" name="bId" placeholder="아이디" ngModel>
                     </div>
 
                     <div class="form-group">
-                        <input type="password" required class="form-control input-underline input-lg" id="COMP_PW" name="COMP_PW" placeholder="비밀번호"
+                        <input type="password" required class="form-control input-underline input-lg" id="COMP_PW" name="bPass" placeholder="비밀번호"
                             ngModel>
                     </div>
                     <span *ngIf="isFaile">아이디 혹은 비밀번호가 틀립니다.</span>
