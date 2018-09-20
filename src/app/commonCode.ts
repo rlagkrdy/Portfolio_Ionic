@@ -1,5 +1,5 @@
 export class CommonCode {
-    public static URL: string = 'http://localhost:8080';
+    public static URL: string = 'http://221.149.240.50:8080';
 
     public static getTitle(_type): string {
         let result: string;
@@ -29,11 +29,7 @@ export class CommonCode {
                 { name: '구글', value: 'GOOGLE' }
             ];
         } else if (_type === 'prod') {
-            result = [
-                { name: '전체', value: '' },
-                { name: '음료', value: '1' },
-                { name: '과자', value: '2' }
-            ];
+            result = [{ name: '전체', value: '' }, { name: '음료', value: '1' }, { name: '과자', value: '2' }];
         } else if (_type === 'reserv') {
             result = [
                 { name: '전체', value: '' },
