@@ -50,6 +50,7 @@ export class YoSearchComponent implements OnInit {
         this.urlParams = this._router['currentUrlTree'].queryParams;
 
         console.log('a');
+        console.log('ccccc')
     }
 
     ngOnInit(): void {
