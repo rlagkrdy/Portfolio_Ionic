@@ -48,7 +48,8 @@ export class YoSearchComponent implements OnInit {
         private _selRaCtrl: SelRaCtrl
     ) {
         this.urlParams = this._router['currentUrlTree'].queryParams;
-        console.log('test !!!');
+
+        console.log('a');
     }
 
     ngOnInit(): void {
