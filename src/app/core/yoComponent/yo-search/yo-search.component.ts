@@ -51,6 +51,7 @@ export class YoSearchComponent implements OnInit {
 
         console.log('bbbbb');
         console.log('a');
+        console.log('ccccc')
     }
 
     ngOnInit(): void {
