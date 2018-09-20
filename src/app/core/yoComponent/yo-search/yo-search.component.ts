@@ -49,9 +49,7 @@ export class YoSearchComponent implements OnInit {
     ) {
         this.urlParams = this._router['currentUrlTree'].queryParams;
 
-        console.log('bbbbb');
-        console.log('a');
-        console.log('ccccc')
+        console.log('aaaaaaa');
     }
 
     ngOnInit(): void {
@@ -85,6 +83,7 @@ export class YoSearchComponent implements OnInit {
     private searchObjValid(): boolean {
         const regExp: RegExp = new RegExp(/select|radio|check/),
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
             result: boolean = this.searchObj.some((item: SearchObj, idx: number, arr: SearchObj[]) => {
@@ -92,15 +91,20 @@ export class YoSearchComponent implements OnInit {
             });
 =======
 >>>>>>> 1d85d45dd76727b9770f4ea3cd539ce80fb21094
+=======
+>>>>>>> origin/tests2
             result: boolean = this.searchObj.some(
                 (item: SearchObj, idx: number, arr: SearchObj[]) => {
                     return regExp.test(item.type) && !item.data;
                 }
             );
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/tests
 >>>>>>> 1d85d45dd76727b9770f4ea3cd539ce80fb21094
+=======
+>>>>>>> origin/tests2
 
         if (result) {
             console.error('select, radio, check타입은 data객체도 같이 넘겨줘야 합니다.');
