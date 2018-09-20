@@ -48,6 +48,8 @@ export class YoSearchComponent implements OnInit {
         private _selRaCtrl: SelRaCtrl
     ) {
         this.urlParams = this._router['currentUrlTree'].queryParams;
+
+        console.log('a');
     }
 
     ngOnInit(): void {
@@ -80,9 +82,17 @@ export class YoSearchComponent implements OnInit {
     // 만약 select, radio, check타입 일때 data객체 여부
     private searchObjValid(): boolean {
         const regExp: RegExp = new RegExp(/select|radio|check/),
+<<<<<<< HEAD
             result: boolean = this.searchObj.some((item: SearchObj, idx: number, arr: SearchObj[]) => {
                 return regExp.test(item.type) && !item.data;
             });
+=======
+            result: boolean = this.searchObj.some(
+                (item: SearchObj, idx: number, arr: SearchObj[]) => {
+                    return regExp.test(item.type) && !item.data;
+                }
+            );
+>>>>>>> origin/tests
 
         if (result) {
             console.error('select, radio, check타입은 data객체도 같이 넘겨줘야 합니다.');
